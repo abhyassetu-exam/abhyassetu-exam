@@ -48,9 +48,20 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap');
     
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+   body {
+  font-family: 'Inter', sans-serif;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg>") 2 22, auto !important;
+}
+
+/* બટન અને લિંક માટે */
+a, button, select, [role="button"] {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='%232563eb' stroke='%231e3a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg>") 2 22, pointer !important;
+}
+
+/* ટાઈપ કરવાના બોક્સ માટે સામાન્ય કર્સર */
+input, textarea {
+  cursor: text !important;
+}
 
     .custom-scrollbar::-webkit-scrollbar {
       height: 6px;
