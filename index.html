@@ -48,7 +48,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap');
     
-   body {
+    body {
   font-family: 'Inter', sans-serif;
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg>") 2 22, auto !important;
 }
@@ -199,6 +199,38 @@ input, textarea {
         </div>
       </div>
     </div>
+
+<!-- Daily Quick MCQ Challenge Section -->
+<section id="daily-mcq-section" style="margin: 20px 0; font-family: 'Inter', sans-serif;">
+  <div style="background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 16px; padding: 24px; color: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+      <div>
+        <span style="background: #3b82f6; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;">Daily 5 MCQs</span>
+        <h3 style="margin: 8px 0 0; font-size: 20px; color: #f8fafc;">દૈનિક ક્વિક એમસીક્યુ ચેલેન્જ</h3>
+      </div>
+      <div id="mcq-progress-text" style="color: #94a3b8; font-size: 14px; font-weight: 600;">પ્રશ્ન 1 / 5</div>
+    </div>
+
+    <!-- Question Box -->
+    <div id="quiz-container">
+      <p id="mcq-question" style="font-size: 17px; font-weight: 600; line-height: 1.5; color: #e2e8f0; margin-bottom: 18px;"></p>
+      <div id="mcq-options" style="display: grid; gap: 10px;"></div>
+      
+      <!-- Explanation Card -->
+      <div id="mcq-explanation" style="display: none; margin-top: 16px; padding: 12px; border-radius: 10px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; font-size: 14px; color: #cbd5e1;"></div>
+      
+      <!-- Action Button -->
+      <button id="mcq-next-btn" onclick="nextQuestion()" style="display: none; margin-top: 18px; width: 100%; background: #2563eb; color: #fff; font-weight: bold; border: none; padding: 12px; border-radius: 10px; font-size: 15px;">આગળનો પ્રશ્ન ➔</button>
+    </div>
+
+    <!-- Quiz Result Screen -->
+    <div id="quiz-result" style="display: none; text-align: center; padding: 20px 0;">
+      <h4 style="font-size: 22px; color: #38bdf8; margin: 0 0 10px;">ખૂબ સરસ! આજનો ક્વિઝ પૂર્ણ થયો 🎉</h4>
+      <p id="quiz-score-text" style="font-size: 16px; color: #e2e8f0; margin-bottom: 16px;"></p>
+      <button onclick="resetDailyQuiz()" style="background: #10b981; color: #fff; font-weight: 600; border: none; padding: 10px 20px; border-radius: 8px;">ફરીથી પ્રયાસ કરો</button>
+    </div>
+  </div>
+</section>
 
     <!-- Quick Overview KPI Stats Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -663,7 +695,7 @@ input, textarea {
         <div id="registerFieldsWrapper" class="hidden space-y-3">
           <div>
             <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">પૂરું નામ:</label>
-            <input type="text" id="authFullNameInput" placeholder="દા.ત. વિવેક ડાંગર" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
+            <input type="text" id="authFullNameInput" placeholder="દા.ત. DEV PATEL" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
           </div>
           <div>
             <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">મોબાઈલ નંબર:</label>
@@ -1899,6 +1931,136 @@ input, textarea {
       });
 
     });
+// --- Daily Quick MCQ Challenge Logic ---
+  const dailyQuestions = [
+    {
+      q: "૧. બંધારણ સભાના કાયમી અધ્યક્ષ કોણ હતા?",
+      options: ["ડૉ. બાબાસાહેબ આંબેડકર", "ડૉ. રાજેન્દ્ર પ્રસાદ", "સચ્ચિદાનંદ સિંહા", "જવાહરલાલ નેહરુ"],
+      ans: 1,
+      exp: "ડૉ. રાજેન્દ્ર પ્રસાદ ૧૧ ડિસેમ્બર ૧૯૪૬ના રોજ બંધારણ સભાના કાયમી અધ્યક્ષ તરીકે ચૂંટાયા હતા."
+    },
+    {
+      q: "૨. ગુજરાતમાં પંચાયતી રાજનો અમલ કઈ તારીખથી શરૂ થયો હતો?",
+      options: ["૧ મે ૧૯૬૦", "૧ એપ્રિલ ૧૯૬૩", "૨૬ જાન્યુઆરી ૧૯૬૨", "૧૫ ઓગસ્ટ ૧૯૬૩"],
+      ans: 1,
+      exp: "ગુજરાતમાં ૧ એપ્રિલ ૧૯૬૩થી પંચાયતી રાજનો વિધિવત અમલ શરૂ કરવામાં આવ્યો હતો."
+    },
+    {
+      q: "૩. તાજેતરમાં ચર્ચામાં રહેલ 'સૂર્ય મંદિર - મોઢેરા' કઈ નદીના કિનારે આવેલું છે?",
+      options: ["સરસ્વતી", "રૂપેણ", "પુષ્પાવતી", "સાબરમતી"],
+      ans: 2,
+      exp: "મોઢેરાનું સૂર્યમંદિર પુષ્પાવતી નદીના કાંઠે આવેલું છે."
+    },
+    {
+      q: "૪. કમ્પ્યુટરમાં કઈ મેમરી અસ્થાયી (Volatile) ગણાય છે?",
+      options: ["ROM", "Hard Disk", "RAM", "Pen Drive"],
+      ans: 2,
+      exp: "RAM (Random Access Memory) પાવર બંધ થતાં ખાલી થઈ જાય છે, તેથી તેને અસ્થાયી કહેવાય છે."
+    },
+    {
+      q: "૫. GSRTC ની સ્થાપના કયા વર્ષમાં થઈ હતી?",
+      options: ["૧૯૬૦", "૧૯૬૨", "૧૯૫૬", "૧૯૬૯"],
+      ans: 0,
+      exp: "૧ મે ૧૯૬૦ના રોજ ગુજરાત રાજ્યની રચના સાથે જ GSRTC ની સ્થાપના થઈ હતી."
+    }
+  ];
+
+  let currentQIndex = 0;
+  let quizScore = 0;
+  let answered = false;
+
+  function loadQuestion() {
+    answered = false;
+    const qData = dailyQuestions[currentQIndex];
+    const progText = document.getElementById("mcq-progress-text");
+    const qText = document.getElementById("mcq-question");
+    const expDiv = document.getElementById("mcq-explanation");
+    const nextBtn = document.getElementById("mcq-next-btn");
+    const optContainer = document.getElementById("mcq-options");
+
+    if (!qText || !optContainer) return;
+
+    if (progText) progText.innerText = `પ્રશ્ન ${currentQIndex + 1} / ${dailyQuestions.length}`;
+    qText.innerText = qData.q;
+    if (expDiv) expDiv.style.display = "none";
+    if (nextBtn) nextBtn.style.display = "none";
+
+    optContainer.innerHTML = "";
+
+    qData.options.forEach((opt, idx) => {
+      const btn = document.createElement("button");
+      btn.innerText = opt;
+      btn.style.cssText = "text-align: left; padding: 12px 16px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #f1f5f9; font-size: 15px; font-weight: 500; cursor: pointer;";
+      btn.onclick = () => checkAnswer(idx, btn);
+      optContainer.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(selectedIdx, clickedBtn) {
+    if (answered) return;
+    answered = true;
+    const qData = dailyQuestions[currentQIndex];
+    const buttons = document.getElementById("mcq-options").getElementsByTagName("button");
+
+    if (selectedIdx === qData.ans) {
+      clickedBtn.style.background = "#059669";
+      clickedBtn.style.borderColor = "#10b981";
+      quizScore++;
+    } else {
+      clickedBtn.style.background = "#dc2626";
+      clickedBtn.style.borderColor = "#ef4444";
+      if (buttons[qData.ans]) {
+        buttons[qData.ans].style.background = "#059669";
+        buttons[qData.ans].style.borderColor = "#10b981";
+      }
+    }
+
+    const expDiv = document.getElementById("mcq-explanation");
+    if (expDiv) {
+      expDiv.innerHTML = `<strong>સમજૂતી:</strong> ${qData.exp}`;
+      expDiv.style.display = "block";
+    }
+
+    const nextBtn = document.getElementById("mcq-next-btn");
+    if (nextBtn) nextBtn.style.display = "block";
+  }
+
+  function nextQuestion() {
+    currentQIndex++;
+    if (currentQIndex < dailyQuestions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const qBox = document.getElementById("quiz-container");
+    const rBox = document.getElementById("quiz-result");
+    const progText = document.getElementById("mcq-progress-text");
+    const scoreText = document.getElementById("quiz-score-text");
+
+    if (qBox) qBox.style.display = "none";
+    if (rBox) rBox.style.display = "block";
+    if (progText) progText.innerText = "સમાપ્ત";
+    if (scoreText) scoreText.innerText = `તમારો સ્કોર: 5 માંથી ${quizScore} સાચા પડ્યા!`;
+    
+    if (typeof confetti === 'function') {
+      confetti({ particleCount: 70, spread: 60 });
+    }
+  }
+
+  function resetDailyQuiz() {
+    currentQIndex = 0;
+    quizScore = 0;
+    const qBox = document.getElementById("quiz-container");
+    const rBox = document.getElementById("quiz-result");
+    if (qBox) qBox.style.display = "block";
+    if (rBox) rBox.style.display = "none";
+    loadQuestion();
+  }
+
+  window.addEventListener("DOMContentLoaded", loadQuestion);
   </script>
 </body>
 </html>
