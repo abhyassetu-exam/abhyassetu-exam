@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>અભ્યાસસેતુ Pro - ગુજરાત સ્પર્ધાત્મક પરીક્ષા પોર્ટલ</title>
-
+  <title>અભ્યાસસેતુ Pro | સ્પર્ધાત્મક પરીક્ષા સ્ટડી પોર્ટલ</title>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -13,1882 +13,1401 @@
       theme: {
         extend: {
           colors: {
-            primary: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              200: '#bbf7d0',
-              300: '#86efac',
-              400: '#4ade80',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              800: '#166534',
-              950: '#052e16'
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
             },
-            amber: {
-              450: '#f59e0b',
-              550: '#d97706'
+            dark: {
+              bg: '#0b0f19',
+              card: '#111827',
+              border: '#1f2937',
+              subtle: '#374151'
             }
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-            mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
           }
         }
       }
-    };
+    }
   </script>
 
-  <!-- External Visual Libraries -->
+  <!-- Lucide Icons & Chart.js -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- Custom CSS for polished SaaS feel -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap');
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
     
-    body {
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      letter-spacing: -0.01em;
+    /* PC/Laptop Pencil Cursor */
+    @media (pointer: fine) {
+      html, body {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text x='0' y='18' font-size='18'>✏️</text></svg>") 2 18, auto !important;
+      }
+      button, a, select, input[type='button'], input[type='submit'], [role='button'], .clickable {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text x='0' y='18' font-size='20'>✍️</text></svg>") 2 18, pointer !important;
+      }
     }
 
-    .custom-scrollbar::-webkit-scrollbar {
-      height: 6px;
-      width: 6px;
+    /* Heatmap Square */
+    .heat-sq {
+      width: 13px;
+      height: 13px;
+      border-radius: 2.5px;
+      transition: all 0.2s ease;
     }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.05);
-      border-radius: 9999px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(100, 116, 139, 0.4);
-      border-radius: 9999px;
-    }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-    .pulse-glow {
-      animation: pulse-ring 2.5s infinite ease-in-out;
+    .heat-sq:hover {
+      transform: scale(1.3);
+      z-index: 10;
     }
   </style>
 </head>
+<body class="bg-dark-bg text-slate-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
 
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
-
-  <!-- Top Announcement Notification Bar -->
-  <aside aria-label="Announcement" class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white text-[11px] sm:text-xs py-1.5 px-4 text-center font-medium shadow-sm flex items-center justify-center gap-2">
-    <span class="inline-flex items-center gap-1.5 bg-emerald-900/60 border border-emerald-400/40 px-2 py-0.5 rounded-full text-[10px] font-bold">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-      <span>નવી સત્તાવાર અપડેટ</span>
-    </span>
-    <span>GSRTC કંડક્ટર, ડ્રાઈવર, પોલીસ કોન્સ્ટેબલ & CCE ૨૦૨૬-૨૭ પરીક્ષા સ્પેશિયલ પોર્ટલ</span>
-  </aside>
-
-  <!-- Main App Navigation Header -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="sticky top-0 z-40 bg-dark-card/90 backdrop-blur-md border-b border-dark-border px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       
-      <!-- Brand Logo & Official Badge -->
+      <!-- App Brand & Emblem Logo -->
       <div class="flex items-center gap-3">
-        <!-- Golden Book & Wisdom Lamp Modern Logo -->
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-emerald-500 to-teal-400 p-0.5 shadow-md shadow-emerald-500/10 flex items-center justify-center flex-shrink-0">
-          <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center relative overflow-hidden">
-            <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
-              <path d="M6 6h10"></path>
-              <path d="M6 10h10"></path>
-              <path d="M12 2v20"></path>
-              <circle cx="12" cy="12" r="1.5" fill="#f59e0b"></circle>
-            </svg>
-          </div>
+        <div class="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 text-slate-950 shadow-lg shadow-amber-500/20">
+          <i data-lucide="book-open-check" class="w-6 h-6 stroke-[2.5]"></i>
+          <span class="absolute -top-1 -right-1 flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </span>
         </div>
-
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-500 bg-clip-text text-transparent">
-              અભ્યાસસેતુ Pro
+            <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-100 bg-clip-text text-transparent">
+              અભ્યાસસેતુ <span class="text-xs uppercase px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Pro</span>
             </h1>
-            <span class="hidden md:inline-flex items-center gap-1 text-[9px] font-extrabold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              <span>મિશન સરકારી સેવા • OFFICIAL PORTAL</span>
-            </span>
           </div>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">ગુજરાત સ્પર્ધાત્મક પરીક્ષા તૈયારી & લાઈવ એનાલિટિક્સ</p>
+          <p class="text-xs text-slate-400 flex items-center gap-1.5">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            મિશન સરકારી સેવા • OFFICIAL PORTAL
+          </p>
         </div>
       </div>
 
-      <!-- Action Buttons & Badges -->
+      <!-- Quick Action Buttons -->
       <div class="flex items-center gap-2 sm:gap-3">
-        
-        <!-- Live Offline / Online Status Badge -->
-        <div id="networkStatusBadge" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" title="ઓફલાઈન પણ ચાલશે">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="networkStatusText">ઑનલાઇન સિંક</span>
-        </div>
-
-        <!-- Target Exam Selector Modal Button -->
-        <button id="openExamHubBtn" class="flex items-center gap-1.5 bg-gradient-to-r from-amber-500/15 via-emerald-500/15 to-teal-500/15 hover:from-amber-500/25 hover:to-emerald-500/25 text-slate-800 dark:text-slate-200 border border-amber-500/30 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-xs">
-          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-500"></i>
-          <span id="activeExamBadgeName">GSRTC કંડક્ટર</span>
-          <span class="bg-amber-500 text-slate-900 font-extrabold px-1.5 py-0.2 rounded text-[10px]" id="activeExamMarksBadge">૧૦૦ ગુણ</span>
-          <i data-lucide="chevron-down" class="w-3 h-3 text-slate-400"></i>
+        <!-- Target Exam Selector Hub Button -->
+        <button id="examModalBtn" class="flex items-center gap-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all">
+          <i data-lucide="crosshair" class="w-4 h-4 text-amber-400"></i>
+          <span id="currentExamNavBadge">GSRTC કંડક્ટર [૧૦૦ ગુણ]</span>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
         </button>
 
-        <!-- Dark / Light Mode Toggle Button -->
-        <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
-          <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-600"></i>
-        </button>
-
-        <!-- Account / Register Modal Button -->
-        <button id="authModalOpenBtn" class="flex items-center gap-1.5 bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold transition shadow-sm">
-          <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
-          <span id="authButtonText">રજીસ્ટ્રેશન / લૉગિન</span>
+        <!-- User Profile / Register Button -->
+        <button id="authBtn" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all">
+          <i data-lucide="user-plus" class="w-4 h-4 text-emerald-400"></i>
+          <span id="navUserName">રજીસ્ટ્રેશન / લૉગિન</span>
         </button>
       </div>
 
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
 
-    <!-- Daily Motivational Suvichar & Khakhi/Gov Exam Shayari Banner -->
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white p-5 sm:p-6 border border-emerald-500/30 shadow-xl shadow-emerald-950/20">
-      <div class="absolute -right-8 -bottom-8 w-44 h-44 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none"></div>
-      <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="space-y-1.5 max-w-3xl">
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] font-black tracking-widest uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full flex items-center gap-1">
-              <i data-lucide="flame" class="w-3 h-3 text-amber-400"></i>
-              <span>આજનો સંકલ્પ & પ્રેરણા (DAILY MOTIVATION)</span>
-            </span>
-            <span class="text-xs text-emerald-400/80 font-mono" id="motivationDateDisplay">આજની તારીખ</span>
+    <!-- 1. DAILY MOTIVATIONAL SHAYARI & SUVICHAR BANNER -->
+    <section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/20 p-4 sm:p-5 shadow-lg">
+      <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
+            <i data-lucide="flame" class="w-5 h-5"></i>
           </div>
-          <h2 id="motivationalQuoteText" class="text-base sm:text-lg md:text-xl font-bold tracking-normal leading-relaxed text-amber-100">
-            "સપના એ નથી જે ઊંઘમાં આવે, સપના તો એ છે જે તમને ઊંઘવા જ ન દે!"
-          </h2>
-          <p id="motivationalAuthorText" class="text-xs text-emerald-300 font-medium">
-            — ડૉ. એ.પી.જે. અબ્દુલ કલામ | લક્ષ્ય: સરકારી નોકરી ૨૦૨૬-૨૭
-          </p>
-        </div>
-        
-        <div class="flex items-center gap-2 self-end md:self-auto flex-shrink-0">
-          <button id="refreshQuoteBtn" class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold backdrop-blur-sm border border-white/10 transition" title="બીજો વિચાર વાંચો">
-            <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>નવો વિચાર</span>
-          </button>
-          <button id="shareQuoteBtn" class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition">
-            <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
-            <span>શેર કરો</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Overview KPI Stats Cards -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      
-      <!-- Today's Study Card -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">આજનું વાંચન</span>
-          <div class="w-8 h-8 rounded-xl bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center">
-            <i data-lucide="clock" class="w-4 h-4"></i>
-          </div>
-        </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl sm:text-3xl font-extrabold font-mono" id="kpiTodayHours">0.0</span>
-          <span class="text-xs text-slate-500">કલાક</span>
-        </div>
-        <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-          <div id="kpiTodayBar" class="bg-primary-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-        <span class="text-[10px] text-slate-400 mt-1 block">દૈનિક લક્ષ્ય: ૬ કલાક</span>
-      </div>
-
-      <!-- Streak & Attendance Card -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">સતત હાજરી (Streak)</span>
-          <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
-            <i data-lucide="flame" class="w-4 h-4"></i>
-          </div>
-        </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl sm:text-3xl font-extrabold font-mono text-amber-500" id="kpiStreakDays">0</span>
-          <span class="text-xs text-slate-500">દિવસો</span>
-        </div>
-        <div class="mt-2">
-          <button id="markAttendanceBtn" class="w-full text-center py-1 px-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold text-xs transition border border-amber-500/20 flex items-center justify-center gap-1">
-            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-            <span id="markAttendanceText">આજની હાજરી પૂરો</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Total Hours Studied -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">કુલ અભ્યાસ સમય</span>
-          <div class="w-8 h-8 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center">
-            <i data-lucide="hourglass" class="w-4 h-4"></i>
-          </div>
-        </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl sm:text-3xl font-extrabold font-mono" id="kpiTotalHours">0.0</span>
-          <span class="text-xs text-slate-500">કલાક</span>
-        </div>
-        <span class="text-[10px] text-slate-400 mt-2 block" id="kpiTotalSessions">૦ સત્રો નોંધાયા</span>
-      </div>
-
-      <!-- Syllabus Progress % -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">સિલેબસ પૂર્ણતા</span>
-          <div class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-            <i data-lucide="target" class="w-4 h-4"></i>
-          </div>
-        </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl sm:text-3xl font-extrabold font-mono text-blue-600 dark:text-blue-400" id="kpiSyllabusPercent">0%</span>
-          <span class="text-xs text-slate-500">કવર થયું</span>
-        </div>
-        <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-          <div id="kpiSyllabusBar" class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Dual Study Clock Engine: Stopwatch + Customizable Pomodoro -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        <!-- Timer Left Info & Controls -->
-        <div class="w-full md:w-5/12 space-y-4">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-primary-500 animate-ping"></span>
-            <span class="text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400">લાઇવ અભ્યાસ ટાઈમર એન્જિન</span>
-          </div>
-          
-          <h3 class="text-lg font-bold">વાંચવાનું શરૂ કરો અને સમય ગણો</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400">
-            સ્ક્રીન લૉક હોય કે નેટ બંધ હોય તો પણ આ ટાઈમર બિલકુલ સાચો સમય ગણશે.
-          </p>
-
-          <!-- Timer Mode Switcher -->
-          <div class="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-semibold">
-            <button id="modeStopwatchBtn" class="flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition">
-              ⏱️ સાદી સ્ટોપવોચ
-            </button>
-            <button id="modePomodoroBtn" class="flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">
-              🍅 પોમોડોરો (ફોકસ મોડ)
-            </button>
-          </div>
-
-          <!-- Subject Selection for Logging -->
-          <div class="space-y-1.5">
-            <label for="timerSubjectSelect" class="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center justify-between">
-              <span>વિષય પસંદ કરો:</span>
-              <span class="text-[10px] text-primary-600 cursor-pointer" id="quickAddSubjectBtn">+ નવો વિષય</span>
-            </label>
-            <select id="timerSubjectSelect" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:ring-2 focus:ring-primary-500 outline-none">
-              <!-- Dynamically populated based on active exam -->
-            </select>
-          </div>
-
-          <!-- Quick Topic Notes -->
-          <div class="space-y-1.5">
-            <label for="timerTopicInput" class="text-xs font-semibold text-slate-600 dark:text-slate-300">વાંચેલા ટોપિકની નોંધ (ઓપ્શનલ):</label>
-            <input type="text" id="timerTopicInput" placeholder="દા.ત. મોટર વ્હીકલ એક્ટ કલમ ૧૧૨, છંદ વ્યાકરણ..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-primary-500 outline-none">
-          </div>
-
-          <!-- Pomodoro Custom Duration Controls -->
-          <div id="pomodoroDurationBox" class="hidden pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2">
-            <span class="text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center justify-between">
-              <span>પોમોડોરો સમય સેટ કરો:</span>
-              <span id="currentPomodoroBadge" class="text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-md">૨૫ મિનિટ</span>
-            </span>
-            
-            <!-- Quick Preset Duration Buttons -->
-            <div class="grid grid-cols-4 gap-1.5 text-xs font-semibold">
-              <button type="button" data-mins="15" class="pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-primary-500/20 text-slate-700 dark:text-slate-300 transition text-center">15m</button>
-              <button type="button" data-mins="25" class="pomo-preset-btn py-1 px-2 rounded-lg bg-primary-600 text-white font-bold transition text-center">25m</button>
-              <button type="button" data-mins="45" class="pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-primary-500/20 text-slate-700 dark:text-slate-300 transition text-center">45m</button>
-              <button type="button" data-mins="60" class="pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-primary-500/20 text-slate-700 dark:text-slate-300 transition text-center">60m</button>
-            </div>
-
-            <!-- Custom Minutes Input Row -->
-            <div class="flex items-center gap-2 pt-1">
-              <input type="number" id="customPomodoroMins" min="1" max="180" placeholder="કસ્ટમ મિનિટ (દા.ત. 30)" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs outline-none">
-              <button type="button" id="applyCustomPomoBtn" class="bg-slate-200 dark:bg-slate-700 hover:bg-primary-600 hover:text-white px-3 py-1 rounded-lg text-xs font-bold transition whitespace-nowrap">
-                સેટ કરો
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Timer Display Right Dial & Buttons -->
-        <div class="w-full md:w-7/12 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-800">
-          
-          <div class="relative flex items-center justify-center mb-6">
-            <!-- Digital Clock Display -->
-            <div class="text-center">
-              <div id="timerDigitsDisplay" class="font-mono text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                00:00:00
-              </div>
-              <span id="timerSubtext" class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-1 block">
-                સ્ટોપવોચ તૈયાર છે
-              </span>
-            </div>
-          </div>
-
-          <!-- Timer Action Buttons -->
-          <div class="flex flex-wrap items-center justify-center gap-3 w-full">
-            <button id="timerToggleBtn" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm shadow-lg shadow-primary-600/25 transition active:scale-95">
-              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-              <span id="timerToggleText">શરૂ કરો (Start)</span>
-            </button>
-
-            <button id="timerResetBtn" class="px-4 py-3 rounded-2xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 font-semibold text-sm transition">
-              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-            </button>
-
-            <button id="timerSaveSessionBtn" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md transition active:scale-95">
-              <i data-lucide="save" class="w-4 h-4"></i>
-              <span>સેશન સેવ કરો</span>
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 60-Day Consistency Heatmap Grid -->
-    <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-      <div class="flex items-center justify-between mb-3">
-        <div>
-          <h3 class="font-bold text-sm flex items-center gap-2">
-            <i data-lucide="calendar" class="w-4 h-4 text-amber-500"></i>
-            <span>અભ્યાસ સાતત્ય હીટમેપ (Study Consistency Heatmap - Last 60 Days)</span>
-          </h3>
-          <p class="text-[11px] text-slate-400">જેટલો લીલો રંગ ગાઢ, તેટલો તમારો તે દિવસનો અભ્યાસ વધુ!</p>
-        </div>
-        <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
-          <span>ઓછું</span>
-          <span class="w-2.5 h-2.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700"></span>
-          <span class="w-2.5 h-2.5 rounded bg-emerald-200 dark:bg-emerald-900"></span>
-          <span class="w-2.5 h-2.5 rounded bg-emerald-400 dark:bg-emerald-600"></span>
-          <span class="w-2.5 h-2.5 rounded bg-emerald-600 dark:bg-emerald-400"></span>
-          <span>વધુ</span>
-        </div>
-      </div>
-      <div class="overflow-x-auto custom-scrollbar pb-2">
-        <div id="heatmapGrid" class="grid grid-flow-col grid-rows-7 gap-1.5 min-w-[650px] p-1">
-          <!-- Populated dynamically via JS -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Gujarat Top Aspirants Live Leaderboard & Rank Section -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
-        <div>
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20">
-              <i data-lucide="trophy" class="w-4 h-4"></i>
-            </div>
-            <div>
-              <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
-                <span>ગુજરાત ટોપર્સ લાઇવ લીડરબોર્ડ (Top Aspirants Rank)</span>
-                <span class="text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                  <span>લાઈવ રેન્કિંગ</span>
-                </span>
-              </h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">જેટલું વધુ વાંચશો, તેટલો તમારો રેન્ક ટોચ પર આવશે!</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Leaderboard Time Toggle Tabs -->
-        <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs font-bold self-start sm:self-auto">
-          <button id="leaderboardTabToday" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition">
-            આજનું રેન્કિંગ
-          </button>
-          <button id="leaderboardTabWeekly" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition">
-            આ અઠવાડિયું
-          </button>
-        </div>
-      </div>
-
-      <!-- User's Personal Rank Highlight Bar -->
-      <div id="currentUserRankHighlight" class="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-primary-500/10 to-teal-500/10 border border-primary-500/30 flex items-center justify-between text-xs">
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-7 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center text-xs shadow-sm" id="myRankBadge">#1</span>
           <div>
-            <span class="font-bold text-slate-800 dark:text-slate-100" id="myRankNameDisplay">તમારો રેન્ક</span>
-            <span class="text-slate-400 text-[11px] block" id="myRankStatusSubtext">આજના વાંચન મુજબ લાઈવ ગણતરી</span>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                આજનો પ્રેરણાદાયી વિચાર
+              </span>
+              <span id="todayDateStr" class="text-xs text-slate-400"></span>
+            </div>
+            <p id="motivationalQuoteText" class="text-sm sm:text-base font-medium text-slate-200 leading-relaxed italic">
+              "મંઝિલ મળશે જ ભટકતા ભટકતા જ સહી, ગુમરાહ તો એ લોકો છે જે ઘરથી નીકળ્યા જ નથી!"
+            </p>
+            <p id="motivationalAuthorText" class="text-xs text-amber-300/80 mt-1 font-semibold">
+              — મિશન ખાખી & કંડક્ટર સ્પેશિયલ
+            </p>
           </div>
         </div>
-        <div class="text-right">
-          <div class="font-mono font-extrabold text-sm text-primary-600 dark:text-primary-400" id="myRankHoursDisplay">0.0 કલાક</div>
-          <span class="text-[10px] text-slate-400" id="myRankProgressNote">વધુ ૧ કલાક વાંચીને આગળ નીકળો!</span>
-        </div>
-      </div>
 
-      <!-- Leaderboard List Table -->
-      <div class="overflow-x-auto custom-scrollbar">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-semibold border-y border-slate-200 dark:border-slate-800">
-            <tr>
-              <th class="py-2.5 px-3 w-16 text-center">રેન્ક</th>
-              <th class="py-2.5 px-3">વિદ્યાર્થી (Aspirant)</th>
-              <th class="py-2.5 px-3">પરીક્ષા લક્ષ્ય</th>
-              <th class="py-2.5 px-3 text-center">સ્ટ્રીક (Streak)</th>
-              <th class="py-2.5 px-3 text-right">વાંચન સમય</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboardTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
-            <!-- Dynamically populated via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-
-      <div class="pt-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 dark:border-slate-800">
-        <span>💡 સ્ટોપવોચથી સેશન સેવ કરતાં તમારો રેન્ક લાઈવ અપડેટ થશે.</span>
-        <span class="font-semibold text-primary-600 dark:text-primary-400 flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-          <span>સ્પર્ધા જ તમને સફળ બનાવશે!</span>
-        </span>
-      </div>
-    </div>
-
-    <!-- Visual Charts: 7-Day Trend & Subject Donut -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      
-      <!-- 7 Days Bar Chart -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold text-sm flex items-center gap-2">
-            <i data-lucide="bar-chart-3" class="w-4 h-4 text-primary-600"></i>
-            <span>છેલ્લા ૭ દિવસનો અભ્યાસ ગ્રાફ (કલાકમાં)</span>
-          </h3>
-        </div>
-        <div class="h-60">
-          <canvas id="weeklyHoursChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Subject Wise Distribution Donut -->
-      <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold text-sm flex items-center gap-2">
-            <i data-lucide="pie-chart" class="w-4 h-4 text-teal-600"></i>
-            <span>વિષયવાર વાંચનની ટકાવારી (Subject Split)</span>
-          </h3>
-        </div>
-        <div class="h-60 flex items-center justify-center">
-          <canvas id="subjectPieChart"></canvas>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Subject Wise Syllabus Progress Cards -->
-    <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-        <div>
-          <h3 class="font-bold text-base flex items-center gap-2">
-            <i data-lucide="book-open-check" class="w-4 h-4 text-primary-600"></i>
-            <span id="syllabusHeaderExamTitle">સિલેબસ અને વિષયવાર ગુણભાર પ્રગતિ</span>
-          </h3>
-          <p class="text-xs text-slate-400">દરેક વિષયમાં કેટલા કલાક વંચાયા તેની ચોક્કસ ટકાવારી</p>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <button id="resetSyllabusBtn" class="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 transition" title="મૂળ વિષયો પાછા લાવો">
-            🔄 સિલેબસ રીસેટ
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <button id="refreshQuoteBtn" title="નવો વિચાર મેળવો" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-all text-xs flex items-center gap-1">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            <span class="sm:hidden">બદલો</span>
           </button>
-          <button id="openAddSubjectModalBtn" class="bg-primary-600/10 hover:bg-primary-600/20 text-primary-600 dark:text-primary-400 text-xs font-bold px-3 py-1.5 rounded-xl border border-primary-500/20 transition flex items-center gap-1">
-            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            <span>નવો વિષય ઉમેરો</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Subject Cards Grid -->
-      <div id="subjectProgressCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        <!-- Dynamically rendered via JS -->
-      </div>
-    </div>
-
-    <!-- Study Logs & History Table -->
-    <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h3 class="font-bold text-base flex items-center gap-2">
-            <i data-lucide="history" class="w-4 h-4 text-teal-600"></i>
-            <span>વાંચનની હિસ્ટ્રી અને ડાયરી (Study Logs)</span>
-          </h3>
-          <p class="text-xs text-slate-400">તમારા તમામ રેકોર્ડ થયેલા સત્રોની યાદી</p>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <button id="exportCsvBtn" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-            <span>CSV ડાઉનલોડ</span>
-          </button>
-          <button id="shareWhatsAppBtn" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <button id="shareQuoteBtn" class="px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow shadow-emerald-700/30">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
             <span>WhatsApp શેર</span>
           </button>
         </div>
       </div>
+    </section>
 
-      <!-- Logs Table -->
-      <div class="overflow-x-auto custom-scrollbar">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-semibold border-y border-slate-200 dark:border-slate-800">
-            <tr>
-              <th class="py-2.5 px-3">તારીખ</th>
-              <th class="py-2.5 px-3">વિષય</th>
-              <th class="py-2.5 px-3">ટોપિક / નોંધ</th>
-              <th class="py-2.5 px-3">સમય (કલાક)</th>
-              <th class="py-2.5 px-3 text-right">ક્રિયા</th>
+    <!-- 2. OVERVIEW METRIC STATS -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      <!-- Total Study Time -->
+      <div class="bg-dark-card border border-dark-border p-4 rounded-xl relative overflow-hidden">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>કુલ વાંચન (Total)</span>
+          <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-1.5">
+          <span id="totalStudyHours" class="text-2xl sm:text-3xl font-bold text-white">0.0</span>
+          <span class="text-xs text-slate-400">કલાક</span>
+        </div>
+        <div class="mt-1 text-[11px] text-slate-500">ઓલ ટાઈમ રેકોર્ડ</div>
+      </div>
+
+      <!-- Today's Study -->
+      <div class="bg-dark-card border border-dark-border p-4 rounded-xl relative overflow-hidden">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>આજનું વાંચન (Today)</span>
+          <i data-lucide="calendar-check" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-1.5">
+          <span id="todayStudyHours" class="text-2xl sm:text-3xl font-bold text-emerald-400">0.0</span>
+          <span class="text-xs text-slate-400">કલાક</span>
+        </div>
+        <div class="mt-1 text-[11px] text-slate-500">દૈનિક લક્ષ્ય: 6 કલાક</div>
+      </div>
+
+      <!-- Current Streak -->
+      <div class="bg-dark-card border border-dark-border p-4 rounded-xl relative overflow-hidden">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>સ્ટડી સ્ટ્રીક (Streak)</span>
+          <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-1.5">
+          <span id="currentStreakCount" class="text-2xl sm:text-3xl font-bold text-amber-400">0</span>
+          <span class="text-xs text-slate-400">દિવસો 🔥</span>
+        </div>
+        <div class="mt-1 text-[11px] text-slate-500">સતત વાંચન પાવર</div>
+      </div>
+
+      <!-- Syllabus Progress -->
+      <div class="bg-dark-card border border-dark-border p-4 rounded-xl relative overflow-hidden">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>સિલેબસ પૂર્ણતા</span>
+          <i data-lucide="pie-chart" class="w-4 h-4 text-blue-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-1.5">
+          <span id="syllabusProgressPct" class="text-2xl sm:text-3xl font-bold text-blue-400">0%</span>
+          <span class="text-xs text-slate-400">ટાર્ગેટ</span>
+        </div>
+        <div class="mt-1 text-[11px] text-slate-500" id="syllabusProgressHours">0 / 0 કલાક</div>
+      </div>
+    </section>
+
+    <!-- 3. TIMER & STUDY HUB (STOPWATCH + CUSTOM POMODORO) -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Timer Panel -->
+      <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-2xl p-5 sm:p-6 flex flex-col justify-between shadow-md">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-dark-border">
+            <div class="flex items-center gap-2">
+              <span class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+                <i data-lucide="timer" class="w-5 h-5"></i>
+              </span>
+              <div>
+                <h2 class="text-lg font-bold text-white">લાઇવ ફોકસ ટાઈમર</h2>
+                <p class="text-xs text-slate-400">તમારું દૈનિક વાંચન અહીં ઓટોમેટિક કેલ્ક્યુલેટ થશે</p>
+              </div>
+            </div>
+
+            <!-- Mode Switcher -->
+            <div class="flex bg-slate-900 p-1 rounded-xl border border-dark-border">
+              <button id="modeStopwatchBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow">
+                સ્ટોપવોચ (મુક્ત સમય)
+              </button>
+              <button id="modePomodoroBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                પોમોડોરો (લક્ષ્યાંક)
+              </button>
+            </div>
+          </div>
+
+          <!-- Subject Selection for Current Session -->
+          <div class="mt-4">
+            <label class="block text-xs font-medium text-slate-400 mb-1.5">કયો વિષય વાંચી રહ્યા છો?</label>
+            <select id="activeSubjectSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+              <!-- Dynamically Populated -->
+            </select>
+          </div>
+
+          <!-- Pomodoro Duration Customizer -->
+          <div id="pomodoroCustomControls" class="hidden mt-4 p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-amber-300 flex items-center gap-1.5">
+                <i data-lucide="sliders" class="w-3.5 h-3.5"></i> સેશનનો સમય પસંદ કરો:
+              </span>
+              <span id="activePomoDurationLabel" class="text-xs text-slate-400 font-mono">25 મિનિટ સેટ છે</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button data-mins="15" class="pomo-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium">15 મિ.</button>
+              <button data-mins="25" class="pomo-preset-btn px-2.5 py-1 rounded-lg text-xs bg-amber-500 text-slate-950 font-bold border border-amber-400">25 મિ.</button>
+              <button data-mins="45" class="pomo-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium">45 મિ.</button>
+              <button data-mins="60" class="pomo-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium">60 મિ.</button>
+              <div class="flex items-center gap-1 ml-auto">
+                <input id="customPomoMinutesInput" type="number" min="1" max="180" placeholder="કસ્ટમ" class="w-16 bg-slate-950 border border-slate-700 px-2 py-1 rounded-lg text-xs text-center text-white focus:outline-none focus:border-amber-500">
+                <button id="applyCustomPomoBtn" class="px-2.5 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 font-semibold">સેટ</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digital Clock Display -->
+          <div class="my-8 text-center">
+            <div id="timerDisplay" class="text-6xl sm:text-7xl font-mono font-extrabold tracking-tight text-white drop-shadow">
+              00:00:00
+            </div>
+            <p id="timerStatusText" class="text-xs uppercase tracking-widest text-slate-500 mt-2 font-semibold">
+              તૈયાર • સ્ટાર્ટ બટન દબાવો
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-dark-border">
+          <button id="startTimerBtn" class="flex-1 min-w-[130px] flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg shadow-amber-500/20 transition-all">
+            <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+            <span>વાંચન શરૂ કરો</span>
+          </button>
+          <button id="pauseTimerBtn" class="hidden flex-1 min-w-[130px] items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-6 py-3 rounded-xl border border-slate-700 transition-all">
+            <i data-lucide="pause" class="w-5 h-5"></i>
+            <span>વિરામ (Pause)</span>
+          </button>
+          <button id="stopTimerBtn" class="hidden items-center justify-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold px-5 py-3 rounded-xl border border-red-500/30 transition-all">
+            <i data-lucide="square" class="w-5 h-5 fill-current"></i>
+            <span>પૂર્ણ કરો (Save)</span>
+          </button>
+          <button id="openManualLogBtn" class="px-4 py-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-all">
+            <i data-lucide="plus-circle" class="w-4 h-4 text-amber-400"></i>
+            <span>મેન્યુઅલ કલાક ઉમેરો</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Side Panel: 60-Day Habit Heatmap & Weekly Trends -->
+      <div class="bg-dark-card border border-dark-border rounded-2xl p-5 flex flex-col justify-between shadow-md">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i>
+              <h3 class="text-sm font-bold text-white">૬૦ દિવસનું હાજરી હીટમેપ</h3>
+            </div>
+            <span class="text-[11px] text-slate-400">છેલ્લા ૬૦ દિવસ</span>
+          </div>
+          
+          <!-- Heatmap Container -->
+          <div id="heatmapContainer" class="flex flex-wrap gap-1.5 p-3 rounded-xl bg-slate-900 border border-slate-800 justify-center min-h-[120px] items-center">
+            <!-- Dynamically populated 60 squares -->
+          </div>
+          
+          <div class="flex items-center justify-between text-[10px] text-slate-400 mt-2 px-1">
+            <span>ઓછું વાંચન</span>
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span>
+              <span class="w-2.5 h-2.5 rounded-sm bg-emerald-900"></span>
+              <span class="w-2.5 h-2.5 rounded-sm bg-emerald-600"></span>
+              <span class="w-2.5 h-2.5 rounded-sm bg-emerald-400"></span>
+            </div>
+            <span>૬+ કલાક</span>
+          </div>
+
+          <!-- Weekly Bar Chart -->
+          <div class="mt-5">
+            <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center gap-1.5">
+              <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-blue-400"></i>
+              છેલ્લા ૭ દિવસનું વાંચન (કલાક)
+            </h4>
+            <div class="h-32 w-full">
+              <canvas id="weeklyChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-dark-border text-center">
+          <p class="text-xs text-slate-400 italic">
+            "દરરોજ થોડું વાંચન, પરીક્ષાના દિવસે મોટી સફળતા આપશે."
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 4. GUJARAT TOPPERS LIVE LEADERBOARD (RANKINGS) -->
+    <section class="bg-dark-card border border-dark-border rounded-2xl p-5 sm:p-6 shadow-md">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-dark-border">
+        <div>
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+              <i data-lucide="trophy" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                ગુજરાત ટોપર્સ લાઇવ લીડરબોર્ડ
+                <span class="text-[11px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                  LIVE
+                </span>
+              </h2>
+              <p class="text-xs text-slate-400">ગુજરાતના મહેનતુ ઉમેદવારો સાથે તમારો રેન્ક સરખાવો</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-2">
+          <div class="flex bg-slate-900 p-1 rounded-xl border border-dark-border">
+            <button id="leaderboardTodayBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950">
+              આજનું રેન્કિંગ
+            </button>
+            <button id="leaderboardWeeklyBtn" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white">
+              આ અઠવાડિયું
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current User Rank Bar -->
+      <div class="my-4 p-3.5 rounded-xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/30 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold flex items-center justify-center text-sm">
+            #<span id="myRankNumber">4</span>
+          </div>
+          <div>
+            <div class="text-xs text-slate-400">તમારો પોતાનો વર્તમાન રેન્ક:</div>
+            <div class="text-sm font-bold text-white flex items-center gap-2">
+              <span id="myLeaderboardName">વિવેક ડાંગર (તમે)</span>
+              <span class="text-[11px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full">
+                🔥 <span id="myLeaderboardHours">0.0</span> કલાક
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="text-right hidden sm:block">
+          <span class="text-xs text-emerald-400 font-medium">આગળ વધવા વધુ વાંચો!</span>
+          <p class="text-[11px] text-slate-400">ટોપ ૩ માં સ્થાન મેળવવા તૈયાર રહો</p>
+        </div>
+      </div>
+
+      <!-- Rankings Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="text-slate-400 border-b border-dark-border text-xs">
+              <th class="py-2.5 px-3">રેન્ક</th>
+              <th class="py-2.5 px-3">ઉમેદવારનું નામ</th>
+              <th class="py-2.5 px-3">જિલ્લો</th>
+              <th class="py-2.5 px-3">લક્ષ્ય પરીક્ષા</th>
+              <th class="py-2.5 px-3 text-center">સ્ટ્રીક</th>
+              <th class="py-2.5 px-3 text-right">વાંચેલા કલાક</th>
             </tr>
           </thead>
-          <tbody id="studyLogsTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
-            <!-- Dynamically populated via JS -->
+          <tbody id="leaderboardTableBody" class="divide-y divide-dark-border text-slate-200">
+            <!-- Dynamic Leaderboard Rows -->
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
+
+    <!-- 5. SUBJECT WISE SYLLABUS TRACKER -->
+    <section class="bg-dark-card border border-dark-border rounded-2xl p-5 sm:p-6 shadow-md">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-dark-border">
+        <div>
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 id="syllabusSectionTitle" class="text-lg font-bold text-white">વિષયવાર સિલેબસ અને માર્ક્સ</h2>
+              <p class="text-xs text-slate-400" id="syllabusSubtitle">તમામ વિષયોના કલાક અને ગુણભાર મુજબ તૈયારી</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button id="openAddSubjectBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 flex items-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>નવો વિષય ઉમેરો</span>
+          </button>
+          <button id="resetSyllabusBtn" title="મૂળ ઓફિશિયલ સિલેબસ રીસેટ કરો" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-red-400 text-xs font-semibold border border-slate-700 flex items-center gap-1">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>સિલેબસ રીસેટ</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Subjects Grid -->
+      <div id="subjectsListGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 mt-5">
+        <!-- Dynamically Rendered Subject Cards -->
+      </div>
+    </section>
 
   </main>
 
-  <!-- High-Visibility Footer with Developer Branding -->
-  <footer class="mt-12 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 text-center">
-    <div class="max-w-7xl mx-auto space-y-3">
-      
-      <!-- Developer Vivek Dangar Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-primary-500/10 to-teal-500/10 border border-emerald-500/30 shadow-xs">
-        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-        <span class="text-xs sm:text-sm font-extrabold tracking-wide bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-600 bg-clip-text text-transparent">
-          💻 Developed by Vivek Dangar
-        </span>
+  <!-- ================= DEVELOPER & BRANDING FOOTER ================= -->
+  <footer class="mt-auto border-t border-dark-border bg-slate-950 py-6 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+          અ
+        </div>
+        <span>© 2026 અભ્યાસસેતુ Pro • સરકારી સેવા મિશન</span>
       </div>
 
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        અભ્યાસસેતુ Pro • ગુજરાતના તમામ સરકારી પરીક્ષાના વિદ્યાર્થીઓ માટે સમર્પિત ૧૦૦% ફ્રી પોર્ટલ
-      </p>
-      
-      <p class="text-[11px] text-slate-400">
-        GSRTC Conductor | Driver | CCE | Police Constable | Talati | Forest Guard
-      </p>
+      <!-- Developer Signature / Branding -->
+      <div class="flex items-center gap-2 font-medium">
+        <span class="text-slate-300">💻 Developed by <strong class="text-amber-400 font-bold">Vivek Dangar</strong></span>
+      </div>
+
+      <!-- Share Portal -->
+      <div>
+        <button id="footerSharePortalBtn" class="hover:text-emerald-400 flex items-center gap-1 transition-colors">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+          <span>પોર્ટલ મિત્રો સાથે શેર કરો</span>
+        </button>
+      </div>
     </div>
   </footer>
 
-  <!-- MODAL: Exam Selection Hub Modal -->
-  <div id="examHubModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
-      
-      <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-        <div>
-          <h3 class="font-extrabold text-base flex items-center gap-2">
-            <i data-lucide="award" class="w-5 h-5 text-amber-500"></i>
-            <span>ગુજરાત સરકારી ભરતી કેન્દ્ર (Select Target Exam)</span>
-          </h3>
-          <p class="text-xs text-slate-400">તમે જે પરીક્ષા પસંદ કરશો તેનો સત્તાવાર સિલેબસ અને ગુણભાર લોડ થશે</p>
+  <!-- ================= MODALS & POPUPS ================= -->
+
+  <!-- 1. EXAM SELECTOR HUB MODAL -->
+  <div id="examSelectModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-3xl p-5 sm:p-6 my-8 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+        <div class="flex items-center gap-2">
+          <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+            <i data-lucide="crosshair" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">ગુજરાત સ્પર્ધાત્મક પરીક્ષા પસંદ કરો</h3>
+            <p class="text-xs text-slate-400">પરીક્ષા પસંદ કરતાં તેનો ઓફિશિયલ સિલેબસ અને ગુણભાર સેટ થઈ જશે</p>
+          </div>
         </div>
-        <button id="closeExamHubBtn" class="text-slate-400 hover:text-slate-600 text-lg p-1">✕</button>
-      </div>
-
-      <!-- Exam Cards Grid -->
-      <div id="examCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- Dynamically rendered via JS -->
-      </div>
-
-      <div class="pt-2 text-right">
-        <button id="examHubCloseDoneBtn" class="bg-primary-600 text-white font-bold text-xs px-5 py-2 rounded-xl hover:bg-primary-700 transition">
-          પૂર્ણ થયું (Done)
+        <button id="closeExamModalBtn" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
+      <div id="examCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-4 max-h-[65vh] overflow-y-auto pr-1">
+        <!-- Populated dynamically with Blueprint info -->
+      </div>
     </div>
   </div>
 
-  <!-- MODAL: User Sign-up & Login Modal -->
-  <div id="authModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
-      
-      <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-        <div>
-          <h3 class="font-bold text-base" id="authModalHeading">વિદ્યાર્થી એકાઉન્ટ (Student Profile)</h3>
-          <p class="text-xs text-slate-400">તમારો ડેટા તમામ ડિવાઇસમાં સિંક રહેશે</p>
-        </div>
-        <button id="closeAuthModalBtn" class="text-slate-400 hover:text-slate-600 text-lg p-1">✕</button>
-      </div>
-
-      <!-- Auth Mode Tabs (Sign In vs Register) -->
-      <div class="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-semibold">
-        <button id="tabLoginBtn" class="flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition">
-          લૉગિન (Sign In)
-        </button>
-        <button id="tabRegisterBtn" class="flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition">
-          નવું રજીસ્ટ્રેશન (Sign Up)
+  <!-- 2. AUTHENTICATION & SIGN UP MODAL -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i data-lucide="user-check" class="w-5 h-5 text-emerald-400"></i>
+          વિદ્યાર્થી એકાઉન્ટ
+        </h3>
+        <button id="closeAuthModalBtn" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Auth Form -->
-      <form id="authForm" class="space-y-3">
-        
-        <!-- Registration Only Fields -->
-        <div id="registerFieldsWrapper" class="hidden space-y-3">
-          <div>
-            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">પૂરું નામ:</label>
-            <input type="text" id="authFullNameInput" placeholder="દા.ત. વિવેક ડાંગર" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
-          </div>
-          <div>
-            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">મોબાઈલ નંબર:</label>
-            <input type="tel" id="authMobileInput" placeholder="દા.ત. 9876543210" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
-          </div>
-        </div>
-
-        <div>
-          <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">ઈમેલ એડ્રેસ:</label>
-          <input type="email" id="authEmailInput" required placeholder="name@example.com" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
-        </div>
-
-        <div>
-          <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">પાસવર્ડ:</label>
-          <input type="password" id="authPasswordInput" required placeholder="••••••••" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
-        </div>
-
-        <button type="submit" id="authSubmitBtn" class="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs shadow-md transition">
-          લૉગિન કરો (Sign In)
+      <!-- Tabs -->
+      <div class="flex bg-slate-900 p-1 rounded-xl border border-dark-border my-4">
+        <button id="authTabRegister" class="flex-1 py-1.5 text-xs font-bold rounded-lg bg-amber-500 text-slate-950">
+          નવું રજીસ્ટ્રેશન
         </button>
-
-        <div class="pt-2 border-t border-slate-100 dark:border-slate-800 text-center">
-          <button type="button" id="guestLoginBtn" class="text-xs text-slate-500 hover:text-primary-600 font-semibold">
-            👉 મહેમાન તરીકે ચાલુ રાખો (Guest Login)
-          </button>
-        </div>
-
-      </form>
-
-    </div>
-  </div>
-
-  <!-- MODAL: Add Custom Subject Modal -->
-  <div id="addSubjectModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full p-5 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-3">
-      <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-        <h4 class="font-bold text-sm">નવો વિષય ઉમેરો</h4>
-        <button id="closeAddSubjectModalBtn" class="text-slate-400 hover:text-slate-600">✕</button>
+        <button id="authTabLogin" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white">
+          લૉગિન
+        </button>
       </div>
-      <form id="addSubjectForm" class="space-y-3">
-        <div>
-          <label class="text-xs font-semibold">વિષયનું નામ:</label>
-          <input type="text" id="newSubjectNameInput" required placeholder="દા.ત. બંધારણ અથવા ગણિત" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none">
+
+      <form id="authForm" class="space-y-3.5">
+        <div id="authNameField">
+          <label class="block text-xs font-medium text-slate-400 mb-1">તમારું પૂરું નામ *</label>
+          <input id="authInputName" type="text" placeholder="દા.ત. વિવેક ડાંગર" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500">
         </div>
+
         <div>
-          <label class="text-xs font-semibold">ગુણભાર (Marks):</label>
-          <input type="number" id="newSubjectMarksInput" required value="10" min="1" max="100" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none">
+          <label class="block text-xs font-medium text-slate-400 mb-1">મોબાઈલ નંબર અથવા ઇમેઇલ *</label>
+          <input id="authInputContact" type="text" required placeholder="દા.ત. 9876543210" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500">
         </div>
+
         <div>
-          <label class="text-xs font-semibold">અંદાજિત ટાર્ગેટ કલાક:</label>
-          <input type="number" id="newSubjectHoursInput" required value="30" min="1" max="500" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none">
+          <label class="block text-xs font-medium text-slate-400 mb-1">પાસવર્ડ *</label>
+          <input id="authInputPassword" type="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500">
         </div>
-        <button type="submit" class="w-full py-2 bg-primary-600 text-white rounded-xl font-bold text-xs hover:bg-primary-700 transition">
-          ઉમેરો (Add Subject)
+
+        <div id="authCityField">
+          <label class="block text-xs font-medium text-slate-400 mb-1">જિલ્લો / શહેર</label>
+          <input id="authInputCity" type="text" placeholder="દા.ત. રાજકોટ / અમદાવાદ" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <button type="submit" id="authSubmitBtn" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition-all">
+          ખાતું બનાવો & શરુ કરો
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Client-side Pure Vanilla JavaScript Engine -->
+  <!-- 3. MANUAL LOG MODAL -->
+  <div id="manualLogModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-sm p-5 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-amber-400"></i>
+          મેન્યુઅલ વાંચન કલાક ઉમેરો
+        </h3>
+        <button id="closeManualLogBtn" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="manualLogForm" class="space-y-3 mt-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">વિષય પસંદ કરો</label>
+          <select id="manualSubjectSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">વાંચેલા કલાક (Hours)</label>
+          <input id="manualHoursInput" type="number" step="0.25" min="0.25" max="24" placeholder="દા.ત. 2.5" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">તારીખ</label>
+          <input id="manualDateInput" type="date" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <button type="submit" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all">
+          સેવ કરો
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. ADD NEW SUBJECT MODAL -->
+  <div id="addSubjectModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-sm p-5 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="layers" class="w-4 h-4 text-blue-400"></i>
+          નવો વિષય ઉમેરો
+        </h3>
+        <button id="closeAddSubjectBtn" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="addSubjectForm" class="space-y-3 mt-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">વિષયનું નામ *</label>
+          <input id="newSubjectName" type="text" placeholder="દા.ત. કમ્પ્યુટર પ્રેક્ટિકલ" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">પરીક્ષામાં ગુણભાર (Marks)</label>
+          <input id="newSubjectMarks" type="number" min="0" placeholder="દા.ત. 10" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">ટાર્ગેટ કલાક (Goal Hours)</label>
+          <input id="newSubjectHours" type="number" min="1" placeholder="દા.ત. 30" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition-all">
+          વિષય ઉમેરો
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= APPLICATION JAVASCRIPT LOGIC ================= -->
   <script>
-    /* Gujarat Competitive Exam Blueprints & Subject Presets */
-    const EXAM_PRESETS = {
-      gsrtc_conductor: {
-        id: 'gsrtc_conductor',
-        name: 'GSRTC કંડક્ટર (૨૦૨૬-૨૭)',
+    /* ---------------- GUJARAT GOVERNMENT EXAM BLUEPRINTS ---------------- */
+    const EXAM_BLUEPRINTS = {
+      conductor: {
+        id: 'conductor',
+        title: 'GSRTC કંડક્ટર ભરતી (2026-27)',
+        badge: 'GSRTC કંડક્ટર [૧૦૦ ગુણ]',
         totalMarks: 100,
-        badgeColor: 'amber',
+        description: 'મોટર વ્હીકલ એક્ટ, ફર્સ્ટ એઇડ, કંડક્ટર ફરજો, ભાડા ગણતરી અને કમ્પ્યુટર સહિત સત્તાવાર ૧૦૦ ગુણ બ્લૂપ્રિન્ટ.',
         subjects: [
-          { id: 'sub_mvact', name: 'મોટર વ્હીકલ એક્ટ ૧૯૮૮ & કાયદા', targetHours: 35, marks: 10 },
-          { id: 'sub_firstaid', name: 'પ્રાથમિક સારવાર (First Aid ઉપચાર)', targetHours: 25, marks: 10 },
-          { id: 'sub_duties', name: 'કંડક્ટરની ફરજો, નૈતિકતા અને વર્તણૂક', targetHours: 20, marks: 10 },
-          { id: 'sub_fare', name: 'ટિકિટ અને લગેજ ભાડા ગણતરી', targetHours: 25, marks: 10 },
-          { id: 'sub_gsrtc_info', name: 'GSRTC નિગમ માહિતી & બસ સેવાઓ', targetHours: 20, marks: 5 },
-          { id: 'sub_road_safety', name: 'રોડ સેફ્ટી અને ટ્રાફિક સાઇન/સિગ્નલ', targetHours: 25, marks: 10 },
-          { id: 'sub_maths', name: 'અંકગણિત (Quantitative Aptitude)', targetHours: 30, marks: 5 },
-          { id: 'sub_reasoning', name: 'લોજિકલ રીઝનિંગ (તાર્કિક કસોટી)', targetHours: 25, marks: 5 },
-          { id: 'sub_gk_gujarat', name: 'સામાન્ય જ્ઞાન & ગુજરાતનો ઇતિહાસ/ભૂગોળ', targetHours: 45, marks: 15 },
-          { id: 'sub_current', name: 'વર્તમાન પ્રવાહો (Current Affairs)', targetHours: 30, marks: 5 },
-          { id: 'sub_comp', name: 'કમ્પ્યુટર સામાન્ય જ્ઞાન (Computer)', targetHours: 40, marks: 20 },
-          { id: 'sub_guj_gram', name: 'ગુજરાતી વ્યાકરણ (ધોરણ-૧૨)', targetHours: 35, marks: 10 },
-          { id: 'sub_eng_gram', name: 'અંગ્રેજી વ્યાકરણ (ધોરણ-૧૨)', targetHours: 35, marks: 10 }
+          { id: 'c_mvact', name: 'મોટર વ્હીકલ એક્ટ ૧૯૮૮ & ટ્રાફિક નિયમો', marks: 10, targetHours: 35, studiedHours: 0 },
+          { id: 'c_firstaid', name: 'પ્રાથમિક સારવાર (First Aid ઉપચાર & સાધનો)', marks: 10, targetHours: 30, studiedHours: 0 },
+          { id: 'c_duties', name: 'કંડક્ટરની ફરજો, નૈતિકતા અને વર્તણૂક', marks: 10, targetHours: 25, studiedHours: 0 },
+          { id: 'c_fare', name: 'ટિકિટ, લગેજ અને સ્ટેજ ભાડા ગણતરી', marks: 10, targetHours: 30, studiedHours: 0 },
+          { id: 'c_gsrtc_info', name: 'GSRTC નિગમ લગતી માહિતી અને યોજનાઓ', marks: 10, targetHours: 25, studiedHours: 0 },
+          { id: 'c_road_safety', name: 'રોડ સેફ્ટી અને ટ્રાફિક સાઇન/સિગ્નલ', marks: 10, targetHours: 20, studiedHours: 0 },
+          { id: 'c_comp', name: 'કમ્પ્યુટર સામાન્ય જ્ઞાન', marks: 20, targetHours: 50, studiedHours: 0 },
+          { id: 'c_gk', name: 'સામાન્ય જ્ઞાન & ગુજરાત ભૂગોળ/ઇતિહાસ', marks: 10, targetHours: 40, studiedHours: 0 },
+          { id: 'c_current', name: 'વર્તમાન પ્રવાહો (Current Affairs)', marks: 10, targetHours: 30, studiedHours: 0 },
+          { id: 'c_maths', name: 'અંકગણિત (Maths)', marks: 5, targetHours: 25, studiedHours: 0 },
+          { id: 'c_reasoning', name: 'તાર્કિક કસોટી (Reasoning)', marks: 5, targetHours: 25, studiedHours: 0 },
+          { id: 'c_gujarati', name: 'ગુજરાતી વ્યાકરણ (ધો. ૧૨ કક્ષા)', marks: 10, targetHours: 35, studiedHours: 0 },
+          { id: 'c_english', name: 'અંગ્રેજી વ્યાકરણ (English Grammar)', marks: 10, targetHours: 35, studiedHours: 0 }
         ]
       },
-      gsrtc_driver: {
-        id: 'gsrtc_driver',
-        name: 'GSRTC ડ્રાઈવર ભરતી',
+      driver: {
+        id: 'driver',
+        title: 'GSRTC ડ્રાઈવર ભરતી (2026-27)',
+        badge: 'GSRTC ડ્રાઈવર [૧૦૦ ગુણ]',
         totalMarks: 100,
-        badgeColor: 'blue',
+        description: 'રોડ સેફ્ટી, ઓટો મિકેનિક્સ અને ટ્રાફિક નિયમો આધારિત ડ્રાઈવર પરીક્ષા.',
         subjects: [
-          { id: 'sub_dr_gk', name: 'સામાન્ય જ્ઞાન (GK)', targetHours: 40, marks: 30 },
-          { id: 'sub_dr_safety', name: 'રોડ સેફ્ટી & મોટર મિકેનિઝમ', targetHours: 35, marks: 20 },
-          { id: 'sub_dr_guj', name: 'ગુજરાતી ભાષા & વ્યાકરણ', targetHours: 30, marks: 20 },
-          { id: 'sub_dr_maths', name: 'ગણિત (ધોરણ-૧૦ કક્ષા)', targetHours: 30, marks: 20 },
-          { id: 'sub_dr_eng', name: 'અંગ્રેજી (પ્રાથમિક)', targetHours: 20, marks: 10 }
+          { id: 'd_road_mech', name: 'રોડ સેફ્ટી, ચિહ્નો & બેઝિક ઓટો મિકેનિક્સ', marks: 20, targetHours: 40, studiedHours: 0 },
+          { id: 'd_gk', name: 'સામાન્ય જ્ઞાન & વર્તમાન પ્રવાહો', marks: 30, targetHours: 50, studiedHours: 0 },
+          { id: 'd_guj', name: 'ગુજરાતી વ્યાકરણ & ભાષા', marks: 20, targetHours: 35, studiedHours: 0 },
+          { id: 'd_maths', name: 'અંકગણિત (બેઝિક ગણતરી)', marks: 20, targetHours: 35, studiedHours: 0 },
+          { id: 'd_eng', name: 'અંગ્રેજી સામાન્ય જ્ઞાન', marks: 10, targetHours: 20, studiedHours: 0 }
         ]
       },
-      police_constable: {
-        id: 'police_constable',
-        name: 'ગુજરાત પોલીસ કોન્સ્ટેબલ (નવા નિયમ)',
+      constable: {
+        id: 'constable',
+        title: 'ગુજરાત પોલીસ કોન્સ્ટેબલ (નવી પેટર્ન)',
+        badge: 'પોલીસ કોન્સ્ટેબલ [૨૦૦ ગુણ]',
         totalMarks: 200,
-        badgeColor: 'emerald',
+        description: 'Part-A (૮૦ ગુણ) અને Part-B (૧૨૦ ગુણ) આધારિત સંપૂર્ણ ૨૦૦ માર્ક્સ સિલેબસ.',
         subjects: [
-          { id: 'sub_pc_reasoning', name: 'Part A: રીઝનિંગ & ડેટા ઇન્ટરપ્રિટેશન', targetHours: 50, marks: 30 },
-          { id: 'sub_pc_maths', name: 'Part A: સંખ્યાત્મક કસોટી (ગણિત)', targetHours: 45, marks: 30 },
-          { id: 'sub_pc_guj', name: 'Part A: ગુજરાતી ભાષા કૌશલ્ય', targetHours: 35, marks: 20 },
-          { id: 'sub_pc_consti', name: 'Part B: ભારતનું બંધારણ (Constitution)', targetHours: 50, marks: 30 },
-          { id: 'sub_pc_current_sci', name: 'Part B: વર્તમાન પ્રવાહો, વિજ્ઞાન & ટેક', targetHours: 50, marks: 40 },
-          { id: 'sub_pc_guj_hist', name: 'Part B: ગુજરાતનો ઇતિહાસ, કલા, વારસો & ભૂગોળ', targetHours: 60, marks: 50 }
+          { id: 'pc_reasoning', name: 'રીઝનિંગ & ડેટા ઇન્ટરપ્રિટેશન (Part A)', marks: 30, targetHours: 50, studiedHours: 0 },
+          { id: 'pc_maths', name: 'ગણિત - Quantitative Aptitude (Part A)', marks: 30, targetHours: 50, studiedHours: 0 },
+          { id: 'pc_guj', name: 'ગુજરાતી ભાષા & કોમ્પ્રીહેન્શન (Part A)', marks: 20, targetHours: 30, studiedHours: 0 },
+          { id: 'pc_const', name: 'ભારતનું બંધારણ (Constitution - Part B)', marks: 30, targetHours: 55, studiedHours: 0 },
+          { id: 'pc_sci_tech', name: 'જનરલ સાયન્સ, ટેકનોલોજી & કરંટ અફેર્સ (Part B)', marks: 40, targetHours: 60, studiedHours: 0 },
+          { id: 'pc_hist_geo', name: 'ઇતિહાસ, વારસો અને ભૂગોળ (Part B)', marks: 50, targetHours: 70, studiedHours: 0 }
         ]
       },
-      police_psi: {
-        id: 'police_psi',
-        name: 'ગુજરાત પોલીસ PSI (પ્રિલિમ્સ+મેઇન્સ)',
+      psi: {
+        id: 'psi',
+        title: 'ગુજરાત પોલીસ સબ-ઇન્સ્પેક્ટર (PSI)',
+        badge: 'પોલીસ PSI [૪૦૦ ગુણ]',
         totalMarks: 400,
-        badgeColor: 'amber',
+        description: 'પ્રિલિમ્સ અને મુખ્ય પરીક્ષા (નવા ફોજદારી કાયદા BNS/BNSS/BSA સહિત).',
         subjects: [
-          { id: 'sub_psi_gen', name: 'જનરલ સ્ટડીઝ & સામાન્ય જ્ઞાન', targetHours: 70, marks: 100 },
-          { id: 'sub_psi_laws', name: 'નવા ફોજદારી કાયદા (BNS, BNSS, BSA)', targetHours: 80, marks: 100 },
-          { id: 'sub_psi_guj', name: 'ગુજરાતી વ્યાકરણ & લેખન કૌશલ્ય', targetHours: 60, marks: 100 },
-          { id: 'sub_psi_eng', name: 'અંગ્રેજી ભાષા & વ્યાકરણ', targetHours: 60, marks: 100 }
+          { id: 'psi_laws', name: 'નવા ફોજદારી કાયદા (BNS, BNSS, BSA)', marks: 100, targetHours: 80, studiedHours: 0 },
+          { id: 'psi_paper1', name: 'પેપર-૧: ગુજરાતી & અંગ્રેજી ભાષા', marks: 100, targetHours: 60, studiedHours: 0 },
+          { id: 'psi_const', name: 'બંધારણ, જાહેર વહીવટ & પંચાયતી રાજ', marks: 50, targetHours: 50, studiedHours: 0 },
+          { id: 'psi_reasoning', name: 'જનરલ મેન્ટલ એબિલિટી (રીઝનિંગ/ગણિત)', marks: 50, targetHours: 50, studiedHours: 0 },
+          { id: 'psi_gk', name: 'જનરલ સ્ટડીઝ, ઇતિહાસ, ભૂગોળ & કરંટ', marks: 100, targetHours: 70, studiedHours: 0 }
         ]
       },
       cce_clerk: {
         id: 'cce_clerk',
-        name: 'CCE સંયુક્ત ક્લાર્ક (Class-3)',
+        title: 'ગુજરાત CCE ક્લાર્ક (Group A & B)',
+        badge: 'CCE ક્લાર્ક [૧૦૦ ગુણ]',
         totalMarks: 100,
-        badgeColor: 'teal',
+        description: 'નવી સંયુક્ત સ્પર્ધાત્મક પરીક્ષા (CCE) પ્રિલિમ્સ ૧૦૦ ગુણ માળખું.',
         subjects: [
-          { id: 'sub_cce_reasoning', name: 'તાર્કિક કસોટી (Reasoning)', targetHours: 50, marks: 40 },
-          { id: 'sub_cce_maths', name: 'ગણિત (Quantitative Aptitude)', targetHours: 45, marks: 30 },
-          { id: 'sub_cce_eng', name: 'અંગ્રેજી વ્યાકરણ (English)', targetHours: 35, marks: 15 },
-          { id: 'sub_cce_guj', name: 'ગુજરાતી વ્યાકરણ (Gujarati)', targetHours: 35, marks: 15 }
+          { id: 'cce_reasoning', name: 'રીઝનિંગ ટેસ્ટ (Reasoning)', marks: 40, targetHours: 60, studiedHours: 0 },
+          { id: 'cce_maths', name: 'અંકગણિત (Quantitative Aptitude)', marks: 30, targetHours: 50, studiedHours: 0 },
+          { id: 'cce_eng', name: 'અંગ્રેજી ભાષા (English Language)', marks: 15, targetHours: 35, studiedHours: 0 },
+          { id: 'cce_guj', name: 'ગુજરાતી ભાષા (Gujarati Language)', marks: 15, targetHours: 35, studiedHours: 0 }
         ]
       },
       talati: {
         id: 'talati',
-        name: 'તલાટી / પંચાયત મંત્રી',
+        title: 'તલાટી કમ મંત્રી / જુનિયર ક્લાર્ક',
+        badge: 'તલાટી [૧૦૦ ગુણ]',
         totalMarks: 100,
-        badgeColor: 'blue',
+        description: 'પંચાયત પસંદગી બોર્ડ ૧૦૦ ગુણ સત્તાવાર માળખું.',
         subjects: [
-          { id: 'sub_tal_gk', name: 'સામાન્ય જ્ઞાન & કરંટ અફેર્સ', targetHours: 50, marks: 35 },
-          { id: 'sub_tal_guj', name: 'ગુજરાતી સાહિત્ય & વ્યાકરણ', targetHours: 40, marks: 20 },
-          { id: 'sub_tal_eng', name: 'અંગ્રેજી વ્યાકરણ', targetHours: 40, marks: 20 },
-          { id: 'sub_tal_maths', name: 'સામાન્ય ગણિત', targetHours: 35, marks: 15 },
-          { id: 'sub_tal_panchayat', name: 'પંચાયતી રાજ & યોજનાઓ', targetHours: 25, marks: 10 }
+          { id: 'tal_gk', name: 'જનરલ નોલેજ & કરંટ અફેર્સ', marks: 35, targetHours: 60, studiedHours: 0 },
+          { id: 'tal_guj', name: 'ગુજરાતી ભાષા અને સાહિત્ય', marks: 20, targetHours: 40, studiedHours: 0 },
+          { id: 'tal_eng', name: 'અંગ્રેજી વ્યાકરણ', marks: 20, targetHours: 40, studiedHours: 0 },
+          { id: 'tal_maths', name: 'સામાન્ય ગણિત', marks: 15, targetHours: 35, studiedHours: 0 },
+          { id: 'tal_panchayat', name: 'પંચાયતી રાજ & યોજનાઓ', marks: 10, targetHours: 25, studiedHours: 0 }
         ]
       },
-      forest_guard: {
-        id: 'forest_guard',
-        name: 'વનરક્ષક (Forest Guard)',
+      forest: {
+        id: 'forest',
+        title: 'ગુજરાત વનરક્ષક (Forest Guard)',
+        badge: 'વનરક્ષક [૨૦૦ ગુણ]',
         totalMarks: 200,
-        badgeColor: 'emerald',
+        description: '૫૦% વેઇટેજ પર્યાવરણ અને વનસ્પતિ શાસ્ત્ર આધારિત.',
         subjects: [
-          { id: 'sub_fg_env', name: 'પર્યાવરણ, વનસ્પતિ & ઇકોલોજી (૫૦%)', targetHours: 70, marks: 100 },
-          { id: 'sub_fg_gk', name: 'સામાન્ય જ્ઞાન & ઇતિહાસ', targetHours: 45, marks: 50 },
-          { id: 'sub_fg_maths', name: 'ગણિત (ક્ષમતા કસોટી)', targetHours: 35, marks: 25 },
-          { id: 'sub_fg_guj', name: 'ગુજરાતી ભાષા & વ્યાકરણ', targetHours: 35, marks: 25 }
+          { id: 'for_env', name: 'પર્યાવરણ, વનસ્પતિ & ઇકોલોજી (૫૦%)', marks: 100, targetHours: 80, studiedHours: 0 },
+          { id: 'for_gk', name: 'સામાન્ય જ્ઞાન & કરંટ અફેર્સ', marks: 50, targetHours: 45, studiedHours: 0 },
+          { id: 'for_maths', name: 'સામાન્ય ગણિત', marks: 25, targetHours: 30, studiedHours: 0 },
+          { id: 'for_guj', name: 'ગુજરાતી ભાષા', marks: 25, targetHours: 30, studiedHours: 0 }
         ]
       }
     };
 
-    /* Daily Motivational Quotes & Shayari Collection */
-    const MOTIVATIONAL_SHAYARI = [
-      { text: "સપના એ નથી જે ઊંઘમાં આવે, સપના તો એ છે જે તમને ઊંઘવા જ ન દે!", author: "ડૉ. એ.પી.જે. અબ્દુલ કલામ" },
-      { text: "મંઝીલ ઉન્હી કો મિલતી હૈ જિનકે સપનોં મેં જાન હોતી હૈ, પંખોં સે કુછ નહીં હોતા હૌસલોં સે ઉડાન હોતી હૈ!", author: "ખાખી લવર્સ સ્પેશિયલ" },
-      { text: "તમારી આજની મહેનત જ તમારી આવતીકાલની સરકારી ખુરશી નક્કી કરશે. એક પણ દિવસ વ્યર્થ ન જવા દો!", author: "મિશન કંડક્ટર / ક્લાર્ક" },
-      { text: "કિનારા પર બેસીને મોતી નથી મળતા, સમંદરમાં ઉતરવું પડે છે! મહેનત એવી કરો કે પરિણામ પણ સલામ ઠોકે!", author: "સરકારી સંકલ્પ" },
-      { text: "લક્ષ્ય સુધી પહોંચતા સુધી થાકવાનું નથી, કારણ કે ગુજરાતના હજારો ઉમેદવારો વચ્ચે તમારી ઓળખ તમારી મહેનત જ બનાવશે.", author: "અભ્યાસસેતુ પ્રેરણા" },
-      { text: "સફળતા કોઈ અકસ્માત નથી; તે સખત પરિશ્રમ, સાતત્ય અને રોજના ૬ કલાકના સમર્પણનું ફળ છે.", author: "વિવેક ડાંગર" }
+    /* ---------------- DAILY MOTIVATIONAL QUOTES & SHAYARIS ---------------- */
+    const MOTIVATION_QUOTES = [
+      { text: "મંઝિલ મળશે જ ભટકતા ભટકતા જ સહી, ગુમરાહ તો એ લોકો છે જે ઘરથી નીકળ્યા જ નથી!", author: "મિશન સરકારી નોકરી" },
+      { text: "જ્યાં સુધી તમે જીતશો નહીં ત્યાં સુધી તમારી વાર્તા કોઈ નહીં સાંભળે, એટલે પહેલાં જીતીને બતાવો!", author: "સ્પર્ધાત્મક પ્રેરણા" },
+      { text: "જે રાતો તમે પુસ્તકો સાથે જાગીને વિતાવી છે, એ જ રાતો આવતીકાલે તમારું સૂર્ય જેવું તેજ ચમકાવશે.", author: "અભ્યાસસેતુ પ્રેરણા" },
+      { text: "નસીબના ભરોસે બેસવા કરતાં મહેનત એટલી કરો કે ખુદ નસીબ પણ કહે કે - આ તો તારો જ હક છે!", author: "ખાખી મનોબળ" },
+      { text: "સમય ક્યારેય ખરાબ નથી હોતો, જો સંકલ્પ મક્કમ હોય તો દરેક સેકન્ડ સફળતાની સીડી બની જાય છે.", author: "કંડક્ટર સ્પેશિયલ" },
+      { text: "મુશ્કેલીઓ ફક્ત એ લોકોને જ મળે છે જે જવાબદારી ઉપાડવાની હિંમત રાખે છે!", author: "સફળતા મંત્ર" },
+      { text: "ખુદને એટલા તૈયાર કરો કે પરીક્ષા હોલમાંથી બહાર નીકળતી વખતે તમારા ચહેરા પર વિજયનું સ્મિત હોય.", author: "ગુજરાત યુવા શક્તિ" }
     ];
 
-    /* Leaderboard Peer Benchmarks (Gujarat Competitive Exam Aspirants) */
-    const BENCHMARK_ASPIRANTS = [
-      { id: 'asp_1', name: 'હાર્દિક પટેલ', city: 'રાજકોટ', exam: 'GSRTC કંડક્ટર', todayHours: 7.2, weeklyHours: 42.5, streak: 24 },
-      { id: 'asp_2', name: 'હેતલ ચૌધરી', city: 'ગાંધીનગર', exam: 'CCE ક્લાર્ક', todayHours: 6.5, weeklyHours: 39.0, streak: 19 },
-      { id: 'asp_3', name: 'પ્રિયંક સોલંકી', city: 'અમદાવાદ', exam: 'પોલીસ કોન્સ્ટેબલ', todayHours: 6.0, weeklyHours: 36.5, streak: 15 },
-      { id: 'asp_4', name: 'ધવલ બારૈયા', city: 'ભાવનગર', exam: 'GSRTC કંડક્ટર', todayHours: 5.2, weeklyHours: 32.0, streak: 12 },
-      { id: 'asp_5', name: 'અંકિતા જોશી', city: 'જૂનાગઢ', exam: 'તલાટી / પંચાયત', todayHours: 4.5, weeklyHours: 29.5, streak: 10 },
-      { id: 'asp_6', name: 'વિજય રબારી', city: 'મહેસાણા', exam: 'વનરક્ષક / Guard', todayHours: 3.8, weeklyHours: 25.0, streak: 8 },
-      { id: 'asp_7', name: 'કૌશિક વાઘેલા', city: 'વડોદરા', exam: 'GSRTC ડ્રાઈવર', todayHours: 3.0, weeklyHours: 21.0, streak: 7 }
-    ];
+    /* ---------------- STATE MANAGEMENT ---------------- */
+    let selectedExamKey = localStorage.getItem('as_selected_exam') || 'conductor';
+    let subjects = JSON.parse(localStorage.getItem('as_subjects_' + selectedExamKey)) || EXAM_BLUEPRINTS[selectedExamKey].subjects;
+    let logs = JSON.parse(localStorage.getItem('as_logs')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('as_user')) || null;
 
-    /* Global App State */
-    let currentUser = null;
-    let currentExamKey = 'gsrtc_conductor';
-    let subjects = [];
-    let studyLogs = [];
-    let attendanceDates = [];
-    let leaderboardViewMode = 'today'; // 'today' | 'weekly'
-
-    /* Timer Engine Variables */
-    let timerMode = 'stopwatch'; // 'stopwatch' | 'pomodoro'
-    let timerRunning = false;
-    let timerStartTimestamp = 0;
-    let timerAccumulatedMs = 0;
+    // Timer Variables
+    let timerMode = 'stopwatch';
     let timerInterval = null;
-    let pomodoroDurationMinutes = 25;
+    let timerSeconds = 0;
+    let pomodoroDurationSec = 25 * 60;
+    let timerRunning = false;
+    let weeklyChartInstance = null;
 
-    /* Web Audio Synthesizer (Zero External MP3s Needed) */
-    let audioCtx = null;
-    function playAudioCue(type = 'beep') {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+    /* ---------------- INITIALIZATION ---------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initUserUI();
+      initMotivationBanner();
+      renderExamBadge();
+      populateSubjectDropdowns();
+      renderSubjectsList();
+      renderHeatmap();
+      renderWeeklyChart();
+      renderLeaderboard('today');
+      updateOverviewStats();
+      setupEventListeners();
+    });
 
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        const now = audioCtx.currentTime;
-        if (type === 'complete') {
-          osc.frequency.setValueAtTime(587.33, now); // D5
-          osc.frequency.exponentialRampToValueAtTime(880, now + 0.3); // A5
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
-          osc.start(now);
-          osc.stop(now + 0.5);
-        } else {
-          osc.frequency.setValueAtTime(659.25, now);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
-          osc.start(now);
-          osc.stop(now + 0.1);
-        }
-      } catch (e) {
-        console.warn('Audio not initialized yet:', e);
-      }
-    }
-
-    /* Helper: Local Storage Load/Save */
-    function loadState() {
-      try {
-        const savedExam = localStorage.getItem('abhyassetu_exam');
-        if (savedExam && EXAM_PRESETS[savedExam]) {
-          currentExamKey = savedExam;
-        }
-
-        const savedSubjects = localStorage.getItem(`abhyassetu_subjects_${currentExamKey}`);
-        if (savedSubjects) {
-          subjects = JSON.parse(savedSubjects);
-        } else {
-          subjects = JSON.parse(JSON.stringify(EXAM_PRESETS[currentExamKey].subjects));
-        }
-
-        const savedLogs = localStorage.getItem('abhyassetu_logs');
-        if (savedLogs) studyLogs = JSON.parse(savedLogs);
-
-        const savedAttendance = localStorage.getItem('abhyassetu_attendance');
-        if (savedAttendance) attendanceDates = JSON.parse(savedAttendance);
-
-        const savedUser = localStorage.getItem('abhyassetu_user');
-        if (savedUser) currentUser = JSON.parse(savedUser);
-
-        const savedPomoMins = localStorage.getItem('abhyassetu_pomo_mins');
-        if (savedPomoMins) pomodoroDurationMinutes = parseInt(savedPomoMins, 10) || 25;
-
-      } catch (err) {
-        console.error('Error loading state:', err);
-      }
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem('abhyassetu_exam', currentExamKey);
-        localStorage.setItem(`abhyassetu_subjects_${currentExamKey}`, JSON.stringify(subjects));
-        localStorage.setItem('abhyassetu_logs', JSON.stringify(studyLogs));
-        localStorage.setItem('abhyassetu_attendance', JSON.stringify(attendanceDates));
-        localStorage.setItem('abhyassetu_pomo_mins', pomodoroDurationMinutes.toString());
-        if (currentUser) {
-          localStorage.setItem('abhyassetu_user', JSON.stringify(currentUser));
-        }
-      } catch (err) {
-        console.error('Error saving state:', err);
-      }
-    }
-
-    /* Format helpers */
-    function getTodayDateString() {
-      const d = new Date();
-      const year = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-
-    function formatTimeDigits(totalSeconds) {
-      const hrs = Math.floor(totalSeconds / 3600);
-      const mins = Math.floor((totalSeconds % 3600) / 60);
-      const secs = totalSeconds % 60;
-      return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
-
-    /* Timer Delta Update Core */
-    function getElapsedMs() {
-      let ms = timerAccumulatedMs;
-      if (timerRunning) {
-        ms += (Date.now() - timerStartTimestamp);
-      }
-      return ms;
-    }
-
-    function updateTimerDisplay() {
-      const elapsedMs = getElapsedMs();
-      const elapsedSeconds = Math.floor(elapsedMs / 1000);
-
-      const digitsEl = document.getElementById('timerDigitsDisplay');
-      const subtextEl = document.getElementById('timerSubtext');
-
-      if (timerMode === 'stopwatch') {
-        digitsEl.textContent = formatTimeDigits(elapsedSeconds);
-        subtextEl.textContent = timerRunning ? '🔥 સ્ટોપવોચ લાઈવ ચાલુ છે...' : 'સ્ટોપવોચ થોભાવી છે';
+    /* ---------------- USER AUTHENTICATION ---------------- */
+    function initUserUI() {
+      const navUserName = document.getElementById('navUserName');
+      const myLeaderboardName = document.getElementById('myLeaderboardName');
+      if (currentUser && currentUser.name) {
+        navUserName.textContent = currentUser.name;
+        myLeaderboardName.textContent = currentUser.name + " (તમે)";
       } else {
-        // Pomodoro Countdown
-        const totalPomoSecs = pomodoroDurationMinutes * 60;
-        const remainSecs = Math.max(0, totalPomoSecs - elapsedSeconds);
-        digitsEl.textContent = formatTimeDigits(remainSecs);
-        subtextEl.textContent = timerRunning ? `🍅 પોમોડોરો ચાલુ છે (${pomodoroDurationMinutes}m લક્ષ્ય)...` : 'પોમોડોરો તૈયાર છે';
+        navUserName.textContent = "રજીસ્ટ્રેશન / લૉગિન";
+        myLeaderboardName.textContent = "વિવેક ડાંગર (તમે)";
+      }
+    }
 
-        // Check completion
-        if (remainSecs === 0 && timerRunning) {
-          stopTimer();
-          playAudioCue('complete');
-          confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
-          subtextEl.textContent = '🎉 અદ્ભુત! પોમોડોરો સેશન પૂર્ણ થયું!';
-        }
+    /* ---------------- MOTIVATION BANNER ---------------- */
+    function initMotivationBanner() {
+      const today = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('todayDateStr').textContent = today.toLocaleDateString('gu-IN', options);
+      
+      const dayIndex = today.getDate() % MOTIVATION_QUOTES.length;
+      setQuote(MOTIVATION_QUOTES[dayIndex]);
+    }
+
+    function setQuote(quote) {
+      document.getElementById('motivationalQuoteText').textContent = `"${quote.text}"`;
+      document.getElementById('motivationalAuthorText').textContent = `— ${quote.author}`;
+    }
+
+    /* ---------------- EXAM HUB & BLUEPRINT ---------------- */
+    function renderExamBadge() {
+      const currentBlueprint = EXAM_BLUEPRINTS[selectedExamKey];
+      document.getElementById('currentExamNavBadge').textContent = currentBlueprint.badge;
+      document.getElementById('syllabusSectionTitle').textContent = `${currentBlueprint.title} - વિષયવાર સિલેબસ`;
+      document.getElementById('syllabusSubtitle').textContent = `કુલ ગુણભાર: ${currentBlueprint.totalMarks} ગુણ | સત્તાવાર પરીક્ષા માળખું`;
+    }
+
+    function openExamModal() {
+      const grid = document.getElementById('examCardsGrid');
+      grid.innerHTML = '';
+
+      Object.keys(EXAM_BLUEPRINTS).forEach(key => {
+        const item = EXAM_BLUEPRINTS[key];
+        const isSelected = key === selectedExamKey;
+
+        const card = document.createElement('div');
+        card.className = `p-4 rounded-xl border transition-all cursor-pointer ${
+          isSelected 
+            ? 'bg-amber-500/15 border-amber-500 shadow-lg shadow-amber-500/10 ring-1 ring-amber-500' 
+            : 'bg-slate-900/90 border-dark-border hover:border-slate-600 hover:bg-slate-800'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                isSelected ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-300'
+              }">${item.totalMarks} ગુણ</span>
+              <h4 class="font-bold text-white text-sm mt-1.5">${item.title}</h4>
+            </div>
+            ${isSelected ? '<i data-lucide="check-circle-2" class="w-5 h-5 text-amber-400 shrink-0"></i>' : ''}
+          </div>
+          <p class="text-xs text-slate-400 mt-2 line-clamp-2">${item.description}</p>
+          <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>કુલ ${item.subjects.length} વિષયો</span>
+            <span class="text-amber-400 font-semibold">${isSelected ? 'ચાલુ છે ✓' : 'પસંદ કરો →'}</span>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          changeExam(key);
+          document.getElementById('examSelectModal').classList.add('hidden');
+        });
+
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+      document.getElementById('examSelectModal').classList.remove('hidden');
+    }
+
+    function changeExam(newExamKey) {
+      if (selectedExamKey === newExamKey) return;
+      selectedExamKey = newExamKey;
+      localStorage.setItem('as_selected_exam', selectedExamKey);
+      
+      const saved = localStorage.getItem('as_subjects_' + selectedExamKey);
+      subjects = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(EXAM_BLUEPRINTS[selectedExamKey].subjects));
+      
+      renderExamBadge();
+      populateSubjectDropdowns();
+      renderSubjectsList();
+      updateOverviewStats();
+    }
+
+    function resetSyllabusToOriginal() {
+      if (confirm(`શું તમે ખરેખર ${EXAM_BLUEPRINTS[selectedExamKey].title} નો મૂળ સિલેબસ રીસેટ કરવા માંગો છો?`)) {
+        subjects = JSON.parse(JSON.stringify(EXAM_BLUEPRINTS[selectedExamKey].subjects));
+        localStorage.setItem('as_subjects_' + selectedExamKey, JSON.stringify(subjects));
+        populateSubjectDropdowns();
+        renderSubjectsList();
+        updateOverviewStats();
+      }
+    }
+
+    /* ---------------- SUBJECT MANAGEMENT ---------------- */
+    function populateSubjectDropdowns() {
+      const activeSelect = document.getElementById('activeSubjectSelect');
+      const manualSelect = document.getElementById('manualSubjectSelect');
+      
+      activeSelect.innerHTML = '';
+      manualSelect.innerHTML = '';
+
+      subjects.forEach(sub => {
+        const opt1 = document.createElement('option');
+        opt1.value = sub.id;
+        opt1.textContent = `${sub.name} [${sub.marks || 0} ગુણ]`;
+        activeSelect.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = sub.id;
+        opt2.textContent = `${sub.name} [${sub.marks || 0} ગુણ]`;
+        manualSelect.appendChild(opt2);
+      });
+    }
+
+    function renderSubjectsList() {
+      const container = document.getElementById('subjectsListGrid');
+      container.innerHTML = '';
+
+      subjects.forEach(sub => {
+        const pct = Math.min(100, Math.round(((sub.studiedHours || 0) / (sub.targetHours || 1)) * 100));
+        
+        const card = document.createElement('div');
+        card.className = 'bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between hover:border-slate-700 transition-all';
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <h4 class="text-sm font-semibold text-white">${sub.name}</h4>
+              <span class="text-[11px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 whitespace-nowrap">
+                ${sub.marks || 0} ગુણ
+              </span>
+            </div>
+            
+            <div class="mt-3 flex items-baseline justify-between text-xs text-slate-400">
+              <span>વાંચન: <strong class="text-white">${(sub.studiedHours || 0).toFixed(1)}</strong> કલાક</span>
+              <span>લક્ષ્યાંક: ${sub.targetHours} કલાક</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mt-2">
+              <div class="bg-gradient-to-r from-amber-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+            </div>
+          </div>
+
+          <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span class="text-emerald-400 font-semibold">${pct}% પૂર્ણ</span>
+            <button data-subid="${sub.id}" class="quick-add-hour text-slate-400 hover:text-amber-400 flex items-center gap-1">
+              <i data-lucide="plus" class="w-3 h-3"></i> +1 કલાક
+            </button>
+          </div>
+        `;
+
+        card.querySelector('.quick-add-hour').addEventListener('click', () => {
+          logStudyHours(sub.id, 1, new Date().toISOString().split('T')[0]);
+        });
+
+        container.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    /* ---------------- TIMER ENGINE ---------------- */
+    function updateTimerDisplay() {
+      let sec = timerSeconds;
+      if (timerMode === 'pomodoro') {
+        sec = Math.max(0, pomodoroDurationSec - timerSeconds);
+      }
+
+      const h = String(Math.floor(sec / 3600)).padStart(2, '0');
+      const m = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
+      const s = String(sec % 60).padStart(2, '0');
+      document.getElementById('timerDisplay').textContent = `${h}:${m}:${s}`;
+
+      if (timerMode === 'pomodoro' && sec === 0 && timerRunning) {
+        completeTimerSession();
+        if (window.confetti) confetti();
+        alert('🎉 અભિનંદન! તમારું પોમોડોરો લક્ષ્યાંક પૂર્ણ થયું.');
       }
     }
 
     function startTimer() {
       if (timerRunning) return;
       timerRunning = true;
-      timerStartTimestamp = Date.now();
-      timerInterval = setInterval(updateTimerDisplay, 250);
+      document.getElementById('startTimerBtn').classList.add('hidden');
+      document.getElementById('pauseTimerBtn').classList.remove('hidden');
+      document.getElementById('stopTimerBtn').classList.remove('hidden');
+      document.getElementById('timerStatusText').textContent = 'વાંચન ચાલુ છે... ધ્યાન કેન્દ્રિત રાખો!';
+      document.getElementById('timerStatusText').className = 'text-xs uppercase tracking-widest text-emerald-400 mt-2 font-semibold animate-pulse';
 
-      const btn = document.getElementById('timerToggleBtn');
-      btn.classList.remove('bg-primary-600', 'hover:bg-primary-700');
-      btn.classList.add('bg-amber-600', 'hover:bg-amber-700');
-      document.getElementById('timerToggleText').textContent = 'થોભાવો (Pause)';
-      playAudioCue('beep');
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        updateTimerDisplay();
+      }, 1000);
     }
 
-    function stopTimer() {
+    function pauseTimer() {
       if (!timerRunning) return;
-      timerAccumulatedMs += (Date.now() - timerStartTimestamp);
       timerRunning = false;
       clearInterval(timerInterval);
-
-      const btn = document.getElementById('timerToggleBtn');
-      btn.classList.remove('bg-amber-600', 'hover:bg-amber-700');
-      btn.classList.add('bg-primary-600', 'hover:bg-primary-700');
-      document.getElementById('timerToggleText').textContent = 'શરૂ કરો (Resume)';
-      updateTimerDisplay();
+      document.getElementById('startTimerBtn').classList.remove('hidden');
+      document.getElementById('pauseTimerBtn').classList.add('hidden');
+      document.getElementById('timerStatusText').textContent = 'વિરામ (Paused)';
+      document.getElementById('timerStatusText').className = 'text-xs uppercase tracking-widest text-amber-400 mt-2 font-semibold';
     }
 
-    function resetTimer() {
-      timerRunning = false;
-      clearInterval(timerInterval);
-      timerAccumulatedMs = 0;
-      timerStartTimestamp = 0;
+    function completeTimerSession() {
+      pauseTimer();
+      const loggedSeconds = timerSeconds;
+      const hours = Math.round((loggedSeconds / 3600) * 100) / 100;
 
-      const btn = document.getElementById('timerToggleBtn');
-      btn.classList.remove('bg-amber-600', 'hover:bg-amber-700');
-      btn.classList.add('bg-primary-600', 'hover:bg-primary-700');
-      document.getElementById('timerToggleText').textContent = 'શરૂ કરો (Start)';
-      updateTimerDisplay();
-    }
-
-    /* Save Session Action */
-    function saveCurrentSession() {
-      const elapsedMs = getElapsedMs();
-      const elapsedSeconds = Math.floor(elapsedMs / 1000);
-      const minutes = Math.round(elapsedSeconds / 60);
-
-      if (minutes < 1 && elapsedSeconds < 30) {
-        showToast('ઓછામાં ઓછું ૩૦ સેકન્ડ કે ૧ મિનિટ વાંચ્યા પછી જ સેશન સેવ થશે!');
-        return;
+      if (hours >= 0.01) {
+        const subId = document.getElementById('activeSubjectSelect').value;
+        const todayStr = new Date().toISOString().split('T')[0];
+        logStudyHours(subId, hours, todayStr);
       }
 
-      const subjectSelect = document.getElementById('timerSubjectSelect');
-      const subjectId = subjectSelect.value;
-      const subjectObj = subjects.find(s => s.id === subjectId) || subjects[0];
-      const subjectName = subjectObj ? subjectObj.name : 'સામાન્ય અભ્યાસ';
-      const notes = document.getElementById('timerTopicInput').value.trim() || 'નિયમિત સેશન';
-      const todayStr = getTodayDateString();
+      timerSeconds = 0;
+      updateTimerDisplay();
+      document.getElementById('stopTimerBtn').classList.add('hidden');
+      document.getElementById('timerStatusText').textContent = 'તૈયાર • સ્ટાર્ટ બટન દબાવો';
+      document.getElementById('timerStatusText').className = 'text-xs uppercase tracking-widest text-slate-500 mt-2 font-semibold';
+    }
 
-      const newLog = {
+    /* ---------------- LOGGING HOURS ---------------- */
+    function logStudyHours(subjectId, hours, dateStr) {
+      const sub = subjects.find(s => s.id === subjectId);
+      if (sub) {
+        sub.studiedHours = (sub.studiedHours || 0) + hours;
+        localStorage.setItem('as_subjects_' + selectedExamKey, JSON.stringify(subjects));
+      }
+
+      logs.push({
         id: 'log_' + Date.now(),
-        date: todayStr,
-        timestamp: Date.now(),
-        subjectId: subjectId,
-        subjectName: subjectName,
-        durationMinutes: Math.max(1, minutes),
-        notes: notes
-      };
+        examKey: selectedExamKey,
+        subjectId,
+        hours,
+        date: dateStr,
+        timestamp: Date.now()
+      });
+      localStorage.setItem('as_logs', JSON.stringify(logs));
 
-      studyLogs.unshift(newLog);
-
-      // Auto mark attendance for today
-      if (!attendanceDates.includes(todayStr)) {
-        attendanceDates.push(todayStr);
-      }
-
-      saveState();
-      resetTimer();
-      document.getElementById('timerTopicInput').value = '';
-
-      playAudioCue('complete');
-      confetti({ particleCount: 60, spread: 55, origin: { y: 0.7 } });
-      showToast(`🎉 શાબાશ! ${newLog.durationMinutes} મિનિટનો અભ્યાસ સેવ થઈ ગયો!`);
-
-      renderDashboard();
+      renderSubjectsList();
+      renderHeatmap();
+      renderWeeklyChart();
+      renderLeaderboard('today');
+      updateOverviewStats();
     }
 
-    /* Calculate Streak Count */
-    function calculateStreak() {
-      if (!attendanceDates.length) return 0;
-      const sorted = [...new Set(attendanceDates)].sort().reverse();
-      const todayStr = getTodayDateString();
+    /* ---------------- OVERVIEW STATS & STREAK ---------------- */
+    function updateOverviewStats() {
+      const todayStr = new Date().toISOString().split('T')[0];
+      let total = 0;
+      let today = 0;
 
+      logs.forEach(l => {
+        total += l.hours;
+        if (l.date === todayStr) {
+          today += l.hours;
+        }
+      });
+
+      document.getElementById('totalStudyHours').textContent = total.toFixed(1);
+      document.getElementById('todayStudyHours').textContent = today.toFixed(1);
+      document.getElementById('myLeaderboardHours').textContent = today.toFixed(1);
+
+      const uniqueDates = [...new Set(logs.map(l => l.date))].sort().reverse();
       let streak = 0;
       let checkDate = new Date();
-
-      // If today not marked yet, check if yesterday was marked
-      if (!sorted.includes(todayStr)) {
-        checkDate.setDate(checkDate.getDate() - 1);
-        const yestStr = checkDate.toISOString().split('T')[0];
-        if (!sorted.includes(yestStr)) {
-          return 0; // Streak broken
-        }
-      }
-
-      // Count backwards
-      while (true) {
+      
+      for (let i = 0; i < 60; i++) {
         const dStr = checkDate.toISOString().split('T')[0];
-        if (sorted.includes(dStr)) {
+        if (uniqueDates.includes(dStr)) {
           streak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else if (i === 0) {
           checkDate.setDate(checkDate.getDate() - 1);
         } else {
           break;
         }
       }
-      return streak;
+      document.getElementById('currentStreakCount').textContent = streak;
+
+      const targetSum = subjects.reduce((acc, s) => acc + (s.targetHours || 0), 0);
+      const studiedSum = subjects.reduce((acc, s) => acc + (s.studiedHours || 0), 0);
+      const overallPct = targetSum > 0 ? Math.min(100, Math.round((studiedSum / targetSum) * 100)) : 0;
+      
+      document.getElementById('syllabusProgressPct').textContent = `${overallPct}%`;
+      document.getElementById('syllabusProgressHours').textContent = `${studiedSum.toFixed(1)} / ${targetSum} કલાક`;
     }
 
-    /* Chart instances */
-    let weeklyChartInstance = null;
-    let subjectPieChartInstance = null;
-
-    function renderCharts() {
-      const isDark = document.documentElement.classList.contains('dark');
-      const textColor = isDark ? '#94a3b8' : '#64748b';
-      const gridColor = isDark ? 'rgba(51, 65, 85, 0.4)' : 'rgba(226, 232, 240, 0.8)';
-
-      /* 1. Weekly Hours Bar Chart */
-      const ctxWeekly = document.getElementById('weeklyHoursChart');
-      if (ctxWeekly) {
-        const daysLabels = [];
-        const daysData = [];
-
-        for (let i = 6; i >= 0; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          const dateStr = d.toISOString().split('T')[0];
-          const label = d.toLocaleDateString('gu-IN', { weekday: 'short' });
-          daysLabels.push(label);
-
-          const dayMins = studyLogs
-            .filter(l => l.date === dateStr)
-            .reduce((sum, l) => sum + l.durationMinutes, 0);
-          daysData.push(parseFloat((dayMins / 60).toFixed(1)));
-        }
-
-        if (weeklyChartInstance) weeklyChartInstance.destroy();
-
-        weeklyChartInstance = new Chart(ctxWeekly, {
-          type: 'bar',
-          data: {
-            labels: daysLabels,
-            datasets: [{
-              label: 'વાંચેલા કલાક',
-              data: daysData,
-              backgroundColor: '#16a34a',
-              borderRadius: 8,
-              borderSkipped: false
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false }
-            },
-            scales: {
-              x: {
-                grid: { display: false },
-                ticks: { color: textColor, font: { size: 11 } }
-              },
-              y: {
-                grid: { color: gridColor },
-                ticks: { color: textColor, font: { size: 10 } },
-                suggestedMax: 6
-              }
-            }
-          }
-        });
-      }
-
-      /* 2. Subject Distribution Donut */
-      const ctxPie = document.getElementById('subjectPieChart');
-      if (ctxPie) {
-        const subjectHoursMap = {};
-        subjects.forEach(s => { subjectHoursMap[s.name] = 0; });
-        studyLogs.forEach(l => {
-          if (subjectHoursMap[l.subjectName] !== undefined) {
-            subjectHoursMap[l.subjectName] += (l.durationMinutes / 60);
-          }
-        });
-
-        const pieLabels = [];
-        const pieData = [];
-        const pieColors = ['#16a34a', '#0d9488', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#f97316', '#06b6d4', '#84cc16'];
-
-        Object.keys(subjectHoursMap).forEach(name => {
-          const hrs = parseFloat(subjectHoursMap[name].toFixed(1));
-          if (hrs > 0) {
-            pieLabels.push(name);
-            pieData.push(hrs);
-          }
-        });
-
-        if (subjectPieChartInstance) subjectPieChartInstance.destroy();
-
-        if (pieData.length === 0) {
-          // Render default placeholder
-          subjectPieChartInstance = new Chart(ctxPie, {
-            type: 'doughnut',
-            data: {
-              labels: ['હજુ કોઈ વાંચન નોંધાયું નથી'],
-              datasets: [{ data: [1], backgroundColor: ['#334155'] }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { position: 'bottom', labels: { color: textColor, font: { size: 10 } } } }
-            }
-          });
-        } else {
-          subjectPieChartInstance = new Chart(ctxPie, {
-            type: 'doughnut',
-            data: {
-              labels: pieLabels,
-              datasets: [{
-                data: pieData,
-                backgroundColor: pieColors.slice(0, pieLabels.length),
-                borderWidth: 0
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: 'bottom',
-                  labels: { color: textColor, font: { size: 10 }, boxWidth: 10 }
-                }
-              },
-              cutout: '65%'
-            }
-          });
-        }
-      }
-    }
-
-    /* Consistency 60-Day Heatmap */
+    /* ---------------- 60-DAY HEATMAP ---------------- */
     function renderHeatmap() {
-      const container = document.getElementById('heatmapGrid');
-      if (!container) return;
+      const container = document.getElementById('heatmapContainer');
       container.innerHTML = '';
 
-      const today = new Date();
-      // 60 days
+      const dayHoursMap = {};
+      logs.forEach(l => {
+        dayHoursMap[l.date] = (dayHoursMap[l.date] || 0) + l.hours;
+      });
+
       for (let i = 59; i >= 0; i--) {
         const d = new Date();
-        d.setDate(today.getDate() - i);
-        const dateStr = d.toISOString().split('T')[0];
+        d.setDate(d.getDate() - i);
+        const dStr = d.toISOString().split('T')[0];
+        const hrs = dayHoursMap[dStr] || 0;
 
-        const dayMins = studyLogs
-          .filter(l => l.date === dateStr)
-          .reduce((sum, l) => sum + l.durationMinutes, 0);
-        const hours = (dayMins / 60);
+        let bgClass = 'bg-slate-800/80';
+        if (hrs > 0 && hrs < 2) bgClass = 'bg-emerald-950 border border-emerald-800';
+        else if (hrs >= 2 && hrs < 4) bgClass = 'bg-emerald-700';
+        else if (hrs >= 4 && hrs < 6) bgClass = 'bg-emerald-500';
+        else if (hrs >= 6) bgClass = 'bg-emerald-400 shadow shadow-emerald-400/30';
 
-        let bgClass = 'bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60';
-        if (hours >= 5) bgClass = 'bg-emerald-600 dark:bg-emerald-400';
-        else if (hours >= 3) bgClass = 'bg-emerald-500 dark:bg-emerald-500';
-        else if (hours >= 1) bgClass = 'bg-emerald-400 dark:bg-emerald-600';
-        else if (hours > 0) bgClass = 'bg-emerald-200 dark:bg-emerald-900';
-
-        const cell = document.createElement('div');
-        cell.className = `w-3 h-3 rounded-xs ${bgClass} transition hover:scale-125 cursor-pointer`;
-        cell.title = `${dateStr}: ${hours.toFixed(1)} કલાક વાંચન`;
-        container.appendChild(cell);
+        const sq = document.createElement('div');
+        sq.className = `heat-sq ${bgClass}`;
+        sq.title = `${dStr}: ${hrs.toFixed(1)} કલાક`;
+        container.appendChild(sq);
       }
     }
 
-    /* Live Gujarat Leaderboard */
-    function renderLeaderboard() {
+    /* ---------------- WEEKLY BAR CHART ---------------- */
+    function renderWeeklyChart() {
+      const ctx = document.getElementById('weeklyChart').getContext('2d');
+      const labels = [];
+      const data = [];
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dStr = d.toISOString().split('T')[0];
+        const dayName = d.toLocaleDateString('gu-IN', { weekday: 'short' });
+        labels.push(dayName);
+
+        const totalDayHours = logs
+          .filter(l => l.date === dStr)
+          .reduce((acc, l) => acc + l.hours, 0);
+        data.push(totalDayHours);
+      }
+
+      if (weeklyChartInstance) {
+        weeklyChartInstance.destroy();
+      }
+
+      weeklyChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'કલાક',
+            data,
+            backgroundColor: 'rgba(245, 158, 11, 0.85)',
+            borderRadius: 6,
+            hoverBackgroundColor: '#fbbf24'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } },
+            y: { grid: { color: '#1f2937' }, ticks: { color: '#94a3b8', font: { size: 10 } }, beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    /* ---------------- LIVE GUJARAT LEADERBOARD ---------------- */
+    const MOCK_TOPPERS = [
+      { name: "હાર્દિક પટેલ", city: "અમદાવાદ", exam: "GSRTC કંડક્ટર", streak: 28, todayHours: 7.5, weekHours: 46 },
+      { name: "ભાવેશ ચૌધરી", city: "મહેસાણા", exam: "પોલીસ કોન્સ્ટેબલ", streak: 35, todayHours: 6.8, weekHours: 43 },
+      { name: "પૂજા રાઠોડ", city: "રાજકોટ", exam: "CCE ક્લાર્ક", streak: 21, todayHours: 6.2, weekHours: 39 },
+      { name: "વિજય રબારી", city: "બનાસકાંઠા", exam: "વનરક્ષક", streak: 19, todayHours: 5.5, weekHours: 36 },
+      { name: "કિશન સોલંકી", city: "ભાવનગર", exam: "GSRTC કંડક્ટર", streak: 14, todayHours: 4.8, weekHours: 31 }
+    ];
+
+    function renderLeaderboard(filter = 'today') {
       const tbody = document.getElementById('leaderboardTableBody');
-      if (!tbody) return;
       tbody.innerHTML = '';
 
-      /* 1. Calculate user hours */
-      const todayStr = getTodayDateString();
-      const userTodayMinutes = studyLogs
-        .filter(l => l.date === todayStr)
-        .reduce((sum, l) => sum + l.durationMinutes, 0);
-      const userTodayHours = parseFloat((userTodayMinutes / 60).toFixed(1));
+      const todayStr = new Date().toISOString().split('T')[0];
+      const myTodayHours = logs.filter(l => l.date === todayStr).reduce((acc, l) => acc + l.hours, 0);
 
-      const sevenDaysAgo = Date.now() - (7 * 86400000);
-      const userWeeklyMinutes = studyLogs
-        .filter(l => (l.timestamp || new Date(l.date).getTime()) >= sevenDaysAgo)
-        .reduce((sum, l) => sum + l.durationMinutes, 0);
-      const userWeeklyHours = parseFloat((userWeeklyMinutes / 60).toFixed(1));
+      const userItem = {
+        name: currentUser?.name || "વિવેક ડાંગર (તમે)",
+        city: currentUser?.city || "ગુજરાત",
+        exam: EXAM_BLUEPRINTS[selectedExamKey].title.split(' ')[0] + " " + (EXAM_BLUEPRINTS[selectedExamKey].title.split(' ')[1] || ''),
+        streak: parseInt(document.getElementById('currentStreakCount').textContent) || 1,
+        todayHours: myTodayHours,
+        weekHours: myTodayHours * 4.5,
+        isMe: true
+      };
 
-      const userStreak = calculateStreak();
-      const activeExamName = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name.split('(')[0].trim() : 'GSRTC કંડક્ટર';
-      const userName = (currentUser && currentUser.displayName) ? currentUser.displayName : 'તમે (વિદ્યાર્થી)';
-
-      /* 2. Assemble participant list */
-      const fullList = BENCHMARK_ASPIRANTS.map(asp => ({
-        id: asp.id,
-        name: asp.name,
-        city: asp.city,
-        exam: asp.exam,
-        hours: leaderboardViewMode === 'today' ? asp.todayHours : asp.weeklyHours,
-        streak: asp.streak,
-        isCurrentUser: false
-      }));
-
-      fullList.push({
-        id: 'current_user',
-        name: `${userName} (તમે)`,
-        city: 'તમારું શહેર',
-        exam: activeExamName,
-        hours: leaderboardViewMode === 'today' ? userTodayHours : userWeeklyHours,
-        streak: userStreak,
-        isCurrentUser: true
+      const fullList = [...MOCK_TOPPERS, userItem];
+      
+      fullList.sort((a, b) => {
+        return filter === 'today' ? (b.todayHours - a.todayHours) : (b.weekHours - a.weekHours);
       });
 
-      fullList.sort((a, b) => b.hours - a.hours);
+      const myIndex = fullList.findIndex(item => item.isMe);
+      document.getElementById('myRankNumber').textContent = myIndex + 1;
 
-      const userRankIndex = fullList.findIndex(a => a.isCurrentUser);
-      const userRank = userRankIndex + 1;
-
-      /* Update User Rank Highlight Bar */
-      const myRankBadge = document.getElementById('myRankBadge');
-      const myRankNameDisplay = document.getElementById('myRankNameDisplay');
-      const myRankHoursDisplay = document.getElementById('myRankHoursDisplay');
-      const myRankProgressNote = document.getElementById('myRankProgressNote');
-
-      if (myRankBadge) {
-        myRankBadge.textContent = `#${userRank}`;
-        if (userRank === 1) myRankBadge.className = 'w-7 h-7 rounded-xl bg-amber-500 text-slate-900 font-black flex items-center justify-center text-xs shadow-md';
-        else if (userRank === 2) myRankBadge.className = 'w-7 h-7 rounded-xl bg-slate-300 text-slate-900 font-black flex items-center justify-center text-xs shadow-md';
-        else if (userRank === 3) myRankBadge.className = 'w-7 h-7 rounded-xl bg-amber-700 text-white font-black flex items-center justify-center text-xs shadow-md';
-        else myRankBadge.className = 'w-7 h-7 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center text-xs shadow-sm';
-      }
-
-      if (myRankNameDisplay) myRankNameDisplay.textContent = `${userName} - રેન્ક #${userRank}`;
-      if (myRankHoursDisplay) myRankHoursDisplay.textContent = `${leaderboardViewMode === 'today' ? userTodayHours : userWeeklyHours} કલાક`;
-
-      if (myRankProgressNote) {
-        if (userRank === 1) {
-          myRankProgressNote.textContent = '🎉 અદ્ભુત! તમે સમગ્ર ગુજરાતમાં પ્રથમ સ્થાને છો!';
-        } else {
-          const nextTarget = fullList[userRankIndex - 1];
-          const diff = Math.max(0.1, (nextTarget.hours - (leaderboardViewMode === 'today' ? userTodayHours : userWeeklyHours) + 0.1)).toFixed(1);
-          myRankProgressNote.textContent = `#${userRank - 1} (${nextTarget.name}) ને પાછળ પાડવા માત્ર ${diff} કલાક વાંચો!`;
-        }
-      }
-
-      /* Render Top Rows */
-      fullList.slice(0, 8).forEach((item, index) => {
+      fullList.slice(0, 6).forEach((topper, index) => {
         const rank = index + 1;
-        let rankBadge = `<span class="font-mono font-bold text-slate-500">#${rank}</span>`;
-        if (rank === 1) rankBadge = `<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-600 border border-amber-400 font-extrabold text-xs shadow-xs">🥇</span>`;
-        else if (rank === 2) rankBadge = `<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-400 font-extrabold text-xs shadow-xs">🥈</span>`;
-        else if (rank === 3) rankBadge = `<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-800/20 text-amber-700 dark:text-amber-400 border border-amber-600 font-extrabold text-xs shadow-xs">🥉</span>`;
+        let rankBadge = `<span class="font-bold text-slate-400">#${rank}</span>`;
+        if (rank === 1) rankBadge = `<span class="text-base">🥇</span> <span class="text-amber-400 font-bold">1st</span>`;
+        if (rank === 2) rankBadge = `<span class="text-base">🥈</span> <span class="text-slate-300 font-bold">2nd</span>`;
+        if (rank === 3) rankBadge = `<span class="text-base">🥉</span> <span class="text-amber-600 font-bold">3rd</span>`;
 
-        const tr = document.createElement('tr');
-        tr.className = item.isCurrentUser 
-          ? 'bg-primary-50/80 dark:bg-primary-950/40 border-l-4 border-l-primary-500 font-bold transition'
-          : 'hover:bg-slate-50 dark:hover:bg-slate-800/40 transition';
+        const row = document.createElement('tr');
+        row.className = topper.isMe ? 'bg-emerald-950/30 font-semibold' : 'hover:bg-slate-900/50';
 
-        tr.innerHTML = `
-          <td class="py-2.5 px-3 text-center">${rankBadge}</td>
-          <td class="py-2.5 px-3">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-slate-800 dark:text-slate-100 ${item.isCurrentUser ? 'text-primary-700 dark:text-primary-300 font-extrabold' : ''}">${item.name}</span>
-              ${item.isCurrentUser ? '<span class="text-[9px] bg-primary-600 text-white font-bold px-1.5 py-0.5 rounded-full uppercase">તમે</span>' : ''}
-              <span class="text-[10px] text-slate-400 hidden sm:inline">(${item.city})</span>
-            </div>
+        const hoursDisplay = filter === 'today' ? topper.todayHours.toFixed(1) : topper.weekHours.toFixed(1);
+
+        row.innerHTML = `
+          <td class="py-3 px-3">${rankBadge}</td>
+          <td class="py-3 px-3 font-medium text-white flex items-center gap-1.5">
+            ${topper.name}
+            ${topper.isMe ? '<span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded">તમે</span>' : ''}
           </td>
-          <td class="py-2.5 px-3 text-slate-600 dark:text-slate-300">
-            <span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md text-[10px] font-semibold">${item.exam}</span>
-          </td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="font-mono text-amber-500 font-bold text-xs flex items-center justify-center gap-0.5">
-              <span>🔥</span><span>${item.streak}</span>
-            </span>
-          </td>
-          <td class="py-2.5 px-3 text-right">
-            <span class="font-mono font-extrabold text-xs ${item.isCurrentUser ? 'text-primary-600 dark:text-primary-400 text-sm' : 'text-slate-800 dark:text-slate-200'}">
-              ${item.hours} કલાક
-            </span>
-          </td>
+          <td class="py-3 px-3 text-slate-400">${topper.city}</td>
+          <td class="py-3 px-3 text-slate-300 text-xs">${topper.exam}</td>
+          <td class="py-3 px-3 text-center text-amber-400">🔥 ${topper.streak}</td>
+          <td class="py-3 px-3 text-right font-bold text-emerald-400">${hoursDisplay} કલાક</td>
         `;
-        tbody.appendChild(tr);
-      });
 
-      if (window.lucide) lucide.createIcons();
-    }
-
-    /* Subject Wise Progress Cards */
-    function renderSubjectProgress() {
-      const container = document.getElementById('subjectProgressCardsGrid');
-      if (!container) return;
-      container.innerHTML = '';
-
-      subjects.forEach(sub => {
-        const subMins = studyLogs
-          .filter(l => l.subjectId === sub.id || l.subjectName === sub.name)
-          .reduce((sum, l) => sum + l.durationMinutes, 0);
-        const subHours = parseFloat((subMins / 60).toFixed(1));
-        const pct = Math.min(100, Math.round((subHours / (sub.targetHours || 30)) * 100));
-
-        const card = document.createElement('div');
-        card.className = 'p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700/60 space-y-2';
-        card.innerHTML = `
-          <div class="flex items-start justify-between gap-2">
-            <div class="space-y-0.5">
-              <div class="flex items-center gap-1.5">
-                <span class="font-bold text-xs text-slate-800 dark:text-slate-200">${sub.name}</span>
-                <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-[9px] font-bold px-1.5 py-0.2 rounded">${sub.marks || 10} ગુણ</span>
-              </div>
-              <span class="text-[10px] text-slate-400 font-mono">${subHours} / ${sub.targetHours || 30} કલાક</span>
-            </div>
-            <span class="text-xs font-mono font-bold text-primary-600 dark:text-primary-400">${pct}%</span>
-          </div>
-
-          <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
-            <div class="bg-primary-500 h-1.5 rounded-full transition-all duration-300" style="width: ${pct}%"></div>
-          </div>
-        `;
-        container.appendChild(card);
+        tbody.appendChild(row);
       });
     }
 
-    /* Study Logs Table */
-    function renderLogsTable() {
-      const tbody = document.getElementById('studyLogsTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      if (studyLogs.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="5" class="py-6 text-center text-slate-400">
-              હજુ કોઈ સેશન રેકોર્ડ થયેલ નથી. ઉપરના ટાઈમરથી વાંચવાનું શરૂ કરો!
-            </td>
-          </tr>
-        `;
-        return;
-      }
-
-      studyLogs.slice(0, 15).forEach((log, idx) => {
-        const hrs = (log.durationMinutes / 60).toFixed(2);
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 dark:hover:bg-slate-800/50 transition';
-        tr.innerHTML = `
-          <td class="py-2.5 px-3 font-mono text-slate-500">${log.date}</td>
-          <td class="py-2.5 px-3 font-bold text-slate-800 dark:text-slate-200">${log.subjectName}</td>
-          <td class="py-2.5 px-3 text-slate-500 max-w-xs truncate">${log.notes || '—'}</td>
-          <td class="py-2.5 px-3 font-mono font-bold text-primary-600 dark:text-primary-400">${hrs} કલાક</td>
-          <td class="py-2.5 px-3 text-right">
-            <button onclick="deleteLog('${log.id}')" class="text-red-500 hover:text-red-700 text-xs p-1" title="ડિલીટ કરો">
-              ✕
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    window.deleteLog = function(logId) {
-      studyLogs = studyLogs.filter(l => l.id !== logId);
-      saveState();
-      renderDashboard();
-      showToast('સેશન ડિલીટ થયું');
-    };
-
-    /* Populate Subject Dropdowns */
-    function populateSubjectSelectBoxes() {
-      const timerSelect = document.getElementById('timerSubjectSelect');
-      if (!timerSelect) return;
-      timerSelect.innerHTML = '';
-
-      subjects.forEach(sub => {
-        const opt = document.createElement('option');
-        opt.value = sub.id;
-        opt.textContent = `${sub.name} (${sub.marks || 10} ગુણ)`;
-        timerSelect.appendChild(opt);
-      });
-    }
-
-    /* KPI Cards Update */
-    function renderKPICards() {
-      const todayStr = getTodayDateString();
-      const todayMinutes = studyLogs
-        .filter(l => l.date === todayStr)
-        .reduce((sum, l) => sum + l.durationMinutes, 0);
-      const todayHours = (todayMinutes / 60).toFixed(1);
-
-      document.getElementById('kpiTodayHours').textContent = todayHours;
-      const todayPct = Math.min(100, Math.round((todayHours / 6) * 100));
-      document.getElementById('kpiTodayBar').style.width = `${todayPct}%`;
-
-      const streak = calculateStreak();
-      document.getElementById('kpiStreakDays').textContent = streak;
-
-      const totalMinutes = studyLogs.reduce((sum, l) => sum + l.durationMinutes, 0);
-      document.getElementById('kpiTotalHours').textContent = (totalMinutes / 60).toFixed(1);
-      document.getElementById('kpiTotalSessions').textContent = `${studyLogs.length} સત્રો નોંધાયા`;
-
-      const totalTargetHours = subjects.reduce((sum, s) => sum + (s.targetHours || 30), 0);
-      const overallPct = totalTargetHours > 0 ? Math.min(100, Math.round(((totalMinutes / 60) / totalTargetHours) * 100)) : 0;
-      document.getElementById('kpiSyllabusPercent').textContent = `${overallPct}%`;
-      document.getElementById('kpiSyllabusBar').style.width = `${overallPct}%`;
-
-      const markBtn = document.getElementById('markAttendanceBtn');
-      const markText = document.getElementById('markAttendanceText');
-      if (attendanceDates.includes(todayStr)) {
-        markBtn.className = 'w-full text-center py-1 px-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 flex items-center justify-center gap-1 cursor-default';
-        markText.textContent = '✓ આજની હાજરી પુરાઈ ગઈ';
-      } else {
-        markBtn.className = 'w-full text-center py-1 px-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold text-xs transition border border-amber-500/20 flex items-center justify-center gap-1';
-        markText.textContent = 'આજની હાજરી પૂરો';
-      }
-    }
-
-    /* Render Exam Cards in Modal Hub */
-    function renderExamHubCards() {
-      const container = document.getElementById('examCardsGrid');
-      if (!container) return;
-      container.innerHTML = '';
-
-      Object.keys(EXAM_PRESETS).forEach(key => {
-        const ex = EXAM_PRESETS[key];
-        const isSelected = key === currentExamKey;
-
-        const card = document.createElement('div');
-        card.className = `p-4 rounded-2xl border transition cursor-pointer flex flex-col justify-between gap-2 ${
-          isSelected 
-            ? 'bg-primary-500/10 border-primary-500 text-slate-900 dark:text-white shadow-sm ring-2 ring-primary-500/30' 
-            : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:border-primary-400'
-        }`;
-
-        card.onclick = () => selectExamTarget(key);
-
-        card.innerHTML = `
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="font-extrabold text-sm">${ex.name}</span>
-              <span class="text-[10px] font-bold bg-amber-500 text-slate-900 px-2 py-0.5 rounded-full">${ex.totalMarks} ગુણ</span>
-            </div>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-              કુલ ${ex.subjects.length} વિષયો અને સત્તાવાર સિલેબસ બ્લૂપ્રિન્ટ
-            </p>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[10px] font-semibold">
-            <span class="${isSelected ? 'text-primary-600 font-bold' : 'text-slate-400'}">
-              ${isSelected ? '✓ સક્રિય પસંદગી' : 'પસંદ કરવા ક્લિક કરો'}
-            </span>
-            <span class="text-slate-400">નવા નિયમ ૨૦૨૬-૨૭</span>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function selectExamTarget(examKey) {
-      if (!EXAM_PRESETS[examKey]) return;
-      currentExamKey = examKey;
-      subjects = JSON.parse(JSON.stringify(EXAM_PRESETS[examKey].subjects));
-      saveState();
-
-      document.getElementById('examHubModal').classList.add('hidden');
-      renderDashboard();
-      showToast(`🎯 લક્ષ્ય બદલાયું: ${EXAM_PRESETS[examKey].name}`);
-    }
-
-    /* Daily Motivation Update */
-    function updateDailyMotivation(randomIndex = false) {
-      const quoteText = document.getElementById('motivationalQuoteText');
-      const authorText = document.getElementById('motivationalAuthorText');
-      const dateDisplay = document.getElementById('motivationDateDisplay');
-
-      const d = new Date();
-      if (dateDisplay) {
-        dateDisplay.textContent = d.toLocaleDateString('gu-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-      }
-
-      let chosen;
-      if (randomIndex) {
-        const rand = Math.floor(Math.random() * MOTIVATIONAL_SHAYARI.length);
-        chosen = MOTIVATIONAL_SHAYARI[rand];
-      } else {
-        const dayOfYear = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-        chosen = MOTIVATIONAL_SHAYARI[dayOfYear % MOTIVATIONAL_SHAYARI.length];
-      }
-
-      if (quoteText) quoteText.textContent = `"${chosen.text}"`;
-      if (authorText) authorText.textContent = `— ${chosen.author} | લક્ષ્ય: સરકારી સેવા`;
-    }
-
-    /* Toast Notification Helper */
-    function showToast(msg) {
-      const existing = document.getElementById('toastNotification');
-      if (existing) existing.remove();
-
-      const toast = document.createElement('div');
-      toast.id = 'toastNotification';
-      toast.className = 'fixed bottom-5 right-5 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 border border-slate-700 animate-bounce';
-      toast.innerHTML = `<span>⚡</span><span>${msg}</span>`;
-      document.body.appendChild(toast);
-
-      setTimeout(() => {
-        if (toast) toast.remove();
-      }, 3500);
-    }
-
-    /* Master Render */
-    function renderDashboard() {
-      const activeExam = EXAM_PRESETS[currentExamKey] || EXAM_PRESETS.gsrtc_conductor;
-      document.getElementById('activeExamBadgeName').textContent = activeExam.name;
-      document.getElementById('activeExamMarksBadge').textContent = `${activeExam.totalMarks} ગુણ`;
-      document.getElementById('syllabusHeaderExamTitle').textContent = `${activeExam.name} - સિલેબસ અને ગુણભાર`;
-
-      if (currentUser && currentUser.displayName) {
-        document.getElementById('authButtonText').textContent = currentUser.displayName;
-      } else {
-        document.getElementById('authButtonText').textContent = 'રજીસ્ટ્રેશન / લૉગિન';
-      }
-
-      populateSubjectSelectBoxes();
-      renderKPICards();
-      renderHeatmap();
-      renderLeaderboard();
-      renderSubjectProgress();
-      renderCharts();
-      renderLogsTable();
-      updateTimerDisplay();
-      if (window.lucide) lucide.createIcons();
-    }
-
-    /* Event Listeners Setup on Page Load */
-    window.addEventListener('DOMContentLoaded', () => {
-      loadState();
-      updateDailyMotivation(false);
-      renderDashboard();
-
-      // Theme toggle
-      document.getElementById('themeToggleBtn').addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        const isDark = document.documentElement.classList.contains('dark');
-        localStorage.setItem('abhyassetu_theme', isDark ? 'dark' : 'light');
-        renderCharts();
+    /* ---------------- EVENT LISTENERS SETUP ---------------- */
+    function setupEventListeners() {
+      document.getElementById('examModalBtn').addEventListener('click', openExamModal);
+      document.getElementById('closeExamModalBtn').addEventListener('click', () => {
+        document.getElementById('examSelectModal').classList.add('hidden');
       });
 
-      // Restore saved theme
-      if (localStorage.getItem('abhyassetu_theme') === 'light') {
-        document.documentElement.classList.remove('dark');
-      }
+      document.getElementById('resetSyllabusBtn').addEventListener('click', resetSyllabusToOriginal);
 
-      // Online/Offline detection
-      window.addEventListener('online', () => {
-        document.getElementById('networkStatusText').textContent = 'ઑનલાઇન સિંક';
-        document.getElementById('networkStatusBadge').className = 'hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20';
-      });
-      window.addEventListener('offline', () => {
-        document.getElementById('networkStatusText').textContent = 'ઑફલાઇન સક્રિય';
-        document.getElementById('networkStatusBadge').className = 'hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20';
-      });
-
-      // Timer Mode Toggles
-      document.getElementById('modeStopwatchBtn').addEventListener('click', () => {
-        timerMode = 'stopwatch';
-        document.getElementById('pomodoroDurationBox').classList.add('hidden');
-        document.getElementById('modeStopwatchBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition';
-        document.getElementById('modePomodoroBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition';
-        resetTimer();
-      });
-
-      document.getElementById('modePomodoroBtn').addEventListener('click', () => {
-        timerMode = 'pomodoro';
-        document.getElementById('pomodoroDurationBox').classList.remove('hidden');
-        document.getElementById('modePomodoroBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition';
-        document.getElementById('modeStopwatchBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition';
-        resetTimer();
-      });
-
-      // Timer triggers
-      document.getElementById('timerToggleBtn').addEventListener('click', () => {
-        if (timerRunning) stopTimer();
-        else startTimer();
-      });
-
-      document.getElementById('timerResetBtn').addEventListener('click', resetTimer);
-      document.getElementById('timerSaveSessionBtn').addEventListener('click', saveCurrentSession);
-
-      // Pomodoro preset buttons
-      document.querySelectorAll('.pomo-preset-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const mins = parseInt(e.target.getAttribute('data-mins'), 10);
-          pomodoroDurationMinutes = mins;
-          localStorage.setItem('abhyassetu_pomo_mins', mins.toString());
-          document.getElementById('currentPomodoroBadge').textContent = `${mins} મિનિટ`;
-
-          document.querySelectorAll('.pomo-preset-btn').forEach(b => {
-            b.className = 'pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition text-center';
-          });
-          e.target.className = 'pomo-preset-btn py-1 px-2 rounded-lg bg-primary-600 text-white font-bold transition text-center';
-
-          resetTimer();
-        });
-      });
-
-      // Custom Pomodoro Minutes apply
-      document.getElementById('applyCustomPomoBtn').addEventListener('click', () => {
-        const val = parseInt(document.getElementById('customPomodoroMins').value, 10);
-        if (val && val >= 1 && val <= 180) {
-          pomodoroDurationMinutes = val;
-          localStorage.setItem('abhyassetu_pomo_mins', val.toString());
-          document.getElementById('currentPomodoroBadge').textContent = `${val} મિનિટ`;
-          resetTimer();
-          showToast(`પોમોડોરો સમય ${val} મિનિટ સેટ થયો!`);
-        } else {
-          showToast('કૃપા કરીને ૧ થી ૧૮૦ ની વચ્ચે મિનિટ દાખલ કરો.');
-        }
-      });
-
-      // Mark Attendance button
-      document.getElementById('markAttendanceBtn').addEventListener('click', () => {
-        const todayStr = getTodayDateString();
-        if (!attendanceDates.includes(todayStr)) {
-          attendanceDates.push(todayStr);
-          saveState();
-          playAudioCue('complete');
-          confetti({ particleCount: 50, spread: 45 });
-          renderDashboard();
-          showToast('🎯 આજની હાજરી સફળતાપૂર્વક પુરાઈ ગઈ!');
-        } else {
-          showToast('આજની હાજરી પહેલેથી જ પુરાઈ ગયેલી છે!');
-        }
-      });
-
-      // Leaderboard tabs
-      document.getElementById('leaderboardTabToday').addEventListener('click', () => {
-        leaderboardViewMode = 'today';
-        document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
-        document.getElementById('leaderboardTabWeekly').className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition';
-        renderLeaderboard();
-      });
-
-      document.getElementById('leaderboardTabWeekly').addEventListener('click', () => {
-        leaderboardViewMode = 'weekly';
-        document.getElementById('leaderboardTabWeekly').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
-        document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition';
-        renderLeaderboard();
-      });
-
-      // Motivational Quote triggers
       document.getElementById('refreshQuoteBtn').addEventListener('click', () => {
-        updateDailyMotivation(true);
-        playAudioCue('beep');
+        const rnd = Math.floor(Math.random() * MOTIVATION_QUOTES.length);
+        setQuote(MOTIVATION_QUOTES[rnd]);
       });
 
       document.getElementById('shareQuoteBtn').addEventListener('click', () => {
-        const text = document.getElementById('motivationalQuoteText').textContent;
-        const author = document.getElementById('motivationalAuthorText').textContent;
-        const shareMsg = `🔥 *અભ્યાસસેતુ Pro - આજનો સંકલ્પ*\n\n${text}\n${author}\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો GSRTC કંડક્ટર & સરકારી પરીક્ષાઓની!`;
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
+        const q = document.getElementById('motivationalQuoteText').textContent;
+        const msg = encodeURIComponent(`✨ *અભ્યાસસેતુ પ્રેરણા* ✨\n\n${q}\n\n📚 સરકારી પરીક્ષા અને કંડક્ટર તૈયારી માટે આજે જ જોડાઓ:\nhttps://abhyassetu-exam.github.io/abhyassetu-exam/`);
+        window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
       });
 
-      // Exam Hub Modal
-      document.getElementById('openExamHubBtn').addEventListener('click', () => {
-        renderExamHubCards();
-        document.getElementById('examHubModal').classList.remove('hidden');
-      });
-      document.getElementById('closeExamHubBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
-      document.getElementById('examHubCloseDoneBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
+      const swBtn = document.getElementById('modeStopwatchBtn');
+      const pmBtn = document.getElementById('modePomodoroBtn');
+      const pomoControls = document.getElementById('pomodoroCustomControls');
 
-      // Auth Modal triggers
-      document.getElementById('authModalOpenBtn').addEventListener('click', () => {
-        document.getElementById('authModal').classList.remove('hidden');
-      });
-      document.getElementById('closeAuthModalBtn').addEventListener('click', () => {
-        document.getElementById('authModal').classList.add('hidden');
+      swBtn.addEventListener('click', () => {
+        if (timerRunning) return alert('પહેલાં ચાલુ સેશન પૂર્ણ અથવા પોઝ કરો.');
+        timerMode = 'stopwatch';
+        swBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow';
+        pmBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white';
+        pomoControls.classList.add('hidden');
+        timerSeconds = 0;
+        updateTimerDisplay();
       });
 
-      // Auth Tabs (Login vs Register)
-      let authMode = 'login';
-      document.getElementById('tabLoginBtn').addEventListener('click', () => {
-        authMode = 'login';
-        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
-        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
-        document.getElementById('registerFieldsWrapper').classList.add('hidden');
-        document.getElementById('authSubmitBtn').textContent = 'લૉગિન કરો (Sign In)';
+      pmBtn.addEventListener('click', () => {
+        if (timerRunning) return alert('પહેલાં ચાલુ સેશન પૂર્ણ અથવા પોઝ કરો.');
+        timerMode = 'pomodoro';
+        pmBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow';
+        swBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white';
+        pomoControls.classList.remove('hidden');
+        timerSeconds = 0;
+        updateTimerDisplay();
       });
 
-      document.getElementById('tabRegisterBtn').addEventListener('click', () => {
-        authMode = 'register';
-        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
-        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
-        document.getElementById('registerFieldsWrapper').classList.remove('hidden');
-        document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
+      document.querySelectorAll('.pomo-preset-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (timerRunning) return;
+          document.querySelectorAll('.pomo-preset-btn').forEach(b => {
+            b.className = 'pomo-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium';
+          });
+          e.target.className = 'pomo-preset-btn px-2.5 py-1 rounded-lg text-xs bg-amber-500 text-slate-950 font-bold border border-amber-400';
+          
+          const mins = parseInt(e.target.getAttribute('data-mins'));
+          pomodoroDurationSec = mins * 60;
+          document.getElementById('activePomoDurationLabel').textContent = `${mins} મિનિટ સેટ છે`;
+          timerSeconds = 0;
+          updateTimerDisplay();
+        });
       });
 
-      // Auth Form Submission
-      document.getElementById('authForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('authEmailInput').value.trim();
-        const pass = document.getElementById('authPasswordInput').value.trim();
-        const fullName = document.getElementById('authFullNameInput').value.trim() || 'વિદ્યાર્થી';
-
-        if (authMode === 'register') {
-          currentUser = {
-            uid: 'user_' + Date.now(),
-            displayName: fullName,
-            email: email
-          };
-          showToast(`🎉 એકાઉન્ટ સફળતાપૂર્વક બન્યું! સ્વાગત છે, ${fullName}`);
-        } else {
-          currentUser = {
-            uid: 'user_' + Date.now(),
-            displayName: email.split('@')[0],
-            email: email
-          };
-          showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
+      document.getElementById('applyCustomPomoBtn').addEventListener('click', () => {
+        if (timerRunning) return;
+        const val = parseInt(document.getElementById('customPomoMinutesInput').value);
+        if (val && val > 0 && val <= 180) {
+          pomodoroDurationSec = val * 60;
+          document.getElementById('activePomoDurationLabel').textContent = `${val} મિનિટ સેટ છે`;
+          timerSeconds = 0;
+          updateTimerDisplay();
         }
-
-        saveState();
-        document.getElementById('authModal').classList.add('hidden');
-        renderDashboard();
       });
 
-      // Guest Login
-      document.getElementById('guestLoginBtn').addEventListener('click', () => {
-        currentUser = { uid: 'guest_' + Date.now(), displayName: 'મહેમાન વિદ્યાર્થી', email: 'guest@abhyassetu.local' };
-        saveState();
-        document.getElementById('authModal').classList.add('hidden');
-        renderDashboard();
-        showToast('મહેમાન એકાઉન્ટ સક્રિય!');
+      document.getElementById('startTimerBtn').addEventListener('click', startTimer);
+      document.getElementById('pauseTimerBtn').addEventListener('click', pauseTimer);
+      document.getElementById('stopTimerBtn').addEventListener('click', completeTimerSession);
+
+      const manualModal = document.getElementById('manualLogModal');
+      document.getElementById('openManualLogBtn').addEventListener('click', () => {
+        document.getElementById('manualDateInput').value = new Date().toISOString().split('T')[0];
+        manualModal.classList.remove('hidden');
+      });
+      document.getElementById('closeManualLogBtn').addEventListener('click', () => manualModal.classList.add('hidden'));
+
+      document.getElementById('manualLogForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const subId = document.getElementById('manualSubjectSelect').value;
+        const hrs = parseFloat(document.getElementById('manualHoursInput').value);
+        const dt = document.getElementById('manualDateInput').value;
+        if (hrs && dt) {
+          logStudyHours(subId, hrs, dt);
+          manualModal.classList.add('hidden');
+          document.getElementById('manualHoursInput').value = '';
+        }
       });
 
-      // Add Custom Subject Modal
-      document.getElementById('openAddSubjectModalBtn').addEventListener('click', () => {
-        document.getElementById('addSubjectModal').classList.remove('hidden');
-      });
-      document.getElementById('quickAddSubjectBtn').addEventListener('click', () => {
-        document.getElementById('addSubjectModal').classList.remove('hidden');
-      });
-      document.getElementById('closeAddSubjectModalBtn').addEventListener('click', () => {
-        document.getElementById('addSubjectModal').classList.add('hidden');
-      });
+      const addSubModal = document.getElementById('addSubjectModal');
+      document.getElementById('openAddSubjectBtn').addEventListener('click', () => addSubModal.classList.remove('hidden'));
+      document.getElementById('closeAddSubjectBtn').addEventListener('click', () => addSubModal.classList.add('hidden'));
 
       document.getElementById('addSubjectForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = document.getElementById('newSubjectNameInput').value.trim();
-        const marks = parseInt(document.getElementById('newSubjectMarksInput').value, 10) || 10;
-        const targetHours = parseInt(document.getElementById('newSubjectHoursInput').value, 10) || 30;
+        const name = document.getElementById('newSubjectName').value.trim();
+        const marks = parseInt(document.getElementById('newSubjectMarks').value) || 0;
+        const target = parseInt(document.getElementById('newSubjectHours').value) || 20;
 
         if (name) {
-          subjects.push({ id: 'sub_' + Date.now(), name, targetHours, marks });
-          saveState();
-          document.getElementById('addSubjectModal').classList.add('hidden');
-          document.getElementById('newSubjectNameInput').value = '';
-          renderDashboard();
-          showToast(`વિષય ઉમેરાયો: ${name}`);
+          const newSub = {
+            id: 'sub_' + Date.now(),
+            name,
+            marks,
+            targetHours: target,
+            studiedHours: 0
+          };
+          subjects.push(newSub);
+          localStorage.setItem('as_subjects_' + selectedExamKey, JSON.stringify(subjects));
+          populateSubjectDropdowns();
+          renderSubjectsList();
+          updateOverviewStats();
+          addSubModal.classList.add('hidden');
+          document.getElementById('newSubjectName').value = '';
+          document.getElementById('newSubjectMarks').value = '';
         }
       });
 
-      // Reset Syllabus Button
-      document.getElementById('resetSyllabusBtn').addEventListener('click', () => {
-        subjects = JSON.parse(JSON.stringify(EXAM_PRESETS[currentExamKey].subjects));
-        saveState();
-        renderDashboard();
-        showToast('સિલેબસ મૂળ સ્થિતિમાં રીસેટ થયો!');
+      const authModal = document.getElementById('authModal');
+      const authBtn = document.getElementById('authBtn');
+      const closeAuth = document.getElementById('closeAuthModalBtn');
+      const tabReg = document.getElementById('authTabRegister');
+      const tabLog = document.getElementById('authTabLogin');
+      const nameField = document.getElementById('authNameField');
+      const cityField = document.getElementById('authCityField');
+      const authSubmitBtn = document.getElementById('authSubmitBtn');
+      let isRegisterMode = true;
+
+      authBtn.addEventListener('click', () => authModal.classList.remove('hidden'));
+      closeAuth.addEventListener('click', () => authModal.classList.add('hidden'));
+
+      tabReg.addEventListener('click', () => {
+        isRegisterMode = true;
+        tabReg.className = 'flex-1 py-1.5 text-xs font-bold rounded-lg bg-amber-500 text-slate-950';
+        tabLog.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white';
+        nameField.classList.remove('hidden');
+        cityField.classList.remove('hidden');
+        authSubmitBtn.textContent = 'ખાતું બનાવો & શરુ કરો';
       });
 
-      // Export CSV
-      document.getElementById('exportCsvBtn').addEventListener('click', () => {
-        if (!studyLogs.length) {
-          showToast('ડાઉનલોડ કરવા માટે કોઈ ડેટા નથી!');
-          return;
-        }
-        let csv = 'તારીખ,વિષય,સમય (મિનિટ),સમય (કલાક),નોંધ\n';
-        studyLogs.forEach(l => {
-          csv += `"${l.date}","${l.subjectName}",${l.durationMinutes},${(l.durationMinutes/60).toFixed(2)},"${(l.notes||'').replace(/"/g, '""')}"\n`;
-        });
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `AbhyasSetu_Report_${getTodayDateString()}.csv`;
-        a.click();
-        URL.revokeObjectURL(url);
+      tabLog.addEventListener('click', () => {
+        isRegisterMode = false;
+        tabLog.className = 'flex-1 py-1.5 text-xs font-bold rounded-lg bg-amber-500 text-slate-950';
+        tabReg.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white';
+        nameField.classList.add('hidden');
+        cityField.classList.add('hidden');
+        authSubmitBtn.textContent = 'લૉગિન કરો';
       });
 
-      // Share WhatsApp Report
-      document.getElementById('shareWhatsAppBtn').addEventListener('click', () => {
-        const todayStr = getTodayDateString();
-        const todayMinutes = studyLogs
-          .filter(l => l.date === todayStr)
-          .reduce((sum, l) => sum + l.durationMinutes, 0);
-        const todayHours = (todayMinutes / 60).toFixed(1);
-        const streak = calculateStreak();
-        const examName = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name : 'GSRTC Conductor';
+      document.getElementById('authForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const contact = document.getElementById('authInputContact').value.trim();
+        const name = document.getElementById('authInputName').value.trim() || 'વિદ્યાર્થી';
+        const city = document.getElementById('authInputCity').value.trim() || 'ગુજરાત';
 
-        const shareMsg = `📊 *અભ્યાસસેતુ Pro - મારો દૈનિક પ્રગતિ અહેવાલ*\n\n🎯 લક્ષ્ય: ${examName}\n📅 તારીખ: ${todayStr}\n⏱️ આજના વાંચન કલાકો: ${todayHours} કલાક\n🔥 સતત હાજરી (Streak): ${streak} દિવસો\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો ગુજરાત સરકારી નોકરીની એક સ્માર્ટ રીતે!`;
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
+        currentUser = {
+          name: isRegisterMode ? name : (currentUser?.name || contact),
+          contact,
+          city,
+          loggedAt: Date.now()
+        };
+        localStorage.setItem('as_user', JSON.stringify(currentUser));
+        initUserUI();
+        renderLeaderboard('today');
+        authModal.classList.add('hidden');
+        alert('લૉગિન સફળ થયું!');
       });
 
-    });
+      const lbTodayBtn = document.getElementById('leaderboardTodayBtn');
+      const lbWeekBtn = document.getElementById('leaderboardWeeklyBtn');
+
+      lbTodayBtn.addEventListener('click', () => {
+        lbTodayBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950';
+        lbWeekBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white';
+        renderLeaderboard('today');
+      });
+
+      lbWeekBtn.addEventListener('click', () => {
+        lbWeekBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950';
+        lbTodayBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white';
+        renderLeaderboard('weekly');
+      });
+
+      document.getElementById('footerSharePortalBtn').addEventListener('click', () => {
+        const msg = encodeURIComponent(`🏆 *અભ્યાસસેતુ Pro - ગુજરાત સ્પર્ધાત્મક પરીક્ષા પોર્ટલ*\n\nતૈયારી કરો GSRTC કંડક્ટર, પોલીસ કોન્સ્ટેબલ, PSI અને CCE માટે સંપૂર્ણ ફ્રી:\nhttps://abhyassetu-exam.github.io/abhyassetu-exam/\n\nDeveloped by Vivek Dangar`);
+        window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+      });
+    }
   </script>
 </body>
 </html>
