@@ -2095,9 +2095,17 @@ input, textarea {
     navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration failed:', err));
   }
 
-  let deferredPrompt;
+ let deferredPrompt;
   const installBtn = document.getElementById('pwa-install-btn');
 
+  // Service Worker Register
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('SW Registered'))
+      .catch(err => console.log('SW Error:', err));
+  }
+
+  // Browser Install Prompt Catch
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -2108,19 +2116,21 @@ input, textarea {
 
   if (installBtn) {
     installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        installBtn.style.display = 'none';
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      } else {
+        alert("📲 એપ ઇન્સ્ટોલ કરવા માટે:\nબ્રાઉઝરમાં ઉપર જમણી બાજુ રહેલા ૩ ટપકાં (⋮) પર ક્લિક કરીને 'Add to Home screen' અથવા 'Install' પસંદ કરો.");
       }
-      deferredPrompt = null;
     });
   }
 
   window.addEventListener('appinstalled', () => {
     if (installBtn) installBtn.style.display = 'none';
-    console.log('AbhyasSetu App Installed Successfully!');
   });
   </script>
 </body>
