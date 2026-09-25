@@ -1746,9 +1746,21 @@
         document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
       });
 
-      saveState();
+      document.getElementById('authForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('authEmailInput').value.trim();
+        const fullName = document.getElementById('authFullNameInput').value.trim() || email.split('@')[0];
+
+        currentUser = {
+          uid: 'user_' + Date.now(),
+          displayName: fullName,
+          email: email
+        };
+
+        saveState();
         document.getElementById('authModal').classList.add('hidden');
         renderDashboard();
+        showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
       });
 
       document.getElementById('guestLoginBtn').addEventListener('click', () => {
