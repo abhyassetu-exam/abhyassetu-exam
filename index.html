@@ -42,6 +42,13 @@
     };
   </script>
 
+<style>
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+</style>
+
   <!-- External Visual Libraries -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -102,75 +109,53 @@ input, textarea {
   </aside>
 
   <!-- Main App Navigation Header -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+  <!-- ================= TOP HEADER BAR ================= -->
+  <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 py-2.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
-      <!-- Brand Logo & Official Badge -->
-      <div class="flex items-center gap-3">
-        <!-- Golden Book & Wisdom Lamp Modern Logo -->
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-emerald-500 to-teal-400 p-0.5 shadow-md shadow-emerald-500/10 flex items-center justify-center flex-shrink-0">
-          <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center relative overflow-hidden">
-            <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
-              <path d="M6 6h10"></path>
-              <path d="M6 10h10"></path>
-              <path d="M12 2v20"></path>
-              <circle cx="12" cy="12" r="1.5" fill="#f59e0b"></circle>
-            </svg>
+      <!-- Left: Logo & App Title -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-500 p-0.5 shadow-md flex items-center justify-center">
+          <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
+            <i data-lucide="compass" class="w-5 h-5 text-emerald-400"></i>
           </div>
         </div>
-
         <div>
-          <div class="flex items-center gap-2">
-            <h1 class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-500 bg-clip-text text-transparent">
-              અભ્યાસસેતુ Pro
+          <div class="flex items-center gap-1.5">
+            <h1 class="font-extrabold text-sm sm:text-base tracking-tight text-white">
+              અભ્યાસસેતુ <span class="text-amber-400 font-bold">Pro</span>
             </h1>
-            <span class="hidden md:inline-flex items-center gap-1 text-[9px] font-extrabold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              <span>મિશન સરકારી સેવા • OFFICIAL PORTAL</span>
-            </span>
           </div>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">ગુજરાત સ્પર્ધાત્મક પરીક્ષા તૈયારી & લાઈવ એનાલિટિક્સ</p>
+          <span class="text-[9px] text-emerald-400 font-semibold block sm:hidden">GUJ GOV 2026-27</span>
         </div>
       </div>
 
-      <!-- Action Buttons & Badges -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Right: Action Buttons -->
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
         
-        <!-- Live Offline / Online Status Badge -->
-        <div id="networkStatusBadge" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" title="ઓફલાઈન પણ ચાલશે">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="networkStatusText">ઑનલાઇન સિંક</span>
-        </div>
-
-<!-- PWA Install Button -->
-<button id="pwa-install-btn" style="display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);">
-  <span>📲</span> ઇન્સ્ટોલ એપ
-</button>
-
-        <!-- Target Exam Selector Modal Button -->
-        <button id="openExamHubBtn" class="flex items-center gap-1.5 bg-gradient-to-r from-amber-500/15 via-emerald-500/15 to-teal-500/15 hover:from-amber-500/25 hover:to-emerald-500/25 text-slate-800 dark:text-slate-200 border border-amber-500/30 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-xs">
-          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-500"></i>
-          <span id="activeExamBadgeName">GSRTC કંડક્ટર</span>
-          <span class="bg-amber-500 text-slate-900 font-extrabold px-1.5 py-0.2 rounded text-[10px]" id="activeExamMarksBadge">૧૦૦ ગુણ</span>
-          <i data-lucide="chevron-down" class="w-3 h-3 text-slate-400"></i>
+        <!-- Exam Badge Button -->
+        <button id="openExamHubBtn" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2 sm:px-2.5 py-1.5 rounded-xl text-[11px] font-bold transition">
+          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span id="activeExamBadgeName" class="max-w-[70px] sm:max-w-none truncate">કંડક્ટર</span>
+          <span class="bg-amber-500 text-slate-950 font-extrabold px-1 rounded text-[9px]" id="activeExamMarksBadge">૧૦૦ ગુણ</span>
         </button>
 
-        <!-- Dark / Light Mode Toggle Button -->
-        <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
-          <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-600"></i>
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-800 transition">
+          <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
         </button>
 
-        <!-- Account / Register Modal Button -->
-        <button id="authModalOpenBtn" class="flex items-center gap-1.5 bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold transition shadow-sm">
-          <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
-          <span id="authButtonText">રજીસ્ટ્રેશન / લૉગિન</span>
+        <!-- Login / User Button (Mobile ma fit raheshe) -->
+        <button id="authModalOpenBtn" class="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition shadow-sm max-w-[120px] sm:max-w-[160px]">
+          <i data-lucide="user" class="w-3.5 h-3.5 flex-shrink-0"></i>
+          <span id="authButtonText" class="truncate">dangarvivek04</span>
         </button>
+
       </div>
 
     </div>
   </header>
+
 
   <!-- Main Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
