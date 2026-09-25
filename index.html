@@ -94,6 +94,44 @@ input, textarea {
     .pulse-glow {
       animation: pulse-ring 2.5s infinite ease-in-out;
     }
+
+/* FORCE ROUND AVATAR ON HEADER USER BUTTON */
+#authModalOpenBtn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  max-width: 34px !important;
+  border-radius: 9999px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #10b981, #0d9488) !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+  border: 1.5px solid rgba(255,255,255,0.2) !important;
+}
+
+/* hide user icon inside button */
+#authModalOpenBtn svg, #authModalOpenBtn i {
+  display: none !important;
+}
+
+/* show ONLY the 1st letter, hide all remaining text */
+#authButtonText {
+  display: inline-block !important;
+  width: 1ch !important;
+  max-width: 1ch !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  line-height: 1 !important;
+}
+
   </style>
 </head>
 
