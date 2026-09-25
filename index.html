@@ -1975,62 +1975,78 @@
       }
 
       // ૨. અવતાર પર ટચ કરતાં પ્રોફાઇલ વિગતો વાળું પોપ-અપ ખુલશે
-      const authBtn = document.getElementById('authModalOpenBtn');
-      const profileModal = document.getElementById('userProfileModal');
-      const closeProfileBtn = document.getElementById('closeProfileModalBtn');
-      const logoutBtn = document.getElementById('userLogoutBtn');
+      // --- PROFILE & LOGIN POPUP FIX ---
+    const authBtn = document.getElementById('authModalOpenBtn');
+    const profileModal = document.getElementById('userProfileModal');
+    const closeProfileBtn = document.getElementById('closeProfileModalBtn');
+    const logoutBtn = document.getElementById('userLogoutBtn');
+    const authModal = document.getElementById('authModal');
 
-      if (authBtn) {
-        authBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          if (currentUser) {
-            const name = currentUser.displayName || currentUser.name || 'વિદ્યાર્થી';
-            const email = currentUser.email || 'guest@abhyassetu.local';
-            const firstChar = name.trim().charAt(0).toUpperCase();
+    if (authBtn) {
+      authBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation(); // જૂના લૉગિન પોપઅપને બિલકુલ ખુલવા નહીં દે
 
-            document.getElementById('profileModalName').textContent = name;
-            document.getElementById('profileModalEmail').textContent = email;
-            document.getElementById('profileModalAvatar').textContent = firstChar;
+        // ૧. જો વિદ્યાર્થી લૉગિન હોય તો ફક્ત પ્રોફાઇલ વિગતો જ ખુલશે
+        if (currentUser) {
+          if (authModal) authModal.classList.add('hidden'); // લૉગિન બોક્સ બંધ જ રહેશે
 
-            const activeExam = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name.split('(')[0] : 'GSRTC';
-            document.getElementById('profileModalExam').textContent = activeExam;
+          const name = currentUser.displayName || currentUser.name || 'વિદ્યાર્થી';
+          const email = currentUser.email || 'guest@abhyassetu.local';
+          const firstChar = name.trim().charAt(0).toUpperCase();
 
-            const totalMinutes = studyLogs.reduce((sum, l) => sum + l.durationMinutes, 0);
-            document.getElementById('profileModalHours').textContent = `${(totalMinutes / 60).toFixed(1)} કલાક`;
+          const nameEl = document.getElementById('profileModalName');
+          const emailEl = document.getElementById('profileModalEmail');
+          const avatarEl = document.getElementById('profileModalAvatar');
+          const examEl = document.getElementById('profileModalExam');
+          const hoursEl = document.getElementById('profileModalHours');
 
-            if (profileModal) profileModal.classList.remove('hidden');
-          } else {
-            const authModal = document.getElementById('authModal');
-            if (authModal) authModal.classList.remove('hidden');
+          if (nameEl) nameEl.textContent = name;
+          if (emailEl) emailEl.textContent = email;
+          if (avatarEl) avatarEl.textContent = firstChar;
+
+          if (examEl && typeof EXAM_PRESETS !== 'undefined' && EXAM_PRESETS[currentExamKey]) {
+            examEl.textContent = EXAM_PRESETS[currentExamKey].name.split('(')[0];
           }
-        });
-      }
 
-      // પ્રોફાઇલ પોપ-અપ બંધ કરવા માટે
-      if (closeProfileBtn) {
-        closeProfileBtn.addEventListener('click', () => {
-          if (profileModal) profileModal.classList.add('hidden');
-        });
-      }
+          if (hoursEl && Array.isArray(studyLogs)) {
+            const totalMinutes = studyLogs.reduce((sum, l) => sum + l.durationMinutes, 0);
+            hoursEl.textContent = `${(totalMinutes / 60).toFixed(1)} કલાક`;
+          }
 
-      // લૉગઆઉટ બટન ક્લિક હેન્ડલર
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-          currentUser = null;
-          localStorage.removeItem('abhyassetu_user');
-          localStorage.removeItem('user');
-          
-          if (profileModal) profileModal.classList.add('hidden');
-          renderDashboard();
-          showToast('લૉગઆઉટ થઈ ગયું છે!');
+          if (profileModal) profileModal.classList.remove('hidden');
+        } else {
+          // જો લૉગિન ન હોય તો જ લૉગિન બોક્સ ખુલશે
+          if (authModal) authModal.classList.remove('hidden');
+        }
+      }, true); // capture true રાખવાથી જૂની બધી ઇવેન્ટ્સ બ્લોક થઈ જશે
+    }
 
-          // પાછું લૉગિન પેજ ફરજિયાત સામે આવી જશે
-          checkUserAuthGate();
-        });
-      }
+    // ૨. પ્રોફાઇલ પોપ-અપ બંધ કરતાં સીધા મુખ્ય પેજ પર જ રહેશે
+    if (closeProfileBtn && profileModal) {
+      closeProfileBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        profileModal.classList.add('hidden');
+        if (authModal) authModal.classList.add('hidden'); // ખાતરી કરશે કે લૉગિન ના ખુલે
+      });
+    }
 
-      // પેજ લોડ થતાં જ ચેક કરશે
-      checkUserAuthGate();
+    // ૩. લૉગઆઉટ કરે ત્યારે જ લૉગિન પોપ-અપ સામે આવશે
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        currentUser = null;
+        localStorage.removeItem('abhyassetu_user');
+        localStorage.removeItem('user');
+        
+        if (profileModal) profileModal.classList.add('hidden');
+        if (typeof renderDashboard === 'function') renderDashboard();
+        if (typeof showToast === 'function') showToast('લૉગઆઉટ થઈ ગયું છે!');
+
+        checkUserAuthGate(); // હવે લૉગિન સ્ક્રીન આવશે
+      });
+    }
 
     window.addEventListener("DOMContentLoaded", loadQuestion);
   </script>
