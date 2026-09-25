@@ -662,6 +662,47 @@
     </div>
   </div>
 
+<!-- MODAL: Logged-in User Profile & Logout Modal -->
+  <div id="userProfileModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4 text-center">
+      
+      <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 class="font-bold text-sm text-slate-700 dark:text-slate-200">વિદ્યાર્થી પ્રોફાઇલ</h3>
+        <button id="closeProfileModalBtn" class="text-slate-400 hover:text-slate-600 text-lg">✕</button>
+      </div>
+
+      <!-- Avatar Big View -->
+      <div class="flex flex-col items-center gap-2 pt-2">
+        <div id="profileModalAvatar" class="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg border-2 border-emerald-400/50">
+          U
+        </div>
+        <h4 id="profileModalName" class="text-base font-bold text-slate-800 dark:text-slate-100">Student Name</h4>
+        <p id="profileModalEmail" class="text-xs text-slate-400">student@example.com</p>
+      </div>
+
+      <!-- Extra Info Chips -->
+      <div class="grid grid-cols-2 gap-2 text-xs py-2">
+        <div class="bg-slate-100 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+          <span class="text-slate-400 block text-[10px]">પરીક્ષા લક્ષ્ય</span>
+          <span id="profileModalExam" class="font-bold text-emerald-600 dark:text-emerald-400">GSRTC</span>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+          <span class="text-slate-400 block text-[10px]">કુલ વાંચન</span>
+          <span id="profileModalHours" class="font-bold text-amber-500">0.0 કલાક</span>
+        </div>
+      </div>
+
+      <!-- Logout Button -->
+      <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button id="userLogoutBtn" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+          <span>લૉગઆઉટ કરો (Logout)</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- MODAL: Add Custom Subject Modal -->
   <div id="addSubjectModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full p-5 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-3">
@@ -1916,6 +1957,80 @@
       if (rBox) rBox.style.display = "none";
       loadQuestion();
     }
+
+// ૧. યુઝર ગેટકીપર: લૉગિન ન હોય તો સીધું લૉગિન સ્ક્રીન બતાવશે
+      function checkUserAuthGate() {
+        const authModal = document.getElementById('authModal');
+        const closeAuthBtn = document.getElementById('closeAuthModalBtn');
+
+        if (!currentUser) {
+          if (authModal) {
+            authModal.classList.remove('hidden');
+            if (closeAuthBtn) closeAuthBtn.style.display = 'none'; // ફરજિયાત લૉગિન
+          }
+        } else {
+          if (authModal) authModal.classList.add('hidden');
+          if (closeAuthBtn) closeAuthBtn.style.display = 'block';
+        }
+      }
+
+      // ૨. અવતાર પર ટચ કરતાં પ્રોફાઇલ વિગતો વાળું પોપ-અપ ખુલશે
+      const authBtn = document.getElementById('authModalOpenBtn');
+      const profileModal = document.getElementById('userProfileModal');
+      const closeProfileBtn = document.getElementById('closeProfileModalBtn');
+      const logoutBtn = document.getElementById('userLogoutBtn');
+
+      if (authBtn) {
+        authBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (currentUser) {
+            const name = currentUser.displayName || currentUser.name || 'વિદ્યાર્થી';
+            const email = currentUser.email || 'guest@abhyassetu.local';
+            const firstChar = name.trim().charAt(0).toUpperCase();
+
+            document.getElementById('profileModalName').textContent = name;
+            document.getElementById('profileModalEmail').textContent = email;
+            document.getElementById('profileModalAvatar').textContent = firstChar;
+
+            const activeExam = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name.split('(')[0] : 'GSRTC';
+            document.getElementById('profileModalExam').textContent = activeExam;
+
+            const totalMinutes = studyLogs.reduce((sum, l) => sum + l.durationMinutes, 0);
+            document.getElementById('profileModalHours').textContent = `${(totalMinutes / 60).toFixed(1)} કલાક`;
+
+            if (profileModal) profileModal.classList.remove('hidden');
+          } else {
+            const authModal = document.getElementById('authModal');
+            if (authModal) authModal.classList.remove('hidden');
+          }
+        });
+      }
+
+      // પ્રોફાઇલ પોપ-અપ બંધ કરવા માટે
+      if (closeProfileBtn) {
+        closeProfileBtn.addEventListener('click', () => {
+          if (profileModal) profileModal.classList.add('hidden');
+        });
+      }
+
+      // લૉગઆઉટ બટન ક્લિક હેન્ડલર
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          currentUser = null;
+          localStorage.removeItem('abhyassetu_user');
+          localStorage.removeItem('user');
+          
+          if (profileModal) profileModal.classList.add('hidden');
+          renderDashboard();
+          showToast('લૉગઆઉટ થઈ ગયું છે!');
+
+          // પાછું લૉગિન પેજ ફરજિયાત સામે આવી જશે
+          checkUserAuthGate();
+        });
+      }
+
+      // પેજ લોડ થતાં જ ચેક કરશે
+      checkUserAuthGate();
 
     window.addEventListener("DOMContentLoaded", loadQuestion);
   </script>
