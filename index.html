@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>અભ્યાસસેતુ Pro - ગુજરાત સ્પર્ધાત્મક પરીક્ષા પોર્ટલ</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -42,36 +42,20 @@
     };
   </script>
 
-<style>
-  html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-</style>
-
   <!-- External Visual Libraries -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-  <!-- Custom CSS for polished SaaS feel -->
+  <!-- Custom CSS -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap');
     
-    body {
-  font-family: 'Inter', sans-serif;
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg>") 2 22, auto !important;
-}
-
-/* બટન અને લિંક માટે */
-a, button, select, [role="button"] {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='%232563eb' stroke='%231e3a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg>") 2 22, pointer !important;
-}
-
-/* ટાઈપ કરવાના બોક્સ માટે સામાન્ય કર્સર */
-input, textarea {
-  cursor: text !important;
-}
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      font-family: 'Inter', sans-serif;
+    }
 
     .custom-scrollbar::-webkit-scrollbar {
       height: 6px;
@@ -95,97 +79,72 @@ input, textarea {
       animation: pulse-ring 2.5s infinite ease-in-out;
     }
 
-/* FORCE ROUND AVATAR ON HEADER USER BUTTON */
-#authModalOpenBtn {
-  width: 34px !important;
-  height: 34px !important;
-  min-width: 34px !important;
-  max-width: 34px !important;
-  border-radius: 9999px !important;
-  padding: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  background: linear-gradient(135deg, #10b981, #0d9488) !important;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
-  border: 1.5px solid rgba(255,255,255,0.2) !important;
-}
-
-/* hide user icon inside button */
-#authModalOpenBtn svg, #authModalOpenBtn i {
-  display: none !important;
-}
-
-/* show ONLY the 1st letter, hide all remaining text */
-#authButtonText {
-  display: inline-block !important;
-  width: 1ch !important;
-  max-width: 1ch !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  text-transform: uppercase !important;
-  font-weight: 800 !important;
-  font-size: 13px !important;
-  color: #ffffff !important;
-  text-align: center !important;
-  line-height: 1 !important;
-}
-
+    /* Fixed Compact User Avatar (Zero Screen Overflow) */
+    #authModalOpenBtn {
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
   </style>
 </head>
 
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
 
-  <!-- Top Announcement Notification Bar -->
-  <aside aria-label="Announcement" class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white text-[11px] sm:text-xs py-1.5 px-4 text-center font-medium shadow-sm flex items-center justify-center gap-2">
-    <span class="inline-flex items-center gap-1.5 bg-emerald-900/60 border border-emerald-400/40 px-2 py-0.5 rounded-full text-[10px] font-bold">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-      <span>નવી સત્તાવાર અપડેટ</span>
-    </span>
-    <span>GSRTC કંડક્ટર, ડ્રાઈવર, પોલીસ કોન્સ્ટેબલ & CCE ૨૦૨૬-૨૭ પરીક્ષા સ્પેશિયલ પોર્ટલ</span>
+  <!-- ================= ૧. ટોપ એનાઉન્સમેન્ટ બાર (થીમ બટન સાથે) ================= -->
+  <aside aria-label="Announcement" class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white text-[11px] sm:text-xs py-1.5 px-3 shadow-sm border-b border-emerald-700/40">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+      
+      <div class="flex items-center gap-2 overflow-hidden">
+        <span class="inline-flex items-center gap-1.5 bg-emerald-950/80 border border-emerald-400/40 px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap flex-shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>નવી સત્તાવાર અપડેટ</span>
+        </span>
+        <span class="truncate text-[11px]">GSRTC કંડક્ટર, ડ્રાઈવર, પોલીસ કોન્સ્ટેબલ & CCE ૨૦૨૬-૨૭ સ્પેશિયલ પોર્ટલ</span>
+      </div>
+
+      <!-- Day / Night Toggle બટન અહીં ઉપર સ્થાનાંતરિત કર્યું -->
+      <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-800 text-amber-400 border border-emerald-600/40 transition flex-shrink-0" title="થીમ બદલો (Day/Night)">
+        <i data-lucide="sun" class="w-3.5 h-3.5"></i>
+      </button>
+
+    </div>
   </aside>
 
-  <!-- Main App Navigation Header -->
-  <!-- ================= TOP HEADER BAR ================= -->
-  <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 py-2.5">
+  <!-- ================= ૨. મુખ્ય એપ હેડર (૩ જ આઇટમ - ૧૦૦% મોબાઈલ ફિટ) ================= -->
+  <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 py-2">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
       <!-- Left: Logo & App Title -->
       <div class="flex items-center gap-2 flex-shrink-0">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-500 p-0.5 shadow-md flex items-center justify-center">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-500 p-0.5 shadow-md flex items-center justify-center">
           <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
-            <i data-lucide="compass" class="w-5 h-5 text-emerald-400"></i>
+            <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
           </div>
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <h1 class="font-extrabold text-sm sm:text-base tracking-tight text-white">
+            <h1 class="font-extrabold text-sm sm:text-base tracking-tight text-white leading-tight">
               અભ્યાસસેતુ <span class="text-amber-400 font-bold">Pro</span>
             </h1>
           </div>
-          <span class="text-[9px] text-emerald-400 font-semibold block sm:hidden">GUJ GOV 2026-27</span>
+          <span class="text-[9px] text-emerald-400 font-semibold block leading-none">GUJ GOV 2026-27</span>
         </div>
       </div>
 
-      <!-- Right: Action Buttons -->
-      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+      <!-- Right: Action Buttons (Exam Badge + Dynamic Round Avatar) -->
+      <div class="flex items-center gap-2 flex-shrink-0">
         
         <!-- Exam Badge Button -->
-        <button id="openExamHubBtn" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2 sm:px-2.5 py-1.5 rounded-xl text-[11px] font-bold transition">
-          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span id="activeExamBadgeName" class="max-w-[70px] sm:max-w-none truncate">કંડક્ટર</span>
+        <button id="openExamHubBtn" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2 py-1 rounded-xl text-[11px] font-bold transition">
+          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400 flex-shrink-0"></i>
+          <span id="activeExamBadgeName" class="max-w-[85px] sm:max-w-none truncate">કંડક્ટર</span>
           <span class="bg-amber-500 text-slate-950 font-extrabold px-1 rounded text-[9px]" id="activeExamMarksBadge">૧૦૦ ગુણ</span>
         </button>
 
-        <!-- Theme Toggle -->
-        <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-800 transition">
-          <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
-        </button>
-
-       <!-- Smart User Avatar / Login Button -->
-        <button id="authModalOpenBtn" class="flex items-center justify-center rounded-full transition shadow-sm" title="પ્રોફાઇલ / લૉગિન">
-          <div id="userAvatarContainer" class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold">
+        <!-- Dynamic Round User Avatar Button (દરેક યૂઝર માટે ઓટોમેટિક અક્ષર) -->
+        <button id="authModalOpenBtn" title="પ્રોફાઇલ / એકાઉન્ટ">
+          <div id="userAvatarContainer" class="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold transition">
             <i data-lucide="user" class="w-3.5 h-3.5"></i>
             <span id="authButtonText">લૉગિન</span>
           </div>
@@ -196,11 +155,10 @@ input, textarea {
     </div>
   </header>
 
-
-  <!-- Main Container -->
+  <!-- ================= ૩. મુખ્ય કન્ટેન્ટ ================= -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-    <!-- Daily Motivational Suvichar & Khakhi/Gov Exam Shayari Banner -->
+    <!-- Daily Motivational Banner -->
     <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white p-5 sm:p-6 border border-emerald-500/30 shadow-xl shadow-emerald-950/20">
       <div class="absolute -right-8 -bottom-8 w-44 h-44 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none"></div>
       <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -216,7 +174,7 @@ input, textarea {
             "સપના એ નથી જે ઊંઘમાં આવે, સપના તો એ છે જે તમને ઊંઘવા જ ન દે!"
           </h2>
           <p id="motivationalAuthorText" class="text-xs text-emerald-300 font-medium">
-            — ડૉ. એ.પી.જે. અબ્દુલ કલામ | લક્ષ્ય: સરકારી નોકરી ૨૦૨૬-૨૭
+            — ડૉ. એ.પી.જે. અબ્દુલ કલામ | લક્ષ્ય: સરકારી સેવા ૨૦૨૬-૨૭
           </p>
         </div>
         
@@ -233,42 +191,34 @@ input, textarea {
       </div>
     </div>
 
-<!-- Daily Quick MCQ Challenge Section -->
-<section id="daily-mcq-section" style="margin: 20px 0; font-family: 'Inter', sans-serif;">
-  <div style="background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 16px; padding: 24px; color: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-      <div>
-        <span style="background: #3b82f6; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;">Daily 5 MCQs</span>
-        <h3 style="margin: 8px 0 0; font-size: 20px; color: #f8fafc;">દૈનિક ક્વિક એમસીક્યુ ચેલેન્જ</h3>
+    <!-- Daily Quick MCQ Challenge Section -->
+    <section id="daily-mcq-section" class="my-5 font-sans">
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-5 sm:p-6 text-white shadow-xl">
+        <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+          <div>
+            <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase">Daily 5 MCQs</span>
+            <h3 class="text-lg font-bold text-slate-100 mt-2">દૈનિક ક્વિક એમસીક્યુ ચેલેન્જ</h3>
+          </div>
+          <div id="mcq-progress-text" class="text-slate-400 text-sm font-semibold">પ્રશ્ન 1 / 5</div>
+        </div>
+
+        <div id="quiz-container">
+          <p id="mcq-question" class="text-base font-semibold leading-relaxed text-slate-200 mb-4"></p>
+          <div id="mcq-options" class="grid gap-2.5"></div>
+          <div id="mcq-explanation" class="hidden mt-4 p-3 rounded-xl bg-blue-500/10 border-l-4 border-blue-500 text-sm text-slate-300"></div>
+          <button id="mcq-next-btn" onclick="nextQuestion()" class="hidden mt-4 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition">આગળનો પ્રશ્ન ➔</button>
+        </div>
+
+        <div id="quiz-result" class="hidden text-center py-6">
+          <h4 class="text-xl font-bold text-cyan-400 mb-2">ખૂબ સરસ! આજનો ક્વિઝ પૂર્ણ થયો 🎉</h4>
+          <p id="quiz-score-text" class="text-base text-slate-200 mb-4"></p>
+          <button onclick="resetDailyQuiz()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition">ફરીથી પ્રયાસ કરો</button>
+        </div>
       </div>
-      <div id="mcq-progress-text" style="color: #94a3b8; font-size: 14px; font-weight: 600;">પ્રશ્ન 1 / 5</div>
-    </div>
-
-    <!-- Question Box -->
-    <div id="quiz-container">
-      <p id="mcq-question" style="font-size: 17px; font-weight: 600; line-height: 1.5; color: #e2e8f0; margin-bottom: 18px;"></p>
-      <div id="mcq-options" style="display: grid; gap: 10px;"></div>
-      
-      <!-- Explanation Card -->
-      <div id="mcq-explanation" style="display: none; margin-top: 16px; padding: 12px; border-radius: 10px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; font-size: 14px; color: #cbd5e1;"></div>
-      
-      <!-- Action Button -->
-      <button id="mcq-next-btn" onclick="nextQuestion()" style="display: none; margin-top: 18px; width: 100%; background: #2563eb; color: #fff; font-weight: bold; border: none; padding: 12px; border-radius: 10px; font-size: 15px;">આગળનો પ્રશ્ન ➔</button>
-    </div>
-
-    <!-- Quiz Result Screen -->
-    <div id="quiz-result" style="display: none; text-align: center; padding: 20px 0;">
-      <h4 style="font-size: 22px; color: #38bdf8; margin: 0 0 10px;">ખૂબ સરસ! આજનો ક્વિઝ પૂર્ણ થયો 🎉</h4>
-      <p id="quiz-score-text" style="font-size: 16px; color: #e2e8f0; margin-bottom: 16px;"></p>
-      <button onclick="resetDailyQuiz()" style="background: #10b981; color: #fff; font-weight: 600; border: none; padding: 10px 20px; border-radius: 8px;">ફરીથી પ્રયાસ કરો</button>
-    </div>
-  </div>
-</section>
+    </section>
 
     <!-- Quick Overview KPI Stats Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      
-      <!-- Today's Study Card -->
       <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">આજનું વાંચન</span>
@@ -286,7 +236,6 @@ input, textarea {
         <span class="text-[10px] text-slate-400 mt-1 block">દૈનિક લક્ષ્ય: ૬ કલાક</span>
       </div>
 
-      <!-- Streak & Attendance Card -->
       <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">સતત હાજરી (Streak)</span>
@@ -306,7 +255,6 @@ input, textarea {
         </div>
       </div>
 
-      <!-- Total Hours Studied -->
       <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">કુલ અભ્યાસ સમય</span>
@@ -321,7 +269,6 @@ input, textarea {
         <span class="text-[10px] text-slate-400 mt-2 block" id="kpiTotalSessions">૦ સત્રો નોંધાયા</span>
       </div>
 
-      <!-- Syllabus Progress % -->
       <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">સિલેબસ પૂર્ણતા</span>
@@ -337,14 +284,12 @@ input, textarea {
           <div id="kpiSyllabusBar" class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
         </div>
       </div>
-
     </div>
 
     <!-- Dual Study Clock Engine: Stopwatch + Customizable Pomodoro -->
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         
-        <!-- Timer Left Info & Controls -->
         <div class="w-full md:w-5/12 space-y-4">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-primary-500 animate-ping"></span>
@@ -356,7 +301,6 @@ input, textarea {
             સ્ક્રીન લૉક હોય કે નેટ બંધ હોય તો પણ આ ટાઈમર બિલકુલ સાચો સમય ગણશે.
           </p>
 
-          <!-- Timer Mode Switcher -->
           <div class="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-semibold">
             <button id="modeStopwatchBtn" class="flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition">
               ⏱️ સાદી સ્ટોપવોચ
@@ -366,31 +310,26 @@ input, textarea {
             </button>
           </div>
 
-          <!-- Subject Selection for Logging -->
           <div class="space-y-1.5">
             <label for="timerSubjectSelect" class="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center justify-between">
               <span>વિષય પસંદ કરો:</span>
               <span class="text-[10px] text-primary-600 cursor-pointer" id="quickAddSubjectBtn">+ નવો વિષય</span>
             </label>
             <select id="timerSubjectSelect" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:ring-2 focus:ring-primary-500 outline-none">
-              <!-- Dynamically populated based on active exam -->
             </select>
           </div>
 
-          <!-- Quick Topic Notes -->
           <div class="space-y-1.5">
             <label for="timerTopicInput" class="text-xs font-semibold text-slate-600 dark:text-slate-300">વાંચેલા ટોપિકની નોંધ (ઓપ્શનલ):</label>
             <input type="text" id="timerTopicInput" placeholder="દા.ત. મોટર વ્હીકલ એક્ટ કલમ ૧૧૨, છંદ વ્યાકરણ..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-primary-500 outline-none">
           </div>
 
-          <!-- Pomodoro Custom Duration Controls -->
           <div id="pomodoroDurationBox" class="hidden pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2">
             <span class="text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center justify-between">
               <span>પોમોડોરો સમય સેટ કરો:</span>
               <span id="currentPomodoroBadge" class="text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-md">૨૫ મિનિટ</span>
             </span>
             
-            <!-- Quick Preset Duration Buttons -->
             <div class="grid grid-cols-4 gap-1.5 text-xs font-semibold">
               <button type="button" data-mins="15" class="pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-primary-500/20 text-slate-700 dark:text-slate-300 transition text-center">15m</button>
               <button type="button" data-mins="25" class="pomo-preset-btn py-1 px-2 rounded-lg bg-primary-600 text-white font-bold transition text-center">25m</button>
@@ -398,7 +337,6 @@ input, textarea {
               <button type="button" data-mins="60" class="pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-primary-500/20 text-slate-700 dark:text-slate-300 transition text-center">60m</button>
             </div>
 
-            <!-- Custom Minutes Input Row -->
             <div class="flex items-center gap-2 pt-1">
               <input type="number" id="customPomodoroMins" min="1" max="180" placeholder="કસ્ટમ મિનિટ (દા.ત. 30)" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs outline-none">
               <button type="button" id="applyCustomPomoBtn" class="bg-slate-200 dark:bg-slate-700 hover:bg-primary-600 hover:text-white px-3 py-1 rounded-lg text-xs font-bold transition whitespace-nowrap">
@@ -408,11 +346,8 @@ input, textarea {
           </div>
         </div>
 
-        <!-- Timer Display Right Dial & Buttons -->
         <div class="w-full md:w-7/12 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-800">
-          
           <div class="relative flex items-center justify-center mb-6">
-            <!-- Digital Clock Display -->
             <div class="text-center">
               <div id="timerDigitsDisplay" class="font-mono text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                 00:00:00
@@ -423,7 +358,6 @@ input, textarea {
             </div>
           </div>
 
-          <!-- Timer Action Buttons -->
           <div class="flex flex-wrap items-center justify-center gap-3 w-full">
             <button id="timerToggleBtn" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm shadow-lg shadow-primary-600/25 transition active:scale-95">
               <i data-lucide="play" class="w-4 h-4 fill-current"></i>
@@ -439,7 +373,6 @@ input, textarea {
               <span>સેશન સેવ કરો</span>
             </button>
           </div>
-
         </div>
 
       </div>
@@ -466,33 +399,29 @@ input, textarea {
       </div>
       <div class="overflow-x-auto custom-scrollbar pb-2">
         <div id="heatmapGrid" class="grid grid-flow-col grid-rows-7 gap-1.5 min-w-[650px] p-1">
-          <!-- Populated dynamically via JS -->
         </div>
       </div>
     </div>
 
-    <!-- Gujarat Top Aspirants Live Leaderboard & Rank Section -->
+    <!-- Gujarat Top Aspirants Live Leaderboard -->
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
-        <div>
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20">
-              <i data-lucide="trophy" class="w-4 h-4"></i>
-            </div>
-            <div>
-              <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
-                <span>ગુજરાત ટોપર્સ લાઇવ લીડરબોર્ડ (Top Aspirants Rank)</span>
-                <span class="text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                  <span>લાઈવ રેન્કિંગ</span>
-                </span>
-              </h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">જેટલું વધુ વાંચશો, તેટલો તમારો રેન્ક ટોચ પર આવશે!</p>
-            </div>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20">
+            <i data-lucide="trophy" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
+              <span>ગુજરાત ટોપર્સ લાઇવ લીડરબોર્ડ (Top Aspirants Rank)</span>
+              <span class="text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                <span>લાઈવ રેન્કિંગ</span>
+              </span>
+            </h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">જેટલું વધુ વાંચશો, તેટલો તમારો રેન્ક ટોચ પર આવશે!</p>
           </div>
         </div>
 
-        <!-- Leaderboard Time Toggle Tabs -->
         <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs font-bold self-start sm:self-auto">
           <button id="leaderboardTabToday" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition">
             આજનું રેન્કિંગ
@@ -503,7 +432,6 @@ input, textarea {
         </div>
       </div>
 
-      <!-- User's Personal Rank Highlight Bar -->
       <div id="currentUserRankHighlight" class="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-primary-500/10 to-teal-500/10 border border-primary-500/30 flex items-center justify-between text-xs">
         <div class="flex items-center gap-2.5">
           <span class="w-7 h-7 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center text-xs shadow-sm" id="myRankBadge">#1</span>
@@ -518,7 +446,6 @@ input, textarea {
         </div>
       </div>
 
-      <!-- Leaderboard List Table -->
       <div class="overflow-x-auto custom-scrollbar">
         <table class="w-full text-left text-xs">
           <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-semibold border-y border-slate-200 dark:border-slate-800">
@@ -531,24 +458,13 @@ input, textarea {
             </tr>
           </thead>
           <tbody id="leaderboardTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
-            <!-- Dynamically populated via JavaScript -->
           </tbody>
         </table>
       </div>
-
-      <div class="pt-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 dark:border-slate-800">
-        <span>💡 સ્ટોપવોચથી સેશન સેવ કરતાં તમારો રેન્ક લાઈવ અપડેટ થશે.</span>
-        <span class="font-semibold text-primary-600 dark:text-primary-400 flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-          <span>સ્પર્ધા જ તમને સફળ બનાવશે!</span>
-        </span>
-      </div>
     </div>
 
-    <!-- Visual Charts: 7-Day Trend & Subject Donut -->
+    <!-- Visual Charts -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      
-      <!-- 7 Days Bar Chart -->
       <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-bold text-sm flex items-center gap-2">
@@ -561,7 +477,6 @@ input, textarea {
         </div>
       </div>
 
-      <!-- Subject Wise Distribution Donut -->
       <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-bold text-sm flex items-center gap-2">
@@ -573,10 +488,9 @@ input, textarea {
           <canvas id="subjectPieChart"></canvas>
         </div>
       </div>
-
     </div>
 
-    <!-- Subject Wise Syllabus Progress Cards -->
+    <!-- Subject Cards Grid -->
     <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div>
@@ -598,9 +512,7 @@ input, textarea {
         </div>
       </div>
 
-      <!-- Subject Cards Grid -->
       <div id="subjectProgressCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        <!-- Dynamically rendered via JS -->
       </div>
     </div>
 
@@ -627,7 +539,6 @@ input, textarea {
         </div>
       </div>
 
-      <!-- Logs Table -->
       <div class="overflow-x-auto custom-scrollbar">
         <table class="w-full text-left text-xs">
           <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-semibold border-y border-slate-200 dark:border-slate-800">
@@ -640,7 +551,6 @@ input, textarea {
             </tr>
           </thead>
           <tbody id="studyLogsTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
-            <!-- Dynamically populated via JS -->
           </tbody>
         </table>
       </div>
@@ -651,8 +561,6 @@ input, textarea {
   <!-- High-Visibility Footer with Developer Branding -->
   <footer class="mt-12 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 text-center">
     <div class="max-w-7xl mx-auto space-y-3">
-      
-      <!-- Developer Vivek Dangar Badge -->
       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-primary-500/10 to-teal-500/10 border border-emerald-500/30 shadow-xs">
         <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
         <span class="text-xs sm:text-sm font-extrabold tracking-wide bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-600 bg-clip-text text-transparent">
@@ -685,9 +593,7 @@ input, textarea {
         <button id="closeExamHubBtn" class="text-slate-400 hover:text-slate-600 text-lg p-1">✕</button>
       </div>
 
-      <!-- Exam Cards Grid -->
       <div id="examCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- Dynamically rendered via JS -->
       </div>
 
       <div class="pt-2 text-right">
@@ -711,7 +617,6 @@ input, textarea {
         <button id="closeAuthModalBtn" class="text-slate-400 hover:text-slate-600 text-lg p-1">✕</button>
       </div>
 
-      <!-- Auth Mode Tabs (Sign In vs Register) -->
       <div class="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-semibold">
         <button id="tabLoginBtn" class="flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition">
           લૉગિન (Sign In)
@@ -721,10 +626,7 @@ input, textarea {
         </button>
       </div>
 
-      <!-- Auth Form -->
       <form id="authForm" class="space-y-3">
-        
-        <!-- Registration Only Fields -->
         <div id="registerFieldsWrapper" class="hidden space-y-3">
           <div>
             <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">પૂરું નામ:</label>
@@ -755,7 +657,6 @@ input, textarea {
             👉 મહેમાન તરીકે ચાલુ રાખો (Guest Login)
           </button>
         </div>
-
       </form>
 
     </div>
@@ -788,9 +689,8 @@ input, textarea {
     </div>
   </div>
 
-  <!-- Client-side Pure Vanilla JavaScript Engine -->
+  <!-- Pure Vanilla JavaScript Logic -->
   <script>
-    /* Gujarat Competitive Exam Blueprints & Subject Presets */
     const EXAM_PRESETS = {
       gsrtc_conductor: {
         id: 'gsrtc_conductor',
@@ -891,7 +791,6 @@ input, textarea {
       }
     };
 
-    /* Daily Motivational Quotes & Shayari Collection */
     const MOTIVATIONAL_SHAYARI = [
       { text: "સપના એ નથી જે ઊંઘમાં આવે, સપના તો એ છે જે તમને ઊંઘવા જ ન દે!", author: "ડૉ. એ.પી.જે. અબ્દુલ કલામ" },
       { text: "મંઝીલ ઉન્હી કો મિલતી હૈ જિનકે સપનોં મેં જાન હોતી હૈ, પંખોં સે કુછ નહીં હોતા હૌસલોં સે ઉડાન હોતી હૈ!", author: "ખાખી લવર્સ સ્પેશિયલ" },
@@ -901,7 +800,6 @@ input, textarea {
       { text: "સફળતા કોઈ અકસ્માત નથી; તે સખત પરિશ્રમ, સાતત્ય અને રોજના ૬ કલાકના સમર્પણનું ફળ છે.", author: "વિવેક ડાંગર" }
     ];
 
-    /* Leaderboard Peer Benchmarks (Gujarat Competitive Exam Aspirants) */
     const BENCHMARK_ASPIRANTS = [
       { id: 'asp_1', name: 'હાર્દિક પટેલ', city: 'રાજકોટ', exam: 'GSRTC કંડક્ટર', todayHours: 7.2, weeklyHours: 42.5, streak: 24 },
       { id: 'asp_2', name: 'હેતલ ચૌધરી', city: 'ગાંધીનગર', exam: 'CCE ક્લાર્ક', todayHours: 6.5, weeklyHours: 39.0, streak: 19 },
@@ -912,23 +810,20 @@ input, textarea {
       { id: 'asp_7', name: 'કૌશિક વાઘેલા', city: 'વડોદરા', exam: 'GSRTC ડ્રાઈવર', todayHours: 3.0, weeklyHours: 21.0, streak: 7 }
     ];
 
-    /* Global App State */
     let currentUser = null;
     let currentExamKey = 'gsrtc_conductor';
     let subjects = [];
     let studyLogs = [];
     let attendanceDates = [];
-    let leaderboardViewMode = 'today'; // 'today' | 'weekly'
+    let leaderboardViewMode = 'today';
 
-    /* Timer Engine Variables */
-    let timerMode = 'stopwatch'; // 'stopwatch' | 'pomodoro'
+    let timerMode = 'stopwatch';
     let timerRunning = false;
     let timerStartTimestamp = 0;
     let timerAccumulatedMs = 0;
     let timerInterval = null;
     let pomodoroDurationMinutes = 25;
 
-    /* Web Audio Synthesizer (Zero External MP3s Needed) */
     let audioCtx = null;
     function playAudioCue(type = 'beep') {
       try {
@@ -942,8 +837,8 @@ input, textarea {
 
         const now = audioCtx.currentTime;
         if (type === 'complete') {
-          osc.frequency.setValueAtTime(587.33, now); // D5
-          osc.frequency.exponentialRampToValueAtTime(880, now + 0.3); // A5
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.3);
           gain.gain.setValueAtTime(0.3, now);
           gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
           osc.start(now);
@@ -956,11 +851,10 @@ input, textarea {
           osc.stop(now + 0.1);
         }
       } catch (e) {
-        console.warn('Audio not initialized yet:', e);
+        console.warn('Audio note:', e);
       }
     }
 
-    /* Helper: Local Storage Load/Save */
     function loadState() {
       try {
         const savedExam = localStorage.getItem('abhyassetu_exam');
@@ -992,43 +886,38 @@ input, textarea {
       }
     }
 
-// દરેક વિદ્યાર્થી માટે ઓટોમેટિક અવતાર (Dynamic User Avatar)
-function updateHeaderAvatar() {
-  const container = document.getElementById('userAvatarContainer');
-  if (!container) return;
+    /* DYNAMIC ROUND USER AVATAR (દરેક વિદ્યાર્થી માટે ઓટોમેટિક અક્ષર) */
+    function updateHeaderAvatar() {
+      const container = document.getElementById('userAvatarContainer');
+      if (!container) return;
 
-  // બ્રાઉઝરમાંથી જે-તે વિદ્યાર્થીનો સેવ થયેલો ડેટા વાંચશે
-  const savedData = localStorage.getItem('abhyas_user') || 
-                    localStorage.getItem('currentUser') || 
-                    localStorage.getItem('user');
+      let studentName = "";
+      if (currentUser) {
+        studentName = currentUser.displayName || currentUser.name || currentUser.fullName || currentUser.email || "";
+      }
 
-  let studentName = "";
+      if (!studentName) {
+        const savedUser = localStorage.getItem('abhyassetu_user') || localStorage.getItem('user');
+        if (savedUser) {
+          try {
+            const parsed = JSON.parse(savedUser);
+            studentName = parsed.displayName || parsed.name || parsed.fullName || parsed.email || "";
+          } catch(e) {
+            studentName = savedUser;
+          }
+        }
+      }
 
-  if (savedData) {
-    try {
-      const userObj = JSON.parse(savedData);
-      studentName = userObj.name || userObj.username || userObj.fullName || "";
-    } catch(e) {
-      studentName = savedData;
+      if (studentName && studentName.trim() !== "") {
+        const firstLetter = studentName.trim().charAt(0).toUpperCase();
+        container.className = "w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-white font-black flex items-center justify-center text-xs shadow-md border border-emerald-300/40 select-none flex-shrink-0";
+        container.innerHTML = `<span>${firstLetter}</span>`;
+      } else {
+        container.className = "flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold transition flex-shrink-0";
+        container.innerHTML = `<i data-lucide="user" class="w-3.5 h-3.5"></i><span id="authButtonText">લૉગિન</span>`;
+        if (window.lucide) lucide.createIcons();
+      }
     }
-  }
-
-  // જો વિદ્યાર્થી લૉગિન થયેલો હોય તો તેના નામના પહેલા અક્ષરનો લોગો બનશે
-  if (studentName && studentName.trim() !== "") {
-    const firstLetter = studentName.trim().charAt(0).toUpperCase();
-    
-    container.className = "w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-white font-extrabold flex items-center justify-center text-xs shadow-md border border-emerald-300/40 select-none";
-    container.innerHTML = `<span>${firstLetter}</span>`;
-  } else {
-    // જો લૉગિન ન હોય તો સામાન્ય "લૉગિન" બટન દેખાશે
-    container.className = "flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold";
-    container.innerHTML = `<i data-lucide="user" class="w-3.5 h-3.5"></i><span id="authButtonText">લૉગિન</span>`;
-    if (window.lucide) lucide.createIcons();
-  }
-}
-
-// પેજ લોડ થતાં જ આપોઆપ રન થશે
-setTimeout(updateHeaderAvatar, 200);
 
     function saveState() {
       try {
@@ -1045,13 +934,9 @@ setTimeout(updateHeaderAvatar, 200);
       }
     }
 
-    /* Format helpers */
     function getTodayDateString() {
       const d = new Date();
-      const year = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
 
     function formatTimeDigits(totalSeconds) {
@@ -1061,19 +946,15 @@ setTimeout(updateHeaderAvatar, 200);
       return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
-    /* Timer Delta Update Core */
     function getElapsedMs() {
       let ms = timerAccumulatedMs;
-      if (timerRunning) {
-        ms += (Date.now() - timerStartTimestamp);
-      }
+      if (timerRunning) ms += (Date.now() - timerStartTimestamp);
       return ms;
     }
 
     function updateTimerDisplay() {
       const elapsedMs = getElapsedMs();
       const elapsedSeconds = Math.floor(elapsedMs / 1000);
-
       const digitsEl = document.getElementById('timerDigitsDisplay');
       const subtextEl = document.getElementById('timerSubtext');
 
@@ -1081,13 +962,11 @@ setTimeout(updateHeaderAvatar, 200);
         digitsEl.textContent = formatTimeDigits(elapsedSeconds);
         subtextEl.textContent = timerRunning ? '🔥 સ્ટોપવોચ લાઈવ ચાલુ છે...' : 'સ્ટોપવોચ થોભાવી છે';
       } else {
-        // Pomodoro Countdown
         const totalPomoSecs = pomodoroDurationMinutes * 60;
         const remainSecs = Math.max(0, totalPomoSecs - elapsedSeconds);
         digitsEl.textContent = formatTimeDigits(remainSecs);
         subtextEl.textContent = timerRunning ? `🍅 પોમોડોરો ચાલુ છે (${pomodoroDurationMinutes}m લક્ષ્ય)...` : 'પોમોડોરો તૈયાર છે';
 
-        // Check completion
         if (remainSecs === 0 && timerRunning) {
           stopTimer();
           playAudioCue('complete');
@@ -1136,7 +1015,6 @@ setTimeout(updateHeaderAvatar, 200);
       updateTimerDisplay();
     }
 
-    /* Save Session Action */
     function saveCurrentSession() {
       const elapsedMs = getElapsedMs();
       const elapsedSeconds = Math.floor(elapsedMs / 1000);
@@ -1166,7 +1044,6 @@ setTimeout(updateHeaderAvatar, 200);
 
       studyLogs.unshift(newLog);
 
-      // Auto mark attendance for today
       if (!attendanceDates.includes(todayStr)) {
         attendanceDates.push(todayStr);
       }
@@ -1182,7 +1059,6 @@ setTimeout(updateHeaderAvatar, 200);
       renderDashboard();
     }
 
-    /* Calculate Streak Count */
     function calculateStreak() {
       if (!attendanceDates.length) return 0;
       const sorted = [...new Set(attendanceDates)].sort().reverse();
@@ -1191,16 +1067,12 @@ setTimeout(updateHeaderAvatar, 200);
       let streak = 0;
       let checkDate = new Date();
 
-      // If today not marked yet, check if yesterday was marked
       if (!sorted.includes(todayStr)) {
         checkDate.setDate(checkDate.getDate() - 1);
         const yestStr = checkDate.toISOString().split('T')[0];
-        if (!sorted.includes(yestStr)) {
-          return 0; // Streak broken
-        }
+        if (!sorted.includes(yestStr)) return 0;
       }
 
-      // Count backwards
       while (true) {
         const dStr = checkDate.toISOString().split('T')[0];
         if (sorted.includes(dStr)) {
@@ -1213,7 +1085,6 @@ setTimeout(updateHeaderAvatar, 200);
       return streak;
     }
 
-    /* Chart instances */
     let weeklyChartInstance = null;
     let subjectPieChartInstance = null;
 
@@ -1222,7 +1093,6 @@ setTimeout(updateHeaderAvatar, 200);
       const textColor = isDark ? '#94a3b8' : '#64748b';
       const gridColor = isDark ? 'rgba(51, 65, 85, 0.4)' : 'rgba(226, 232, 240, 0.8)';
 
-      /* 1. Weekly Hours Bar Chart */
       const ctxWeekly = document.getElementById('weeklyHoursChart');
       if (ctxWeekly) {
         const daysLabels = [];
@@ -1232,8 +1102,7 @@ setTimeout(updateHeaderAvatar, 200);
           const d = new Date();
           d.setDate(d.getDate() - i);
           const dateStr = d.toISOString().split('T')[0];
-          const label = d.toLocaleDateString('gu-IN', { weekday: 'short' });
-          daysLabels.push(label);
+          daysLabels.push(d.toLocaleDateString('gu-IN', { weekday: 'short' }));
 
           const dayMins = studyLogs
             .filter(l => l.date === dateStr)
@@ -1258,25 +1127,15 @@ setTimeout(updateHeaderAvatar, 200);
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false }
-            },
+            plugins: { legend: { display: false } },
             scales: {
-              x: {
-                grid: { display: false },
-                ticks: { color: textColor, font: { size: 11 } }
-              },
-              y: {
-                grid: { color: gridColor },
-                ticks: { color: textColor, font: { size: 10 } },
-                suggestedMax: 6
-              }
+              x: { grid: { display: false }, ticks: { color: textColor, font: { size: 11 } } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 } }, suggestedMax: 6 }
             }
           }
         });
       }
 
-      /* 2. Subject Distribution Donut */
       const ctxPie = document.getElementById('subjectPieChart');
       if (ctxPie) {
         const subjectHoursMap = {};
@@ -1302,7 +1161,6 @@ setTimeout(updateHeaderAvatar, 200);
         if (subjectPieChartInstance) subjectPieChartInstance.destroy();
 
         if (pieData.length === 0) {
-          // Render default placeholder
           subjectPieChartInstance = new Chart(ctxPie, {
             type: 'doughnut',
             data: {
@@ -1330,10 +1188,7 @@ setTimeout(updateHeaderAvatar, 200);
               responsive: true,
               maintainAspectRatio: false,
               plugins: {
-                legend: {
-                  position: 'bottom',
-                  labels: { color: textColor, font: { size: 10 }, boxWidth: 10 }
-                }
+                legend: { position: 'bottom', labels: { color: textColor, font: { size: 10 }, boxWidth: 10 } }
               },
               cutout: '65%'
             }
@@ -1342,14 +1197,12 @@ setTimeout(updateHeaderAvatar, 200);
       }
     }
 
-    /* Consistency 60-Day Heatmap */
     function renderHeatmap() {
       const container = document.getElementById('heatmapGrid');
       if (!container) return;
       container.innerHTML = '';
 
       const today = new Date();
-      // 60 days
       for (let i = 59; i >= 0; i--) {
         const d = new Date();
         d.setDate(today.getDate() - i);
@@ -1373,13 +1226,11 @@ setTimeout(updateHeaderAvatar, 200);
       }
     }
 
-    /* Live Gujarat Leaderboard */
     function renderLeaderboard() {
       const tbody = document.getElementById('leaderboardTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      /* 1. Calculate user hours */
       const todayStr = getTodayDateString();
       const userTodayMinutes = studyLogs
         .filter(l => l.date === todayStr)
@@ -1396,7 +1247,6 @@ setTimeout(updateHeaderAvatar, 200);
       const activeExamName = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name.split('(')[0].trim() : 'GSRTC કંડક્ટર';
       const userName = (currentUser && currentUser.displayName) ? currentUser.displayName : 'તમે (વિદ્યાર્થી)';
 
-      /* 2. Assemble participant list */
       const fullList = BENCHMARK_ASPIRANTS.map(asp => ({
         id: asp.id,
         name: asp.name,
@@ -1422,7 +1272,6 @@ setTimeout(updateHeaderAvatar, 200);
       const userRankIndex = fullList.findIndex(a => a.isCurrentUser);
       const userRank = userRankIndex + 1;
 
-      /* Update User Rank Highlight Bar */
       const myRankBadge = document.getElementById('myRankBadge');
       const myRankNameDisplay = document.getElementById('myRankNameDisplay');
       const myRankHoursDisplay = document.getElementById('myRankHoursDisplay');
@@ -1449,7 +1298,6 @@ setTimeout(updateHeaderAvatar, 200);
         }
       }
 
-      /* Render Top Rows */
       fullList.slice(0, 8).forEach((item, index) => {
         const rank = index + 1;
         let rankBadge = `<span class="font-mono font-bold text-slate-500">#${rank}</span>`;
@@ -1491,7 +1339,6 @@ setTimeout(updateHeaderAvatar, 200);
       if (window.lucide) lucide.createIcons();
     }
 
-    /* Subject Wise Progress Cards */
     function renderSubjectProgress() {
       const container = document.getElementById('subjectProgressCardsGrid');
       if (!container) return;
@@ -1526,7 +1373,6 @@ setTimeout(updateHeaderAvatar, 200);
       });
     }
 
-    /* Study Logs Table */
     function renderLogsTable() {
       const tbody = document.getElementById('studyLogsTableBody');
       if (!tbody) return;
@@ -1543,7 +1389,7 @@ setTimeout(updateHeaderAvatar, 200);
         return;
       }
 
-      studyLogs.slice(0, 15).forEach((log, idx) => {
+      studyLogs.slice(0, 15).forEach((log) => {
         const hrs = (log.durationMinutes / 60).toFixed(2);
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50 dark:hover:bg-slate-800/50 transition';
@@ -1569,7 +1415,6 @@ setTimeout(updateHeaderAvatar, 200);
       showToast('સેશન ડિલીટ થયું');
     };
 
-    /* Populate Subject Dropdowns */
     function populateSubjectSelectBoxes() {
       const timerSelect = document.getElementById('timerSubjectSelect');
       if (!timerSelect) return;
@@ -1583,7 +1428,6 @@ setTimeout(updateHeaderAvatar, 200);
       });
     }
 
-    /* KPI Cards Update */
     function renderKPICards() {
       const todayStr = getTodayDateString();
       const todayMinutes = studyLogs
@@ -1618,7 +1462,6 @@ setTimeout(updateHeaderAvatar, 200);
       }
     }
 
-    /* Render Exam Cards in Modal Hub */
     function renderExamHubCards() {
       const container = document.getElementById('examCardsGrid');
       if (!container) return;
@@ -1669,7 +1512,6 @@ setTimeout(updateHeaderAvatar, 200);
       showToast(`🎯 લક્ષ્ય બદલાયું: ${EXAM_PRESETS[examKey].name}`);
     }
 
-    /* Daily Motivation Update */
     function updateDailyMotivation(randomIndex = false) {
       const quoteText = document.getElementById('motivationalQuoteText');
       const authorText = document.getElementById('motivationalAuthorText');
@@ -1682,8 +1524,7 @@ setTimeout(updateHeaderAvatar, 200);
 
       let chosen;
       if (randomIndex) {
-        const rand = Math.floor(Math.random() * MOTIVATIONAL_SHAYARI.length);
-        chosen = MOTIVATIONAL_SHAYARI[rand];
+        chosen = MOTIVATIONAL_SHAYARI[Math.floor(Math.random() * MOTIVATIONAL_SHAYARI.length)];
       } else {
         const dayOfYear = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
         chosen = MOTIVATIONAL_SHAYARI[dayOfYear % MOTIVATIONAL_SHAYARI.length];
@@ -1693,7 +1534,6 @@ setTimeout(updateHeaderAvatar, 200);
       if (authorText) authorText.textContent = `— ${chosen.author} | લક્ષ્ય: સરકારી સેવા`;
     }
 
-    /* Toast Notification Helper */
     function showToast(msg) {
       const existing = document.getElementById('toastNotification');
       if (existing) existing.remove();
@@ -1704,24 +1544,16 @@ setTimeout(updateHeaderAvatar, 200);
       toast.innerHTML = `<span>⚡</span><span>${msg}</span>`;
       document.body.appendChild(toast);
 
-      setTimeout(() => {
-        if (toast) toast.remove();
-      }, 3500);
+      setTimeout(() => { if (toast) toast.remove(); }, 3500);
     }
 
-    /* Master Render */
     function renderDashboard() {
       const activeExam = EXAM_PRESETS[currentExamKey] || EXAM_PRESETS.gsrtc_conductor;
-      document.getElementById('activeExamBadgeName').textContent = activeExam.name;
+      document.getElementById('activeExamBadgeName').textContent = activeExam.name.split('(')[0].trim();
       document.getElementById('activeExamMarksBadge').textContent = `${activeExam.totalMarks} ગુણ`;
       document.getElementById('syllabusHeaderExamTitle').textContent = `${activeExam.name} - સિલેબસ અને ગુણભાર`;
 
-      if (currentUser && currentUser.displayName) {
-        document.getElementById('authButtonText').textContent = currentUser.displayName;
-      } else {
-        document.getElementById('authButtonText').textContent = 'રજીસ્ટ્રેશન / લૉગિન';
-      }
-
+      updateHeaderAvatar();
       populateSubjectSelectBoxes();
       renderKPICards();
       renderHeatmap();
@@ -1733,13 +1565,11 @@ setTimeout(updateHeaderAvatar, 200);
       if (window.lucide) lucide.createIcons();
     }
 
-    /* Event Listeners Setup on Page Load */
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
       updateDailyMotivation(false);
       renderDashboard();
 
-      // Theme toggle
       document.getElementById('themeToggleBtn').addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
         const isDark = document.documentElement.classList.contains('dark');
@@ -1747,22 +1577,10 @@ setTimeout(updateHeaderAvatar, 200);
         renderCharts();
       });
 
-      // Restore saved theme
       if (localStorage.getItem('abhyassetu_theme') === 'light') {
         document.documentElement.classList.remove('dark');
       }
 
-      // Online/Offline detection
-      window.addEventListener('online', () => {
-        document.getElementById('networkStatusText').textContent = 'ઑનલાઇન સિંક';
-        document.getElementById('networkStatusBadge').className = 'hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20';
-      });
-      window.addEventListener('offline', () => {
-        document.getElementById('networkStatusText').textContent = 'ઑફલાઇન સક્રિય';
-        document.getElementById('networkStatusBadge').className = 'hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20';
-      });
-
-      // Timer Mode Toggles
       document.getElementById('modeStopwatchBtn').addEventListener('click', () => {
         timerMode = 'stopwatch';
         document.getElementById('pomodoroDurationBox').classList.add('hidden');
@@ -1779,7 +1597,6 @@ setTimeout(updateHeaderAvatar, 200);
         resetTimer();
       });
 
-      // Timer triggers
       document.getElementById('timerToggleBtn').addEventListener('click', () => {
         if (timerRunning) stopTimer();
         else startTimer();
@@ -1788,7 +1605,6 @@ setTimeout(updateHeaderAvatar, 200);
       document.getElementById('timerResetBtn').addEventListener('click', resetTimer);
       document.getElementById('timerSaveSessionBtn').addEventListener('click', saveCurrentSession);
 
-      // Pomodoro preset buttons
       document.querySelectorAll('.pomo-preset-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const mins = parseInt(e.target.getAttribute('data-mins'), 10);
@@ -1805,7 +1621,6 @@ setTimeout(updateHeaderAvatar, 200);
         });
       });
 
-      // Custom Pomodoro Minutes apply
       document.getElementById('applyCustomPomoBtn').addEventListener('click', () => {
         const val = parseInt(document.getElementById('customPomodoroMins').value, 10);
         if (val && val >= 1 && val <= 180) {
@@ -1819,7 +1634,6 @@ setTimeout(updateHeaderAvatar, 200);
         }
       });
 
-      // Mark Attendance button
       document.getElementById('markAttendanceBtn').addEventListener('click', () => {
         const todayStr = getTodayDateString();
         if (!attendanceDates.includes(todayStr)) {
@@ -1834,7 +1648,6 @@ setTimeout(updateHeaderAvatar, 200);
         }
       });
 
-      // Leaderboard tabs
       document.getElementById('leaderboardTabToday').addEventListener('click', () => {
         leaderboardViewMode = 'today';
         document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
@@ -1849,7 +1662,6 @@ setTimeout(updateHeaderAvatar, 200);
         renderLeaderboard();
       });
 
-      // Motivational Quote triggers
       document.getElementById('refreshQuoteBtn').addEventListener('click', () => {
         updateDailyMotivation(true);
         playAudioCue('beep');
@@ -1862,7 +1674,6 @@ setTimeout(updateHeaderAvatar, 200);
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
       });
 
-      // Exam Hub Modal
       document.getElementById('openExamHubBtn').addEventListener('click', () => {
         renderExamHubCards();
         document.getElementById('examHubModal').classList.remove('hidden');
@@ -1870,7 +1681,6 @@ setTimeout(updateHeaderAvatar, 200);
       document.getElementById('closeExamHubBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
       document.getElementById('examHubCloseDoneBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
 
-      // Auth Modal triggers
       document.getElementById('authModalOpenBtn').addEventListener('click', () => {
         document.getElementById('authModal').classList.remove('hidden');
       });
@@ -1878,7 +1688,6 @@ setTimeout(updateHeaderAvatar, 200);
         document.getElementById('authModal').classList.add('hidden');
       });
 
-      // Auth Tabs (Login vs Register)
       let authMode = 'login';
       document.getElementById('tabLoginBtn').addEventListener('click', () => {
         authMode = 'login';
@@ -1896,35 +1705,23 @@ setTimeout(updateHeaderAvatar, 200);
         document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
       });
 
-      // Auth Form Submission
       document.getElementById('authForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('authEmailInput').value.trim();
-        const pass = document.getElementById('authPasswordInput').value.trim();
-        const fullName = document.getElementById('authFullNameInput').value.trim() || 'વિદ્યાર્થી';
+        const fullName = document.getElementById('authFullNameInput').value.trim() || email.split('@')[0];
 
-        if (authMode === 'register') {
-          currentUser = {
-            uid: 'user_' + Date.now(),
-            displayName: fullName,
-            email: email
-          };
-          showToast(`🎉 એકાઉન્ટ સફળતાપૂર્વક બન્યું! સ્વાગત છે, ${fullName}`);
-        } else {
-          currentUser = {
-            uid: 'user_' + Date.now(),
-            displayName: email.split('@')[0],
-            email: email
-          };
-          showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
-        }
+        currentUser = {
+          uid: 'user_' + Date.now(),
+          displayName: fullName,
+          email: email
+        };
 
         saveState();
         document.getElementById('authModal').classList.add('hidden');
         renderDashboard();
+        showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
       });
 
-      // Guest Login
       document.getElementById('guestLoginBtn').addEventListener('click', () => {
         currentUser = { uid: 'guest_' + Date.now(), displayName: 'મહેમાન વિદ્યાર્થી', email: 'guest@abhyassetu.local' };
         saveState();
@@ -1933,7 +1730,6 @@ setTimeout(updateHeaderAvatar, 200);
         showToast('મહેમાન એકાઉન્ટ સક્રિય!');
       });
 
-      // Add Custom Subject Modal
       document.getElementById('openAddSubjectModalBtn').addEventListener('click', () => {
         document.getElementById('addSubjectModal').classList.remove('hidden');
       });
@@ -1960,7 +1756,6 @@ setTimeout(updateHeaderAvatar, 200);
         }
       });
 
-      // Reset Syllabus Button
       document.getElementById('resetSyllabusBtn').addEventListener('click', () => {
         subjects = JSON.parse(JSON.stringify(EXAM_PRESETS[currentExamKey].subjects));
         saveState();
@@ -1968,7 +1763,6 @@ setTimeout(updateHeaderAvatar, 200);
         showToast('સિલેબસ મૂળ સ્થિતિમાં રીસેટ થયો!');
       });
 
-      // Export CSV
       document.getElementById('exportCsvBtn').addEventListener('click', () => {
         if (!studyLogs.length) {
           showToast('ડાઉનલોડ કરવા માટે કોઈ ડેટા નથી!');
@@ -1987,7 +1781,6 @@ setTimeout(updateHeaderAvatar, 200);
         URL.revokeObjectURL(url);
       });
 
-      // Share WhatsApp Report
       document.getElementById('shareWhatsAppBtn').addEventListener('click', () => {
         const todayStr = getTodayDateString();
         const todayMinutes = studyLogs
@@ -2000,201 +1793,131 @@ setTimeout(updateHeaderAvatar, 200);
         const shareMsg = `📊 *અભ્યાસસેતુ Pro - મારો દૈનિક પ્રગતિ અહેવાલ*\n\n🎯 લક્ષ્ય: ${examName}\n📅 તારીખ: ${todayStr}\n⏱️ આજના વાંચન કલાકો: ${todayHours} કલાક\n🔥 સતત હાજરી (Streak): ${streak} દિવસો\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો ગુજરાત સરકારી નોકરીની એક સ્માર્ટ રીતે!`;
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
       });
-
     });
-// --- Daily Quick MCQ Challenge Logic ---
-  const dailyQuestions = [
-    {
-      q: "૧. બંધારણ સભાના કાયમી અધ્યક્ષ કોણ હતા?",
-      options: ["ડૉ. બાબાસાહેબ આંબેડકર", "ડૉ. રાજેન્દ્ર પ્રસાદ", "સચ્ચિદાનંદ સિંહા", "જવાહરલાલ નેહરુ"],
-      ans: 1,
-      exp: "ડૉ. રાજેન્દ્ર પ્રસાદ ૧૧ ડિસેમ્બર ૧૯૪૬ના રોજ બંધારણ સભાના કાયમી અધ્યક્ષ તરીકે ચૂંટાયા હતા."
-    },
-    {
-      q: "૨. ગુજરાતમાં પંચાયતી રાજનો અમલ કઈ તારીખથી શરૂ થયો હતો?",
-      options: ["૧ મે ૧૯૬૦", "૧ એપ્રિલ ૧૯૬૩", "૨૬ જાન્યુઆરી ૧૯૬૨", "૧૫ ઓગસ્ટ ૧૯૬૩"],
-      ans: 1,
-      exp: "ગુજરાતમાં ૧ એપ્રિલ ૧૯૬૩થી પંચાયતી રાજનો વિધિવત અમલ શરૂ કરવામાં આવ્યો હતો."
-    },
-    {
-      q: "૩. તાજેતરમાં ચર્ચામાં રહેલ 'સૂર્ય મંદિર - મોઢેરા' કઈ નદીના કિનારે આવેલું છે?",
-      options: ["સરસ્વતી", "રૂપેણ", "પુષ્પાવતી", "સાબરમતી"],
-      ans: 2,
-      exp: "મોઢેરાનું સૂર્યમંદિર પુષ્પાવતી નદીના કાંઠે આવેલું છે."
-    },
-    {
-      q: "૪. કમ્પ્યુટરમાં કઈ મેમરી અસ્થાયી (Volatile) ગણાય છે?",
-      options: ["ROM", "Hard Disk", "RAM", "Pen Drive"],
-      ans: 2,
-      exp: "RAM (Random Access Memory) પાવર બંધ થતાં ખાલી થઈ જાય છે, તેથી તેને અસ્થાયી કહેવાય છે."
-    },
-    {
-      q: "૫. GSRTC ની સ્થાપના કયા વર્ષમાં થઈ હતી?",
-      options: ["૧૯૬૦", "૧૯૬૨", "૧૯૫૬", "૧૯૬૯"],
-      ans: 0,
-      exp: "૧ મે ૧૯૬૦ના રોજ ગુજરાત રાજ્યની રચના સાથે જ GSRTC ની સ્થાપના થઈ હતી."
-    }
-  ];
 
-  let currentQIndex = 0;
-  let quizScore = 0;
-  let answered = false;
-
-  function loadQuestion() {
-    answered = false;
-    const qData = dailyQuestions[currentQIndex];
-    const progText = document.getElementById("mcq-progress-text");
-    const qText = document.getElementById("mcq-question");
-    const expDiv = document.getElementById("mcq-explanation");
-    const nextBtn = document.getElementById("mcq-next-btn");
-    const optContainer = document.getElementById("mcq-options");
-
-    if (!qText || !optContainer) return;
-
-    if (progText) progText.innerText = `પ્રશ્ન ${currentQIndex + 1} / ${dailyQuestions.length}`;
-    qText.innerText = qData.q;
-    if (expDiv) expDiv.style.display = "none";
-    if (nextBtn) nextBtn.style.display = "none";
-
-    optContainer.innerHTML = "";
-
-    qData.options.forEach((opt, idx) => {
-      const btn = document.createElement("button");
-      btn.innerText = opt;
-      btn.style.cssText = "text-align: left; padding: 12px 16px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #f1f5f9; font-size: 15px; font-weight: 500; cursor: pointer;";
-      btn.onclick = () => checkAnswer(idx, btn);
-      optContainer.appendChild(btn);
-    });
-  }
-
-  function checkAnswer(selectedIdx, clickedBtn) {
-    if (answered) return;
-    answered = true;
-    const qData = dailyQuestions[currentQIndex];
-    const buttons = document.getElementById("mcq-options").getElementsByTagName("button");
-
-    if (selectedIdx === qData.ans) {
-      clickedBtn.style.background = "#059669";
-      clickedBtn.style.borderColor = "#10b981";
-      quizScore++;
-    } else {
-      clickedBtn.style.background = "#dc2626";
-      clickedBtn.style.borderColor = "#ef4444";
-      if (buttons[qData.ans]) {
-        buttons[qData.ans].style.background = "#059669";
-        buttons[qData.ans].style.borderColor = "#10b981";
+    const dailyQuestions = [
+      {
+        q: "૧. બંધારણ સભાના કાયમી અધ્યક્ષ કોણ હતા?",
+        options: ["ડૉ. બાબાસાહેબ આંબેડકર", "ડૉ. રાજેન્દ્ર પ્રસાદ", "સચ્ચિદાનંદ સિંહા", "જવાહરલાલ નેહરુ"],
+        ans: 1,
+        exp: "ડૉ. રાજેન્દ્ર પ્રસાદ ૧૧ ડિસેમ્બર ૧૯૪૬ના રોજ બંધારણ સભાના કાયમી અધ્યક્ષ તરીકે ચૂંટાયા હતા."
+      },
+      {
+        q: "૨. ગુજરાતમાં પંચાયતી રાજનો અમલ કઈ તારીખથી શરૂ થયો હતો?",
+        options: ["૧ મે ૧૯૬૦", "૧ એપ્રિલ ૧૯૬૩", "૨૬ જાન્યુઆરી ૧૯૬૨", "૧૫ ઓગસ્ટ ૧૯૬૩"],
+        ans: 1,
+        exp: "ગુજરાતમાં ૧ એપ્રિલ ૧૯૬૩થી પંચાયતી રાજનો વિધિવત અમલ શરૂ કરવામાં આવ્યો હતો."
+      },
+      {
+        q: "૩. તાજેતરમાં ચર્ચામાં રહેલ 'સૂર્ય મંદિર - મોઢેરા' કઈ નદીના કિનારે આવેલું છે?",
+        options: ["સરસ્વતી", "રૂપેણ", "પુષ્પાવતી", "સાબરમતી"],
+        ans: 2,
+        exp: "મોઢેરાનું સૂર્યમંદિર પુષ્પાવતી નદીના કાંઠે આવેલું છે."
+      },
+      {
+        q: "૪. કમ્પ્યુટરમાં કઈ મેમરી અસ્થાયી (Volatile) ગણાય છે?",
+        options: ["ROM", "Hard Disk", "RAM", "Pen Drive"],
+        ans: 2,
+        exp: "RAM (Random Access Memory) પાવર બંધ થતાં ખાલી થઈ જાય છે, તેથી તેને અસ્થાયી કહેવાય છે."
+      },
+      {
+        q: "૫. GSRTC ની સ્થાપના કયા વર્ષમાં થઈ હતી?",
+        options: ["૧૯૬૦", "૧૯૬૨", "૧૯૫૬", "૧૯૬૯"],
+        ans: 0,
+        exp: "૧ મે ૧૯૬૦ના રોજ ગુજરાત રાજ્યની રચના સાથે જ GSRTC ની સ્થાપના થઈ હતી."
       }
+    ];
+
+    let currentQIndex = 0;
+    let quizScore = 0;
+    let answered = false;
+
+    function loadQuestion() {
+      answered = false;
+      const qData = dailyQuestions[currentQIndex];
+      const progText = document.getElementById("mcq-progress-text");
+      const qText = document.getElementById("mcq-question");
+      const expDiv = document.getElementById("mcq-explanation");
+      const nextBtn = document.getElementById("mcq-next-btn");
+      const optContainer = document.getElementById("mcq-options");
+
+      if (!qText || !optContainer) return;
+
+      if (progText) progText.innerText = `પ્રશ્ન ${currentQIndex + 1} / ${dailyQuestions.length}`;
+      qText.innerText = qData.q;
+      if (expDiv) expDiv.style.display = "none";
+      if (nextBtn) nextBtn.style.display = "none";
+
+      optContainer.innerHTML = "";
+
+      qData.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.className = "text-left p-3 rounded-lg border border-slate-700 bg-slate-800 text-slate-100 text-sm font-medium hover:bg-slate-700 transition";
+        btn.onclick = () => checkAnswer(idx, btn);
+        optContainer.appendChild(btn);
+      });
     }
 
-    const expDiv = document.getElementById("mcq-explanation");
-    if (expDiv) {
-      expDiv.innerHTML = `<strong>સમજૂતી:</strong> ${qData.exp}`;
-      expDiv.style.display = "block";
-    }
+    function checkAnswer(selectedIdx, clickedBtn) {
+      if (answered) return;
+      answered = true;
+      const qData = dailyQuestions[currentQIndex];
+      const buttons = document.getElementById("mcq-options").getElementsByTagName("button");
 
-    const nextBtn = document.getElementById("mcq-next-btn");
-    if (nextBtn) nextBtn.style.display = "block";
-  }
-
-  function nextQuestion() {
-    currentQIndex++;
-    if (currentQIndex < dailyQuestions.length) {
-      loadQuestion();
-    } else {
-      showResult();
-    }
-  }
-
-  function showResult() {
-    const qBox = document.getElementById("quiz-container");
-    const rBox = document.getElementById("quiz-result");
-    const progText = document.getElementById("mcq-progress-text");
-    const scoreText = document.getElementById("quiz-score-text");
-
-    if (qBox) qBox.style.display = "none";
-    if (rBox) rBox.style.display = "block";
-    if (progText) progText.innerText = "સમાપ્ત";
-    if (scoreText) scoreText.innerText = `તમારો સ્કોર: 5 માંથી ${quizScore} સાચા પડ્યા!`;
-    
-    if (typeof confetti === 'function') {
-      confetti({ particleCount: 70, spread: 60 });
-    }
-  }
-
-  function resetDailyQuiz() {
-    currentQIndex = 0;
-    quizScore = 0;
-    const qBox = document.getElementById("quiz-container");
-    const rBox = document.getElementById("quiz-result");
-    if (qBox) qBox.style.display = "block";
-    if (rBox) rBox.style.display = "none";
-    loadQuestion();
-  }
-
-  window.addEventListener("DOMContentLoaded", loadQuestion);
-
-// --- Security: Disable Right Click & Inspect Shortcuts ---
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.keyCode === 123) {
-      e.preventDefault();
-      return false;
-    }
-    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
-      e.preventDefault();
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) {
-      e.preventDefault();
-      return false;
-    }
-  });
-
-// --- PWA Service Worker & Install Logic ---
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration failed:', err));
-  }
-
- let deferredPrompt;
-  const installBtn = document.getElementById('pwa-install-btn');
-
-  // Service Worker Register
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('SW Registered'))
-      .catch(err => console.log('SW Error:', err));
-  }
-
-  // Browser Install Prompt Catch
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) {
-      installBtn.style.display = 'inline-flex';
-    }
-  });
-
-  if (installBtn) {
-    installBtn.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          installBtn.style.display = 'none';
-        }
-        deferredPrompt = null;
+      if (selectedIdx === qData.ans) {
+        clickedBtn.className = "text-left p-3 rounded-lg border border-emerald-500 bg-emerald-700 text-white text-sm font-medium";
+        quizScore++;
       } else {
-        alert("📲 એપ ઇન્સ્ટોલ કરવા માટે:\nબ્રાઉઝરમાં ઉપર જમણી બાજુ રહેલા ૩ ટપકાં (⋮) પર ક્લિક કરીને 'Add to Home screen' અથવા 'Install' પસંદ કરો.");
+        clickedBtn.className = "text-left p-3 rounded-lg border border-rose-500 bg-rose-700 text-white text-sm font-medium";
+        if (buttons[qData.ans]) {
+          buttons[qData.ans].className = "text-left p-3 rounded-lg border border-emerald-500 bg-emerald-700 text-white text-sm font-medium";
+        }
       }
-    });
-  }
 
-  window.addEventListener('appinstalled', () => {
-    if (installBtn) installBtn.style.display = 'none';
-  });
+      const expDiv = document.getElementById("mcq-explanation");
+      if (expDiv) {
+        expDiv.innerHTML = `<strong>સમજૂતી:</strong> ${qData.exp}`;
+        expDiv.style.display = "block";
+      }
+
+      const nextBtn = document.getElementById("mcq-next-btn");
+      if (nextBtn) nextBtn.style.display = "block";
+    }
+
+    function nextQuestion() {
+      currentQIndex++;
+      if (currentQIndex < dailyQuestions.length) loadQuestion();
+      else showResult();
+    }
+
+    function showResult() {
+      const qBox = document.getElementById("quiz-container");
+      const rBox = document.getElementById("quiz-result");
+      const progText = document.getElementById("mcq-progress-text");
+      const scoreText = document.getElementById("quiz-score-text");
+
+      if (qBox) qBox.style.display = "none";
+      if (rBox) rBox.style.display = "block";
+      if (progText) progText.innerText = "સમાપ્ત";
+      if (scoreText) scoreText.innerText = `તમારો સ્કોર: 5 માંથી ${quizScore} સાચા પડ્યા!`;
+      
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 70, spread: 60 });
+      }
+    }
+
+    function resetDailyQuiz() {
+      currentQIndex = 0;
+      quizScore = 0;
+      const qBox = document.getElementById("quiz-container");
+      const rBox = document.getElementById("quiz-result");
+      if (qBox) qBox.style.display = "block";
+      if (rBox) rBox.style.display = "none";
+      loadQuestion();
+    }
+
+    window.addEventListener("DOMContentLoaded", loadQuestion);
   </script>
 </body>
 </html>
