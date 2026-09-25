@@ -145,10 +145,12 @@ input, textarea {
           <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
         </button>
 
-        <!-- Login / User Button (Mobile ma fit raheshe) -->
-        <button id="authModalOpenBtn" class="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition shadow-sm max-w-[120px] sm:max-w-[160px]">
-          <i data-lucide="user" class="w-3.5 h-3.5 flex-shrink-0"></i>
-          <span id="authButtonText" class="truncate">dangarvivek04</span>
+       <!-- Smart User Avatar / Login Button -->
+        <button id="authModalOpenBtn" class="flex items-center justify-center rounded-full transition shadow-sm" title="પ્રોફાઇલ / લૉગિન">
+          <div id="userAvatarContainer" class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span id="authButtonText">લૉગિન</span>
+          </div>
         </button>
 
       </div>
@@ -951,6 +953,44 @@ input, textarea {
         console.error('Error loading state:', err);
       }
     }
+
+// દરેક વિદ્યાર્થી માટે ઓટોમેટિક અવતાર (Dynamic User Avatar)
+function updateHeaderAvatar() {
+  const container = document.getElementById('userAvatarContainer');
+  if (!container) return;
+
+  // બ્રાઉઝરમાંથી જે-તે વિદ્યાર્થીનો સેવ થયેલો ડેટા વાંચશે
+  const savedData = localStorage.getItem('abhyas_user') || 
+                    localStorage.getItem('currentUser') || 
+                    localStorage.getItem('user');
+
+  let studentName = "";
+
+  if (savedData) {
+    try {
+      const userObj = JSON.parse(savedData);
+      studentName = userObj.name || userObj.username || userObj.fullName || "";
+    } catch(e) {
+      studentName = savedData;
+    }
+  }
+
+  // જો વિદ્યાર્થી લૉગિન થયેલો હોય તો તેના નામના પહેલા અક્ષરનો લોગો બનશે
+  if (studentName && studentName.trim() !== "") {
+    const firstLetter = studentName.trim().charAt(0).toUpperCase();
+    
+    container.className = "w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-white font-extrabold flex items-center justify-center text-xs shadow-md border border-emerald-300/40 select-none";
+    container.innerHTML = `<span>${firstLetter}</span>`;
+  } else {
+    // જો લૉગિન ન હોય તો સામાન્ય "લૉગિન" બટન દેખાશે
+    container.className = "flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold";
+    container.innerHTML = `<i data-lucide="user" class="w-3.5 h-3.5"></i><span id="authButtonText">લૉગિન</span>`;
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+// પેજ લોડ થતાં જ આપોઆપ રન થશે
+setTimeout(updateHeaderAvatar, 200);
 
     function saveState() {
       try {
