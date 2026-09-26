@@ -1950,7 +1950,7 @@
           registeredUsers = [];
         }
 
-if (authMode === 'register') {
+        if (authMode === 'register') {
           // ૧. નવું રજીસ્ટ્રેશન
           if (!fullName) {
             showToast('⚠️ કૃપા કરીને તમારું પૂરું નામ લખો!');
@@ -1991,8 +1991,6 @@ if (authMode === 'register') {
           document.getElementById('authEmailInput').value = email;
           
           return;
-        }
-
         } else {
           // ૨. કડક લૉગિન ચકાસણી (Strict Login Verification)
           const userFound = registeredUsers.find(u => u.email === email);
