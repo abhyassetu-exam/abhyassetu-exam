@@ -727,7 +727,7 @@
     </div>
   </div>
 
-  <!-- JavaScript Core Engine -->
+  <!-- Pure Vanilla JavaScript Logic -->
   <script>
     const EXAM_PRESETS = {
       gsrtc_conductor: {
@@ -1935,21 +1935,84 @@
         document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
       });
 
+      // --- STRICT REAL DATABASE AUTH LOGIC (NO FAKE / NO RANDOM LOGIN) ---
       document.getElementById('authForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('authEmailInput').value.trim();
-        const fullName = document.getElementById('authFullNameInput').value.trim() || email.split('@')[0];
+        const email = document.getElementById('authEmailInput').value.trim().toLowerCase();
+        const pass = document.getElementById('authPasswordInput').value.trim();
+        const fullName = document.getElementById('authFullNameInput').value.trim();
+        const mobile = document.getElementById('authMobileInput').value.trim();
 
-        currentUser = {
-          uid: 'user_' + Date.now(),
-          displayName: fullName,
-          email: email
-        };
+        let registeredUsers = [];
+        try {
+          registeredUsers = JSON.parse(localStorage.getItem('abhyassetu_all_users') || '[]');
+        } catch(err) {
+          registeredUsers = [];
+        }
 
-        saveState();
-        document.getElementById('authModal').classList.add('hidden');
-        renderDashboard();
-        showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
+        if (authMode === 'register') {
+          // ૧. નવું રજીસ્ટ્રેશન
+          if (!fullName) {
+            showToast('⚠️ કૃપા કરીને તમારું પૂરું નામ લખો!');
+            return;
+          }
+          if (pass.length < 4) {
+            showToast('⚠️ પાસવર્ડ ઓછામાં ઓછો ૪ અક્ષરનો રાખો!');
+            return;
+          }
+
+          // ચેક કરો કે આ ઈમેલ પહેલેથી નોંધાયેલ તો નથી ને
+          const existingUser = registeredUsers.find(u => u.email === email);
+          if (existingUser) {
+            showToast('⚠️ આ ઈમેલ પર પહેલેથી ખાતું છે! કૃપા કરીને લૉગિન કરો.');
+            document.getElementById('tabLoginBtn').click();
+            return;
+          }
+
+          // નવો સ્ટુડન્ટ ડેટાબેઝમાં સાચવો
+          const newStudent = {
+            uid: 'user_' + Date.now(),
+            name: fullName,
+            displayName: fullName,
+            email: email,
+            mobile: mobile,
+            password: pass
+          };
+
+          registeredUsers.push(newStudent);
+          localStorage.setItem('abhyassetu_all_users', JSON.stringify(registeredUsers));
+
+          currentUser = newStudent;
+          saveState();
+
+          showToast(`🎉 રજીસ્ટ્રેશન સફળ! સ્વાગત છે, ${fullName}!`);
+          document.getElementById('authModal').classList.add('hidden');
+          renderDashboard();
+
+        } else {
+          // ૨. કડક લૉગિન ચકાસણી (Strict Login Verification)
+          const userFound = registeredUsers.find(u => u.email === email);
+
+          // ચેક કરો: ઈમેલ રજીસ્ટર છે કે નહિ
+          if (!userFound) {
+            showToast('❌ આ ઈમેલ નોંધાયેલ નથી! પહેલા "Sign Up" પર ક્લિક કરી રજીસ્ટર કરો.');
+            return;
+          }
+
+          // ચેક કરો: પાસવર્ડ સાચો છે કે નહિ
+          if (userFound.password !== pass) {
+            showToast('❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ નાખો.');
+            return;
+          }
+
+          // જો બંને સાચા હોય તો જ લૉગિન થશે
+          currentUser = userFound;
+          saveState();
+
+          showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
+          document.getElementById('authModal').classList.add('hidden');
+          renderDashboard();
+        }
       });
 
       document.getElementById('guestLoginBtn').addEventListener('click', () => {
