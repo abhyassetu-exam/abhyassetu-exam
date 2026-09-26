@@ -79,7 +79,7 @@
       animation: pulse-ring 2.5s infinite ease-in-out;
     }
 
-    /* Fixed Compact User Avatar (Zero Screen Overflow) */
+    /* Fixed Compact User Avatar */
     #authModalOpenBtn {
       flex-shrink: 0 !important;
       display: inline-flex !important;
@@ -91,7 +91,7 @@
 
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
 
-  <!-- ================= ૧. ટોપ એનાઉન્સમેન્ટ બાર (થીમ બટન સાથે) ================= -->
+  <!-- ================= ૧. ટોપ એનાઉન્સમેન્ટ બાર ================= -->
   <aside aria-label="Announcement" class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white text-[11px] sm:text-xs py-1.5 px-3 shadow-sm border-b border-emerald-700/40">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
@@ -103,7 +103,7 @@
         <span class="truncate text-[11px]">GSRTC કંડક્ટર, ડ્રાઈવર, પોલીસ કોન્સ્ટેબલ & CCE ૨૦૨૬-૨૭ સ્પેશિયલ પોર્ટલ</span>
       </div>
 
-      <!-- Day / Night Toggle બટન અહીં ઉપર સ્થાનાંતરિત કર્યું -->
+      <!-- Day / Night Toggle બટન -->
       <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-800 text-amber-400 border border-emerald-600/40 transition flex-shrink-0" title="થીમ બદલો (Day/Night)">
         <i data-lucide="sun" class="w-3.5 h-3.5"></i>
       </button>
@@ -111,7 +111,7 @@
     </div>
   </aside>
 
-  <!-- ================= ૨. મુખ્ય એપ હેડર (૩ જ આઇટમ - ૧૦૦% મોબાઈલ ફિટ) ================= -->
+  <!-- ================= ૨. મુખ્ય હેડર ================= -->
   <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 py-2">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
@@ -132,7 +132,7 @@
         </div>
       </div>
 
-      <!-- Right: Action Buttons (Exam Badge + Dynamic Round Avatar) -->
+      <!-- Right: Action Buttons -->
       <div class="flex items-center gap-2 flex-shrink-0">
         
         <!-- Exam Badge Button -->
@@ -142,7 +142,7 @@
           <span class="bg-amber-500 text-slate-950 font-extrabold px-1 rounded text-[9px]" id="activeExamMarksBadge">૧૦૦ ગુણ</span>
         </button>
 
-        <!-- Dynamic Round User Avatar Button (દરેક યૂઝર માટે ઓટોમેટિક અક્ષર) -->
+        <!-- Round Avatar Button -->
         <button id="authModalOpenBtn" title="પ્રોફાઇલ / એકાઉન્ટ">
           <div id="userAvatarContainer" class="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold transition">
             <i data-lucide="user" class="w-3.5 h-3.5"></i>
@@ -158,7 +158,7 @@
   <!-- ================= ૩. મુખ્ય કન્ટેન્ટ ================= -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-    <!-- Daily Motivational Banner -->
+    <!-- Daily Motivation Card -->
     <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white p-5 sm:p-6 border border-emerald-500/30 shadow-xl shadow-emerald-950/20">
       <div class="absolute -right-8 -bottom-8 w-44 h-44 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none"></div>
       <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -286,7 +286,7 @@
       </div>
     </div>
 
-    <!-- Dual Study Clock Engine: Stopwatch + Customizable Pomodoro -->
+    <!-- Timer Engine -->
     <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         
@@ -516,7 +516,7 @@
       </div>
     </div>
 
-    <!-- Study Logs & History Table -->
+    <!-- Study Logs Table -->
     <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
@@ -558,7 +558,7 @@
 
   </main>
 
-  <!-- High-Visibility Footer with Developer Branding -->
+  <!-- Footer -->
   <footer class="mt-12 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 text-center">
     <div class="max-w-7xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-primary-500/10 to-teal-500/10 border border-emerald-500/30 shadow-xs">
@@ -578,7 +578,7 @@
     </div>
   </footer>
 
-  <!-- MODAL: Exam Selection Hub Modal -->
+  <!-- MODAL: Exam Hub -->
   <div id="examHubModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
       
@@ -662,7 +662,7 @@
     </div>
   </div>
 
-<!-- MODAL: Logged-in User Profile & Logout Modal -->
+  <!-- MODAL: Logged-in User Profile & Logout Modal -->
   <div id="userProfileModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4 text-center">
       
@@ -671,7 +671,6 @@
         <button id="closeProfileModalBtn" class="text-slate-400 hover:text-slate-600 text-lg">✕</button>
       </div>
 
-      <!-- Avatar Big View -->
       <div class="flex flex-col items-center gap-2 pt-2">
         <div id="profileModalAvatar" class="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg border-2 border-emerald-400/50">
           U
@@ -680,7 +679,6 @@
         <p id="profileModalEmail" class="text-xs text-slate-400">student@example.com</p>
       </div>
 
-      <!-- Extra Info Chips -->
       <div class="grid grid-cols-2 gap-2 text-xs py-2">
         <div class="bg-slate-100 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
           <span class="text-slate-400 block text-[10px]">પરીક્ષા લક્ષ્ય</span>
@@ -692,7 +690,6 @@
         </div>
       </div>
 
-      <!-- Logout Button -->
       <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
         <button id="userLogoutBtn" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5">
           <i data-lucide="log-out" class="w-4 h-4"></i>
@@ -730,7 +727,7 @@
     </div>
   </div>
 
-  <!-- Pure Vanilla JavaScript Logic -->
+  <!-- JavaScript Core Engine -->
   <script>
     const EXAM_PRESETS = {
       gsrtc_conductor: {
@@ -917,7 +914,15 @@
         if (savedAttendance) attendanceDates = JSON.parse(savedAttendance);
 
         const savedUser = localStorage.getItem('abhyassetu_user');
-        if (savedUser) currentUser = JSON.parse(savedUser);
+        if (savedUser) {
+          try {
+            currentUser = JSON.parse(savedUser);
+          } catch(e) {
+            currentUser = null;
+          }
+        } else {
+          currentUser = null;
+        }
 
         const savedPomoMins = localStorage.getItem('abhyassetu_pomo_mins');
         if (savedPomoMins) pomodoroDurationMinutes = parseInt(savedPomoMins, 10) || 25;
@@ -927,7 +932,6 @@
       }
     }
 
-    /* DYNAMIC ROUND USER AVATAR (દરેક વિદ્યાર્થી માટે ઓટોમેટિક અક્ષર) */
     function updateHeaderAvatar() {
       const container = document.getElementById('userAvatarContainer');
       if (!container) return;
@@ -935,18 +939,6 @@
       let studentName = "";
       if (currentUser) {
         studentName = currentUser.displayName || currentUser.name || currentUser.fullName || currentUser.email || "";
-      }
-
-      if (!studentName) {
-        const savedUser = localStorage.getItem('abhyassetu_user') || localStorage.getItem('user');
-        if (savedUser) {
-          try {
-            const parsed = JSON.parse(savedUser);
-            studentName = parsed.displayName || parsed.name || parsed.fullName || parsed.email || "";
-          } catch(e) {
-            studentName = savedUser;
-          }
-        }
       }
 
       if (studentName && studentName.trim() !== "") {
@@ -969,6 +961,8 @@
         localStorage.setItem('abhyassetu_pomo_mins', pomodoroDurationMinutes.toString());
         if (currentUser) {
           localStorage.setItem('abhyassetu_user', JSON.stringify(currentUser));
+        } else {
+          localStorage.removeItem('abhyassetu_user');
         }
       } catch (err) {
         console.error('Error saving state:', err);
@@ -1588,6 +1582,22 @@
       setTimeout(() => { if (toast) toast.remove(); }, 3500);
     }
 
+    // --- ૧. યુઝર ગેટકીપર: લૉગિન ન હોય તો સીધું લૉગિન સ્ક્રીન જ બતાવશે ---
+    function checkUserAuthGate() {
+      const authModal = document.getElementById('authModal');
+      const closeAuthBtn = document.getElementById('closeAuthModalBtn');
+
+      if (!currentUser) {
+        if (authModal) {
+          authModal.classList.remove('hidden');
+          if (closeAuthBtn) closeAuthBtn.style.display = 'none'; // ફરજિયાત લૉગિન
+        }
+      } else {
+        if (authModal) authModal.classList.add('hidden');
+        if (closeAuthBtn) closeAuthBtn.style.display = 'block';
+      }
+    }
+
     function renderDashboard() {
       const activeExam = EXAM_PRESETS[currentExamKey] || EXAM_PRESETS.gsrtc_conductor;
       document.getElementById('activeExamBadgeName').textContent = activeExam.name.split('(')[0].trim();
@@ -1606,236 +1616,7 @@
       if (window.lucide) lucide.createIcons();
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      loadState();
-      updateDailyMotivation(false);
-      renderDashboard();
-
-      document.getElementById('themeToggleBtn').addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        const isDark = document.documentElement.classList.contains('dark');
-        localStorage.setItem('abhyassetu_theme', isDark ? 'dark' : 'light');
-        renderCharts();
-      });
-
-      if (localStorage.getItem('abhyassetu_theme') === 'light') {
-        document.documentElement.classList.remove('dark');
-      }
-
-      document.getElementById('modeStopwatchBtn').addEventListener('click', () => {
-        timerMode = 'stopwatch';
-        document.getElementById('pomodoroDurationBox').classList.add('hidden');
-        document.getElementById('modeStopwatchBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition';
-        document.getElementById('modePomodoroBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition';
-        resetTimer();
-      });
-
-      document.getElementById('modePomodoroBtn').addEventListener('click', () => {
-        timerMode = 'pomodoro';
-        document.getElementById('pomodoroDurationBox').classList.remove('hidden');
-        document.getElementById('modePomodoroBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition';
-        document.getElementById('modeStopwatchBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition';
-        resetTimer();
-      });
-
-      document.getElementById('timerToggleBtn').addEventListener('click', () => {
-        if (timerRunning) stopTimer();
-        else startTimer();
-      });
-
-      document.getElementById('timerResetBtn').addEventListener('click', resetTimer);
-      document.getElementById('timerSaveSessionBtn').addEventListener('click', saveCurrentSession);
-
-      document.querySelectorAll('.pomo-preset-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const mins = parseInt(e.target.getAttribute('data-mins'), 10);
-          pomodoroDurationMinutes = mins;
-          localStorage.setItem('abhyassetu_pomo_mins', mins.toString());
-          document.getElementById('currentPomodoroBadge').textContent = `${mins} મિનિટ`;
-
-          document.querySelectorAll('.pomo-preset-btn').forEach(b => {
-            b.className = 'pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition text-center';
-          });
-          e.target.className = 'pomo-preset-btn py-1 px-2 rounded-lg bg-primary-600 text-white font-bold transition text-center';
-
-          resetTimer();
-        });
-      });
-
-      document.getElementById('applyCustomPomoBtn').addEventListener('click', () => {
-        const val = parseInt(document.getElementById('customPomodoroMins').value, 10);
-        if (val && val >= 1 && val <= 180) {
-          pomodoroDurationMinutes = val;
-          localStorage.setItem('abhyassetu_pomo_mins', val.toString());
-          document.getElementById('currentPomodoroBadge').textContent = `${val} મિનિટ`;
-          resetTimer();
-          showToast(`પોમોડોરો સમય ${val} મિનિટ સેટ થયો!`);
-        } else {
-          showToast('કૃપા કરીને ૧ થી ૧૮૦ ની વચ્ચે મિનિટ દાખલ કરો.');
-        }
-      });
-
-      document.getElementById('markAttendanceBtn').addEventListener('click', () => {
-        const todayStr = getTodayDateString();
-        if (!attendanceDates.includes(todayStr)) {
-          attendanceDates.push(todayStr);
-          saveState();
-          playAudioCue('complete');
-          confetti({ particleCount: 50, spread: 45 });
-          renderDashboard();
-          showToast('🎯 આજની હાજરી સફળતાપૂર્વક પુરાઈ ગઈ!');
-        } else {
-          showToast('આજની હાજરી પહેલેથી જ પુરાઈ ગયેલી છે!');
-        }
-      });
-
-      document.getElementById('leaderboardTabToday').addEventListener('click', () => {
-        leaderboardViewMode = 'today';
-        document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
-        document.getElementById('leaderboardTabWeekly').className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition';
-        renderLeaderboard();
-      });
-
-      document.getElementById('leaderboardTabWeekly').addEventListener('click', () => {
-        leaderboardViewMode = 'weekly';
-        document.getElementById('leaderboardTabWeekly').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
-        document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition';
-        renderLeaderboard();
-      });
-
-      document.getElementById('refreshQuoteBtn').addEventListener('click', () => {
-        updateDailyMotivation(true);
-        playAudioCue('beep');
-      });
-
-      document.getElementById('shareQuoteBtn').addEventListener('click', () => {
-        const text = document.getElementById('motivationalQuoteText').textContent;
-        const author = document.getElementById('motivationalAuthorText').textContent;
-        const shareMsg = `🔥 *અભ્યાસસેતુ Pro - આજનો સંકલ્પ*\n\n${text}\n${author}\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો GSRTC કંડક્ટર & સરકારી પરીક્ષાઓની!`;
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
-      });
-
-      document.getElementById('openExamHubBtn').addEventListener('click', () => {
-        renderExamHubCards();
-        document.getElementById('examHubModal').classList.remove('hidden');
-      });
-      document.getElementById('closeExamHubBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
-      document.getElementById('examHubCloseDoneBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
-
-      document.getElementById('authModalOpenBtn').addEventListener('click', () => {
-        document.getElementById('authModal').classList.remove('hidden');
-      });
-      document.getElementById('closeAuthModalBtn').addEventListener('click', () => {
-        document.getElementById('authModal').classList.add('hidden');
-      });
-
-      let authMode = 'login';
-      document.getElementById('tabLoginBtn').addEventListener('click', () => {
-        authMode = 'login';
-        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
-        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
-        document.getElementById('registerFieldsWrapper').classList.add('hidden');
-        document.getElementById('authSubmitBtn').textContent = 'લૉગિન કરો (Sign In)';
-      });
-
-      document.getElementById('tabRegisterBtn').addEventListener('click', () => {
-        authMode = 'register';
-        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
-        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
-        document.getElementById('registerFieldsWrapper').classList.remove('hidden');
-        document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
-      });
-
-      document.getElementById('authForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('authEmailInput').value.trim();
-        const fullName = document.getElementById('authFullNameInput').value.trim() || email.split('@')[0];
-
-        currentUser = {
-          uid: 'user_' + Date.now(),
-          displayName: fullName,
-          email: email
-        };
-
-        saveState();
-        document.getElementById('authModal').classList.add('hidden');
-        renderDashboard();
-        showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
-      });
-
-      document.getElementById('guestLoginBtn').addEventListener('click', () => {
-        currentUser = { uid: 'guest_' + Date.now(), displayName: 'મહેમાન વિદ્યાર્થી', email: 'guest@abhyassetu.local' };
-        saveState();
-        document.getElementById('authModal').classList.add('hidden');
-        renderDashboard();
-        showToast('મહેમાન એકાઉન્ટ સક્રિય!');
-      });
-
-      document.getElementById('openAddSubjectModalBtn').addEventListener('click', () => {
-        document.getElementById('addSubjectModal').classList.remove('hidden');
-      });
-      document.getElementById('quickAddSubjectBtn').addEventListener('click', () => {
-        document.getElementById('addSubjectModal').classList.remove('hidden');
-      });
-      document.getElementById('closeAddSubjectModalBtn').addEventListener('click', () => {
-        document.getElementById('addSubjectModal').classList.add('hidden');
-      });
-
-      document.getElementById('addSubjectForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('newSubjectNameInput').value.trim();
-        const marks = parseInt(document.getElementById('newSubjectMarksInput').value, 10) || 10;
-        const targetHours = parseInt(document.getElementById('newSubjectHoursInput').value, 10) || 30;
-
-        if (name) {
-          subjects.push({ id: 'sub_' + Date.now(), name, targetHours, marks });
-          saveState();
-          document.getElementById('addSubjectModal').classList.add('hidden');
-          document.getElementById('newSubjectNameInput').value = '';
-          renderDashboard();
-          showToast(`વિષય ઉમેરાયો: ${name}`);
-        }
-      });
-
-      document.getElementById('resetSyllabusBtn').addEventListener('click', () => {
-        subjects = JSON.parse(JSON.stringify(EXAM_PRESETS[currentExamKey].subjects));
-        saveState();
-        renderDashboard();
-        showToast('સિલેબસ મૂળ સ્થિતિમાં રીસેટ થયો!');
-      });
-
-      document.getElementById('exportCsvBtn').addEventListener('click', () => {
-        if (!studyLogs.length) {
-          showToast('ડાઉનલોડ કરવા માટે કોઈ ડેટા નથી!');
-          return;
-        }
-        let csv = 'તારીખ,વિષય,સમય (મિનિટ),સમય (કલાક),નોંધ\n';
-        studyLogs.forEach(l => {
-          csv += `"${l.date}","${l.subjectName}",${l.durationMinutes},${(l.durationMinutes/60).toFixed(2)},"${(l.notes||'').replace(/"/g, '""')}"\n`;
-        });
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `AbhyasSetu_Report_${getTodayDateString()}.csv`;
-        a.click();
-        URL.revokeObjectURL(url);
-      });
-
-      document.getElementById('shareWhatsAppBtn').addEventListener('click', () => {
-        const todayStr = getTodayDateString();
-        const todayMinutes = studyLogs
-          .filter(l => l.date === todayStr)
-          .reduce((sum, l) => sum + l.durationMinutes, 0);
-        const todayHours = (todayMinutes / 60).toFixed(1);
-        const streak = calculateStreak();
-        const examName = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name : 'GSRTC Conductor';
-
-        const shareMsg = `📊 *અભ્યાસસેતુ Pro - મારો દૈનિક પ્રગતિ અહેવાલ*\n\n🎯 લક્ષ્ય: ${examName}\n📅 તારીખ: ${todayStr}\n⏱️ આજના વાંચન કલાકો: ${todayHours} કલાક\n🔥 સતત હાજરી (Streak): ${streak} દિવસો\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો ગુજરાત સરકારી નોકરીની એક સ્માર્ટ રીતે!`;
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
-      });
-    });
-
+    // Daily 5 MCQ Questions
     const dailyQuestions = [
       {
         q: "૧. બંધારણ સભાના કાયમી અધ્યક્ષ કોણ હતા?",
@@ -1958,97 +1739,295 @@
       loadQuestion();
     }
 
-// ૧. યુઝર ગેટકીપર: લૉગિન ન હોય તો સીધું લૉગિન સ્ક્રીન બતાવશે
-      function checkUserAuthGate() {
-        const authModal = document.getElementById('authModal');
-        const closeAuthBtn = document.getElementById('closeAuthModalBtn');
+    // MAIN EVENT INITIALIZER
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      updateDailyMotivation(false);
+      renderDashboard();
+      loadQuestion();
 
-        if (!currentUser) {
-          if (authModal) {
-            authModal.classList.remove('hidden');
-            if (closeAuthBtn) closeAuthBtn.style.display = 'none'; // ફરજિયાત લૉગિન
-          }
-        } else {
-          if (authModal) authModal.classList.add('hidden');
-          if (closeAuthBtn) closeAuthBtn.style.display = 'block';
-        }
+      // ૧. પેજ લોડ થતાં જ ગેટકીપર ચેક કરશે
+      checkUserAuthGate();
+
+      document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const isDark = document.documentElement.classList.contains('dark');
+        localStorage.setItem('abhyassetu_theme', isDark ? 'dark' : 'light');
+        renderCharts();
+      });
+
+      if (localStorage.getItem('abhyassetu_theme') === 'light') {
+        document.documentElement.classList.remove('dark');
       }
 
-      // ૨. અવતાર પર ટચ કરતાં પ્રોફાઇલ વિગતો વાળું પોપ-અપ ખુલશે
-      // --- PROFILE & LOGIN POPUP FIX ---
-    const authBtn = document.getElementById('authModalOpenBtn');
-    const profileModal = document.getElementById('userProfileModal');
-    const closeProfileBtn = document.getElementById('closeProfileModalBtn');
-    const logoutBtn = document.getElementById('userLogoutBtn');
-    const authModal = document.getElementById('authModal');
+      document.getElementById('modeStopwatchBtn').addEventListener('click', () => {
+        timerMode = 'stopwatch';
+        document.getElementById('pomodoroDurationBox').classList.add('hidden');
+        document.getElementById('modeStopwatchBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition';
+        document.getElementById('modePomodoroBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition';
+        resetTimer();
+      });
 
-    if (authBtn) {
-      authBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation(); // જૂના લૉગિન પોપઅપને બિલકુલ ખુલવા નહીં દે
+      document.getElementById('modePomodoroBtn').addEventListener('click', () => {
+        timerMode = 'pomodoro';
+        document.getElementById('pomodoroDurationBox').classList.remove('hidden');
+        document.getElementById('modePomodoroBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-400 transition';
+        document.getElementById('modeStopwatchBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition';
+        resetTimer();
+      });
 
-        // ૧. જો વિદ્યાર્થી લૉગિન હોય તો ફક્ત પ્રોફાઇલ વિગતો જ ખુલશે
-        if (currentUser) {
-          if (authModal) authModal.classList.add('hidden'); // લૉગિન બોક્સ બંધ જ રહેશે
+      document.getElementById('timerToggleBtn').addEventListener('click', () => {
+        if (timerRunning) stopTimer();
+        else startTimer();
+      });
 
-          const name = currentUser.displayName || currentUser.name || 'વિદ્યાર્થી';
-          const email = currentUser.email || 'guest@abhyassetu.local';
-          const firstChar = name.trim().charAt(0).toUpperCase();
+      document.getElementById('timerResetBtn').addEventListener('click', resetTimer);
+      document.getElementById('timerSaveSessionBtn').addEventListener('click', saveCurrentSession);
 
-          const nameEl = document.getElementById('profileModalName');
-          const emailEl = document.getElementById('profileModalEmail');
-          const avatarEl = document.getElementById('profileModalAvatar');
-          const examEl = document.getElementById('profileModalExam');
-          const hoursEl = document.getElementById('profileModalHours');
+      document.querySelectorAll('.pomo-preset-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const mins = parseInt(e.target.getAttribute('data-mins'), 10);
+          pomodoroDurationMinutes = mins;
+          localStorage.setItem('abhyassetu_pomo_mins', mins.toString());
+          document.getElementById('currentPomodoroBadge').textContent = `${mins} મિનિટ`;
 
-          if (nameEl) nameEl.textContent = name;
-          if (emailEl) emailEl.textContent = email;
-          if (avatarEl) avatarEl.textContent = firstChar;
+          document.querySelectorAll('.pomo-preset-btn').forEach(b => {
+            b.className = 'pomo-preset-btn py-1 px-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition text-center';
+          });
+          e.target.className = 'pomo-preset-btn py-1 px-2 rounded-lg bg-primary-600 text-white font-bold transition text-center';
 
-          if (examEl && typeof EXAM_PRESETS !== 'undefined' && EXAM_PRESETS[currentExamKey]) {
-            examEl.textContent = EXAM_PRESETS[currentExamKey].name.split('(')[0];
-          }
+          resetTimer();
+        });
+      });
 
-          if (hoursEl && Array.isArray(studyLogs)) {
-            const totalMinutes = studyLogs.reduce((sum, l) => sum + l.durationMinutes, 0);
-            hoursEl.textContent = `${(totalMinutes / 60).toFixed(1)} કલાક`;
-          }
-
-          if (profileModal) profileModal.classList.remove('hidden');
+      document.getElementById('applyCustomPomoBtn').addEventListener('click', () => {
+        const val = parseInt(document.getElementById('customPomodoroMins').value, 10);
+        if (val && val >= 1 && val <= 180) {
+          pomodoroDurationMinutes = val;
+          localStorage.setItem('abhyassetu_pomo_mins', val.toString());
+          document.getElementById('currentPomodoroBadge').textContent = `${val} મિનિટ`;
+          resetTimer();
+          showToast(`પોમોડોરો સમય ${val} મિનિટ સેટ થયો!`);
         } else {
-          // જો લૉગિન ન હોય તો જ લૉગિન બોક્સ ખુલશે
-          if (authModal) authModal.classList.remove('hidden');
+          showToast('કૃપા કરીને ૧ થી ૧૮૦ ની વચ્ચે મિનિટ દાખલ કરો.');
         }
-      }, true); // capture true રાખવાથી જૂની બધી ઇવેન્ટ્સ બ્લોક થઈ જશે
-    }
+      });
 
-    // ૨. પ્રોફાઇલ પોપ-અપ બંધ કરતાં સીધા મુખ્ય પેજ પર જ રહેશે
-    if (closeProfileBtn && profileModal) {
-      closeProfileBtn.addEventListener('click', (e) => {
+      document.getElementById('markAttendanceBtn').addEventListener('click', () => {
+        const todayStr = getTodayDateString();
+        if (!attendanceDates.includes(todayStr)) {
+          attendanceDates.push(todayStr);
+          saveState();
+          playAudioCue('complete');
+          confetti({ particleCount: 50, spread: 45 });
+          renderDashboard();
+          showToast('🎯 આજની હાજરી સફળતાપૂર્વક પુરાઈ ગઈ!');
+        } else {
+          showToast('આજની હાજરી પહેલેથી જ પુરાઈ ગયેલી છે!');
+        }
+      });
+
+      document.getElementById('leaderboardTabToday').addEventListener('click', () => {
+        leaderboardViewMode = 'today';
+        document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
+        document.getElementById('leaderboardTabWeekly').className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition';
+        renderLeaderboard();
+      });
+
+      document.getElementById('leaderboardTabWeekly').addEventListener('click', () => {
+        leaderboardViewMode = 'weekly';
+        document.getElementById('leaderboardTabWeekly').className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 shadow-xs text-primary-600 dark:text-primary-300 transition';
+        document.getElementById('leaderboardTabToday').className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition';
+        renderLeaderboard();
+      });
+
+      document.getElementById('refreshQuoteBtn').addEventListener('click', () => {
+        updateDailyMotivation(true);
+        playAudioCue('beep');
+      });
+
+      document.getElementById('shareQuoteBtn').addEventListener('click', () => {
+        const text = document.getElementById('motivationalQuoteText').textContent;
+        const author = document.getElementById('motivationalAuthorText').textContent;
+        const shareMsg = `🔥 *અભ્યાસસેતુ Pro - આજનો સંકલ્પ*\n\n${text}\n${author}\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો GSRTC કંડક્ટર & સરકારી પરીક્ષાઓની!`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
+      });
+
+      document.getElementById('openExamHubBtn').addEventListener('click', () => {
+        renderExamHubCards();
+        document.getElementById('examHubModal').classList.remove('hidden');
+      });
+      document.getElementById('closeExamHubBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
+      document.getElementById('examHubCloseDoneBtn').addEventListener('click', () => document.getElementById('examHubModal').classList.add('hidden'));
+
+      // --- અવતાર / પ્રોફાઇલ ક્લિક હેન્ડલર ---
+      const authBtn = document.getElementById('authModalOpenBtn');
+      const profileModal = document.getElementById('userProfileModal');
+      const closeProfileBtn = document.getElementById('closeProfileModalBtn');
+      const logoutBtn = document.getElementById('userLogoutBtn');
+      const authModal = document.getElementById('authModal');
+
+      if (authBtn) {
+        authBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (currentUser) {
+            if (authModal) authModal.classList.add('hidden');
+
+            const name = currentUser.displayName || currentUser.name || 'વિદ્યાર્થી';
+            const email = currentUser.email || 'guest@abhyassetu.local';
+            const firstChar = name.trim().charAt(0).toUpperCase();
+
+            document.getElementById('profileModalName').textContent = name;
+            document.getElementById('profileModalEmail').textContent = email;
+            document.getElementById('profileModalAvatar').textContent = firstChar;
+
+            if (EXAM_PRESETS[currentExamKey]) {
+              document.getElementById('profileModalExam').textContent = EXAM_PRESETS[currentExamKey].name.split('(')[0];
+            }
+
+            const totalMinutes = studyLogs.reduce((sum, l) => sum + l.durationMinutes, 0);
+            document.getElementById('profileModalHours').textContent = `${(totalMinutes / 60).toFixed(1)} કલાક`;
+
+            if (profileModal) profileModal.classList.remove('hidden');
+          } else {
+            if (authModal) authModal.classList.remove('hidden');
+          }
+        });
+      }
+
+      if (closeProfileBtn && profileModal) {
+        closeProfileBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          profileModal.classList.add('hidden');
+        });
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          currentUser = null;
+          saveState();
+          
+          if (profileModal) profileModal.classList.add('hidden');
+          renderDashboard();
+          showToast('લૉગઆઉટ થઈ ગયું છે!');
+
+          checkUserAuthGate();
+        });
+      }
+
+      let authMode = 'login';
+      document.getElementById('tabLoginBtn').addEventListener('click', () => {
+        authMode = 'login';
+        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
+        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
+        document.getElementById('registerFieldsWrapper').classList.add('hidden');
+        document.getElementById('authSubmitBtn').textContent = 'લૉગિન કરો (Sign In)';
+      });
+
+      document.getElementById('tabRegisterBtn').addEventListener('click', () => {
+        authMode = 'register';
+        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
+        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
+        document.getElementById('registerFieldsWrapper').classList.remove('hidden');
+        document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
+      });
+
+      document.getElementById('authForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        e.stopPropagation();
-        profileModal.classList.add('hidden');
-        if (authModal) authModal.classList.add('hidden'); // ખાતરી કરશે કે લૉગિન ના ખુલે
+        const email = document.getElementById('authEmailInput').value.trim();
+        const fullName = document.getElementById('authFullNameInput').value.trim() || email.split('@')[0];
+
+        currentUser = {
+          uid: 'user_' + Date.now(),
+          displayName: fullName,
+          email: email
+        };
+
+        saveState();
+        document.getElementById('authModal').classList.add('hidden');
+        renderDashboard();
+        showToast(`✓ સ્વાગત છે, ${currentUser.displayName}!`);
       });
-    }
 
-    // ૩. લૉગઆઉટ કરે ત્યારે જ લૉગિન પોપ-અપ સામે આવશે
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        currentUser = null;
-        localStorage.removeItem('abhyassetu_user');
-        localStorage.removeItem('user');
-        
-        if (profileModal) profileModal.classList.add('hidden');
-        if (typeof renderDashboard === 'function') renderDashboard();
-        if (typeof showToast === 'function') showToast('લૉગઆઉટ થઈ ગયું છે!');
-
-        checkUserAuthGate(); // હવે લૉગિન સ્ક્રીન આવશે
+      document.getElementById('guestLoginBtn').addEventListener('click', () => {
+        currentUser = { uid: 'guest_' + Date.now(), displayName: 'મહેમાન વિદ્યાર્થી', email: 'guest@abhyassetu.local' };
+        saveState();
+        document.getElementById('authModal').classList.add('hidden');
+        renderDashboard();
+        showToast('મહેમાન એકાઉન્ટ સક્રિય!');
       });
-    }
 
-    window.addEventListener("DOMContentLoaded", loadQuestion);
+      document.getElementById('closeAuthModalBtn').addEventListener('click', () => {
+        document.getElementById('authModal').classList.add('hidden');
+      });
+
+      document.getElementById('openAddSubjectModalBtn').addEventListener('click', () => {
+        document.getElementById('addSubjectModal').classList.remove('hidden');
+      });
+      document.getElementById('quickAddSubjectBtn').addEventListener('click', () => {
+        document.getElementById('addSubjectModal').classList.remove('hidden');
+      });
+      document.getElementById('closeAddSubjectModalBtn').addEventListener('click', () => {
+        document.getElementById('addSubjectModal').classList.add('hidden');
+      });
+
+      document.getElementById('addSubjectForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('newSubjectNameInput').value.trim();
+        const marks = parseInt(document.getElementById('newSubjectMarksInput').value, 10) || 10;
+        const targetHours = parseInt(document.getElementById('newSubjectHoursInput').value, 10) || 30;
+
+        if (name) {
+          subjects.push({ id: 'sub_' + Date.now(), name, targetHours, marks });
+          saveState();
+          document.getElementById('addSubjectModal').classList.add('hidden');
+          document.getElementById('newSubjectNameInput').value = '';
+          renderDashboard();
+          showToast(`વિષય ઉમેરાયો: ${name}`);
+        }
+      });
+
+      document.getElementById('resetSyllabusBtn').addEventListener('click', () => {
+        subjects = JSON.parse(JSON.stringify(EXAM_PRESETS[currentExamKey].subjects));
+        saveState();
+        renderDashboard();
+        showToast('સિલેબસ મૂળ સ્થિતિમાં રીસેટ થયો!');
+      });
+
+      document.getElementById('exportCsvBtn').addEventListener('click', () => {
+        if (!studyLogs.length) {
+          showToast('ડાઉનલોડ કરવા માટે કોઈ ડેટા નથી!');
+          return;
+        }
+        let csv = 'તારીખ,વિષય,સમય (મિનિટ),સમય (કલાક),નોંધ\n';
+        studyLogs.forEach(l => {
+          csv += `"${l.date}","${l.subjectName}",${l.durationMinutes},${(l.durationMinutes/60).toFixed(2)},"${(l.notes||'').replace(/"/g, '""')}"\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `AbhyasSetu_Report_${getTodayDateString()}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      document.getElementById('shareWhatsAppBtn').addEventListener('click', () => {
+        const todayStr = getTodayDateString();
+        const todayMinutes = studyLogs
+          .filter(l => l.date === todayStr)
+          .reduce((sum, l) => sum + l.durationMinutes, 0);
+        const todayHours = (todayMinutes / 60).toFixed(1);
+        const streak = calculateStreak();
+        const examName = EXAM_PRESETS[currentExamKey] ? EXAM_PRESETS[currentExamKey].name : 'GSRTC Conductor';
+
+        const shareMsg = `📊 *અભ્યાસસેતુ Pro - મારો દૈનિક પ્રગતિ અહેવાલ*\n\n🎯 લક્ષ્ય: ${examName}\n📅 તારીખ: ${todayStr}\n⏱️ આજના વાંચન કલાકો: ${todayHours} કલાક\n🔥 સતત હાજરી (Streak): ${streak} દિવસો\n\n💻 Developed by Vivek Dangar\nતૈયારી કરો ગુજરાત સરકારી નોકરીની એક સ્માર્ટ રીતે!`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`, '_blank');
+      });
+    });
   </script>
 </body>
 </html>
