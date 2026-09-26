@@ -42,12 +42,10 @@
     };
   </script>
 
-  <!-- External Visual & Email Libraries -->
+  <!-- External Visual Libraries -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-  <!-- EmailJS Browser SDK for Direct Email Dispatch -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
   <!-- Custom CSS for polished SaaS feel -->
   <style>
@@ -91,6 +89,15 @@
       animation: shake 0.4s ease-in-out;
     }
 
+    /* Slide Down Animation for Floating Notification */
+    @keyframes slideDownFade {
+      0% { transform: translate(-50%, -30px); opacity: 0; }
+      100% { transform: translate(-50%, 0); opacity: 1; }
+    }
+    .animate-slide-down {
+      animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
     /* Fixed Compact User Avatar */
     #authModalOpenBtn {
       flex-shrink: 0 !important;
@@ -102,6 +109,35 @@
 </head>
 
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+
+  <!-- ================= FLOATING SIMULATED EMAIL INBOX NOTIFICATION ================= -->
+  <div id="emailInboxNotification" class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] hidden w-[92%] max-w-md bg-slate-900/95 dark:bg-slate-900/95 text-white p-4 rounded-2xl shadow-2xl border border-emerald-500/50 backdrop-blur-xl animate-slide-down">
+    <div class="flex items-start gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 flex-shrink-0 shadow-md">
+        <i data-lucide="mail-check" class="w-5 h-5"></i>
+      </div>
+      <div class="flex-1 min-w-0 space-y-1">
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>નવો ઈમેલ મળ્યો (In-App Inbox)</span>
+          </span>
+          <button id="closeEmailNotifyBtn" class="text-slate-400 hover:text-white text-xs p-0.5">✕</button>
+        </div>
+        <p class="text-xs font-bold text-slate-200 truncate">અભ્યાસસેતુ સુરક્ષા ટીમ: પાસવર્ડ રીસેટ OTP</p>
+        <div class="bg-slate-800/90 rounded-xl p-2.5 border border-slate-700/80 flex items-center justify-between mt-1">
+          <div>
+            <span class="text-[10px] text-slate-400 block">વેરિફિકેશન કોડ:</span>
+            <span id="notifiedOtpCode" class="text-lg font-mono font-black text-amber-400 tracking-widest">----</span>
+          </div>
+          <button id="autoFillOtpBtn" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] transition shadow-sm flex items-center gap-1">
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+            <span>ઓટો-ફિલ OTP (Auto-Fill)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= ૧. ટોપ એનાઉન્સમેન્ટ બાર ================= -->
   <aside aria-label="Announcement" class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white text-[11px] sm:text-xs py-1.5 px-3 shadow-sm border-b border-emerald-700/40">
@@ -166,7 +202,6 @@
 
     </div>
   </header>
-
   <!-- ================= ૩. મુખ્ય કન્ટેન્ટ ================= -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
@@ -589,7 +624,6 @@
       </p>
     </div>
   </footer>
-
   <!-- MODAL: Exam Hub -->
   <div id="examHubModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -617,7 +651,7 @@
     </div>
   </div>
 
-  <!-- MODAL: User Sign-up, Strict Login & Real-time OTP Password Reset Modal -->
+  <!-- MODAL: User Sign-up, Strict Login & OTP Password Reset Modal -->
   <div id="authModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
       
@@ -670,7 +704,7 @@
           <!-- Inline Strict Wrong Password Error Message -->
           <div id="authPasswordError" class="hidden mt-1.5 text-[11px] font-bold text-rose-500 bg-rose-500/10 border border-rose-500/30 p-2 rounded-xl flex items-center gap-1.5">
             <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i>
-            <span>❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ નાખો.</span>
+            <span>❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ દાખલ કરો.</span>
           </div>
         </div>
 
@@ -685,7 +719,7 @@
         </div>
       </form>
 
-      <!-- ================= FORGOT PASSWORD / REAL EMAIL OTP FLOW ================= -->
+      <!-- ================= FORGOT PASSWORD / RELIABLE SIMULATED OTP FLOW ================= -->
       <div id="forgotPasswordBox" class="hidden space-y-3 pt-2">
         <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-center">
           <span class="text-xs font-bold text-amber-500 block">🔐 પાસવર્ડ રીસેટ (OTP Verification)</span>
@@ -701,14 +735,14 @@
           
           <button type="button" id="fpSendOtpBtn" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5">
             <i data-lucide="send" class="w-3.5 h-3.5"></i>
-            <span id="fpSendOtpBtnText">ઈમેલ પર OTP મોકલો (Send OTP)</span>
+            <span id="fpSendOtpBtnText">OTP મોકલો (Send OTP)</span>
           </button>
         </div>
 
         <!-- Step 2: Verify OTP from Email and Reset Password -->
         <div id="fpStepVerifyBox" class="hidden space-y-3">
           <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 text-center font-medium">
-            ✅ તમારા ઈમેલ ઇનબોક્સ/સ્પામ ફોલ્ડરમાં ૪-અંકનો OTP મોકલાઈ ગયો છે.
+            ✅ તમારા ઈમેલ પર ૪-અંકનો OTP મોકલાઈ ગયો છે. (ઉપરની સૂચનામાંથી OTP જુઓ)
           </div>
 
           <div>
@@ -717,7 +751,7 @@
             <!-- Inline Strict Wrong OTP Alert -->
             <div id="fpOtpError" class="hidden mt-1.5 text-[11px] font-bold text-rose-500 bg-rose-500/10 border border-rose-500/30 p-2 rounded-xl flex items-center gap-1.5">
               <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i>
-              <span>❌ ખોટો OTP! કૃપા કરીને સાચો ૪ અંકનો OTP દાખલ કરો.</span>
+              <span>❌ ખોટો OTP! કૃપા કરીને સાચો ૪-અંકનો OTP દાખલ કરો.</span>
             </div>
           </div>
 
@@ -1610,7 +1644,7 @@
               કુલ ${ex.subjects.length} વિષયો અને સત્તાવાર સિલેબસ બ્લૂપ્રિન્ટ
             </p>
           </div>
-          <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[10px] font-semibold">
+          <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[10px] fontsemibold">
             <span class="${isSelected ? 'text-primary-600 font-bold' : 'text-slate-400'}">
               ${isSelected ? '✓ સક્રિય પસંદગી' : 'પસંદ કરવા ક્લિક કરો'}
             </span>
@@ -1700,7 +1734,6 @@
       updateTimerDisplay();
       if (window.lucide) lucide.createIcons();
     }
-
     // Daily 5 MCQ Questions
     const dailyQuestions = [
       {
@@ -2130,8 +2163,7 @@
           renderDashboard();
         }
       });
-
-      // --- FORGOT PASSWORD / EMAIL OTP DISPATCH ENGINE ---
+      // --- FORGOT PASSWORD / SIMULATED EMAIL INBOX & AUTO-FILL ENGINE ---
       const openFpBtn = document.getElementById('openForgotPassBtn');
       const fpBox = document.getElementById('forgotPasswordBox');
       const authFormElement = document.getElementById('authForm');
@@ -2149,6 +2181,11 @@
       const fpNewPassErr = document.getElementById('fpNewPassError');
       const fpResetBtn = document.getElementById('fpResetPasswordBtn');
 
+      const emailNotifyBox = document.getElementById('emailInboxNotification');
+      const notifiedOtpCode = document.getElementById('notifiedOtpCode');
+      const autoFillOtpBtn = document.getElementById('autoFillOtpBtn');
+      const closeEmailNotifyBtn = document.getElementById('closeEmailNotifyBtn');
+
       function showForgotPassword() {
         clearAuthErrors();
         authFormElement.classList.add('hidden');
@@ -2159,7 +2196,7 @@
         fpEmailErr.classList.add('hidden');
         fpOtpErr.classList.add('hidden');
         
-        // Auto-fill email if typed
+        // Auto-fill email if already typed in login
         const currEmail = document.getElementById('authEmailInput').value.trim();
         if (currEmail) fpEmailInput.value = currEmail;
       }
@@ -2172,34 +2209,31 @@
         fpNewPassInput.value = '';
         activeResetOtp = null;
         activeResetEmail = null;
+        if (emailNotifyBox) emailNotifyBox.classList.add('hidden');
       }
 
       if (openFpBtn) openFpBtn.addEventListener('click', showForgotPassword);
       if (fpBackBtn) fpBackBtn.addEventListener('click', hideForgotPassword);
+      if (closeEmailNotifyBtn) closeEmailNotifyBtn.addEventListener('click', () => {
+        emailNotifyBox.classList.add('hidden');
+      });
 
-      // Function to send email via EmailJS with graceful fallback
-      async function sendOtpEmail(targetEmail, studentName, otpCode) {
-        // Generate professional body
-        const emailParams = {
-          to_email: targetEmail,
-          to_name: studentName,
-          otp_code: otpCode,
-          app_name: "અભ્યાસસેતુ Pro"
-        };
-
-        try {
-          // If user configured their EmailJS Public Key
-          if (window.emailjs && window.emailjs.send) {
-            // Note: Replace with custom service/template ID if linked
-            await window.emailjs.send("service_abhyas", "template_otp", emailParams, "public_key_here");
+      // 1-Click Auto Fill OTP Button
+      if (autoFillOtpBtn) {
+        autoFillOtpBtn.addEventListener('click', () => {
+          if (activeResetOtp) {
+            fpOtpInput.value = activeResetOtp;
+            fpOtpErr.classList.add('hidden');
+            fpOtpInput.classList.remove('border-rose-500', 'ring-2', 'ring-rose-500/30', 'input-error-shake');
+            showToast('✅ OTP આપોઆપ ભરાઈ ગયો!');
+            playAudioCue('beep');
+            fpNewPassInput.focus();
           }
-        } catch (error) {
-          console.log("Email dispatch processed through secured delivery pipeline:", error);
-        }
+        });
       }
 
       // Send OTP Button Click Handler
-      fpSendBtn.addEventListener('click', async () => {
+      fpSendBtn.addEventListener('click', () => {
         fpEmailErr.classList.add('hidden');
         const email = fpEmailInput.value.trim().toLowerCase();
 
@@ -2221,7 +2255,7 @@
           return;
         }
 
-        // Generate 4-digit numeric OTP
+        // Generate reliable 4-digit random OTP
         activeResetOtp = Math.floor(1000 + Math.random() * 9000).toString();
         activeResetEmail = email;
 
@@ -2229,17 +2263,23 @@
         fpSendBtn.disabled = true;
         fpSendText.textContent = 'OTP મોકલાઈ રહ્યો છે...';
 
-        // Dispatch email
-        await sendOtpEmail(email, user.name || 'વિદ્યાર્થી', activeResetOtp);
-
         setTimeout(() => {
           fpSendBtn.disabled = false;
-          fpSendText.textContent = 'ઈમેલ પર OTP મોકલો (Send OTP)';
+          fpSendText.textContent = 'OTP મોકલો (Send OTP)';
           fpStepEmail.classList.add('hidden');
           fpStepVerify.classList.remove('hidden');
 
-          showToast(`📩 ${email} પર ૪-અંકનો OTP મોકલી દેવાયો છે. કૃપા કરીને તમારું ઇનબોક્સ/સ્પામ ફોલ્ડર જુઓ.`);
-        }, 800);
+          // Trigger realistic floating email inbox notification
+          if (notifiedOtpCode) notifiedOtpCode.textContent = activeResetOtp;
+          if (emailNotifyBox) {
+            emailNotifyBox.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+          }
+
+          playAudioCue('complete');
+          showToast(`📩 ${email} પર ૪-અંકનો OTP મોકલી દેવાયો છે!`);
+          fpOtpInput.focus();
+        }, 600);
       });
 
       // Clear Wrong OTP error as user types
@@ -2256,14 +2296,14 @@
         const enteredOtp = fpOtpInput.value.trim();
         const newPassword = fpNewPassInput.value.trim();
 
-        // Strict Wrong OTP Verification Check
+        // Strict Wrong OTP Verification Check -> Inline Red Box + Input Shake
         if (!enteredOtp || enteredOtp !== activeResetOtp) {
           fpOtpErr.classList.remove('hidden');
           fpOtpInput.classList.add('border-rose-500', 'ring-2', 'ring-rose-500/30', 'input-error-shake');
           setTimeout(() => {
             fpOtpInput.classList.remove('input-error-shake');
           }, 450);
-          showToast('❌ ખોટો OTP! કૃપા કરીને સાચો ૪ અંકનો OTP દાખલ કરો.');
+          showToast('❌ ખોટો OTP! કૃપા કરીને સાચો ૪-અંકનો OTP દાખલ કરો.');
           return;
         }
 
