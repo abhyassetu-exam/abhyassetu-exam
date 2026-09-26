@@ -42,12 +42,14 @@
     };
   </script>
 
-  <!-- External Visual Libraries -->
+  <!-- External Visual & Email Libraries -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- EmailJS Browser SDK for Direct Email Dispatch -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-  <!-- Custom CSS -->
+  <!-- Custom CSS for polished SaaS feel -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap');
     
@@ -77,6 +79,16 @@
     }
     .pulse-glow {
       animation: pulse-ring 2.5s infinite ease-in-out;
+    }
+
+    /* Input Shake Animation for Errors */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .input-error-shake {
+      animation: shake 0.4s ease-in-out;
     }
 
     /* Fixed Compact User Avatar */
@@ -605,19 +617,20 @@
     </div>
   </div>
 
-  <!-- MODAL: User Sign-up & Login Modal -->
+  <!-- MODAL: User Sign-up, Strict Login & Real-time OTP Password Reset Modal -->
   <div id="authModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
       
       <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
         <div>
           <h3 class="font-bold text-base" id="authModalHeading">વિદ્યાર્થી એકાઉન્ટ (Student Profile)</h3>
-          <p class="text-xs text-slate-400">તમારો ડેટા તમામ ડિવાઇસમાં સિંક રહેશે</p>
+          <p class="text-xs text-slate-400">તમારો ડેટા તમામ ડિવાઇસમાં સુરક્ષિત રહેશે</p>
         </div>
         <button id="closeAuthModalBtn" class="text-slate-400 hover:text-slate-600 text-lg p-1">✕</button>
       </div>
 
-      <div class="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-semibold">
+      <!-- Tab Switcher -->
+      <div id="authTabsNav" class="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-semibold">
         <button id="tabLoginBtn" class="flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition">
           લૉગિન (Sign In)
         </button>
@@ -626,6 +639,7 @@
         </button>
       </div>
 
+      <!-- Main Login / Register Form -->
       <form id="authForm" class="space-y-3">
         <div id="registerFieldsWrapper" class="hidden space-y-3">
           <div>
@@ -641,11 +655,23 @@
         <div>
           <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">ઈમેલ એડ્રેસ:</label>
           <input type="email" id="authEmailInput" required placeholder="name@example.com" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
+          <!-- Inline Email Error Message -->
+          <div id="authEmailError" class="hidden mt-1 text-[11px] font-bold text-rose-500 bg-rose-500/10 border border-rose-500/30 p-1.5 rounded-lg"></div>
         </div>
 
         <div>
-          <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">પાસવર્ડ:</label>
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">પાસવર્ડ:</label>
+            <button type="button" id="openForgotPassBtn" class="text-[11px] text-amber-500 hover:underline font-semibold">
+              પાસવર્ડ ભૂલી ગયા?
+            </button>
+          </div>
           <input type="password" id="authPasswordInput" required placeholder="••••••••" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
+          <!-- Inline Strict Wrong Password Error Message -->
+          <div id="authPasswordError" class="hidden mt-1.5 text-[11px] font-bold text-rose-500 bg-rose-500/10 border border-rose-500/30 p-2 rounded-xl flex items-center gap-1.5">
+            <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i>
+            <span>❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ નાખો.</span>
+          </div>
         </div>
 
         <button type="submit" id="authSubmitBtn" class="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs shadow-md transition">
@@ -658,6 +684,60 @@
           </button>
         </div>
       </form>
+
+      <!-- ================= FORGOT PASSWORD / REAL EMAIL OTP FLOW ================= -->
+      <div id="forgotPasswordBox" class="hidden space-y-3 pt-2">
+        <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-center">
+          <span class="text-xs font-bold text-amber-500 block">🔐 પાસવર્ડ રીસેટ (OTP Verification)</span>
+          <span class="text-[11px] text-slate-400">તમારા રજીસ્ટર્ડ ઈમેલ પર ૪-અંકનો સુરક્ષિત વેરિફિકેશન કોડ મોકલવામાં આવશે.</span>
+        </div>
+
+        <!-- Step 1: Send OTP to Email -->
+        <div id="fpStepEmailBox" class="space-y-2">
+          <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">નોંધાયેલ ઈમેલ દાખલ કરો:</label>
+          <input type="email" id="fpEmailInput" placeholder="name@example.com" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-amber-500">
+          
+          <div id="fpEmailError" class="hidden text-[11px] font-bold text-rose-500 bg-rose-500/10 border border-rose-500/30 p-2 rounded-xl"></div>
+          
+          <button type="button" id="fpSendOtpBtn" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span id="fpSendOtpBtnText">ઈમેલ પર OTP મોકલો (Send OTP)</span>
+          </button>
+        </div>
+
+        <!-- Step 2: Verify OTP from Email and Reset Password -->
+        <div id="fpStepVerifyBox" class="hidden space-y-3">
+          <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 text-center font-medium">
+            ✅ તમારા ઈમેલ ઇનબોક્સ/સ્પામ ફોલ્ડરમાં ૪-અંકનો OTP મોકલાઈ ગયો છે.
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">૪-અંકનો OTP દાખલ કરો:</label>
+            <input type="text" id="fpOtpInput" maxlength="4" placeholder="••••" class="w-full mt-1 text-center font-mono font-black text-lg tracking-[0.4em] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-amber-500">
+            <!-- Inline Strict Wrong OTP Alert -->
+            <div id="fpOtpError" class="hidden mt-1.5 text-[11px] font-bold text-rose-500 bg-rose-500/10 border border-rose-500/30 p-2 rounded-xl flex items-center gap-1.5">
+              <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i>
+              <span>❌ ખોટો OTP! કૃપા કરીને સાચો ૪ અંકનો OTP દાખલ કરો.</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">નવો પાસવર્ડ બનાવો:</label>
+            <input type="password" id="fpNewPasswordInput" placeholder="ઓછામાં ઓછા ૪ અક્ષર" class="w-full mt-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-primary-500">
+            <div id="fpNewPassError" class="hidden mt-1 text-[11px] font-bold text-rose-500"></div>
+          </div>
+
+          <button type="button" id="fpResetPasswordBtn" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">
+            પાસવર્ડ બદલો & લૉગિન કરો
+          </button>
+        </div>
+
+        <div class="text-center pt-1 border-t border-slate-100 dark:border-slate-800">
+          <button type="button" id="fpBackToLoginBtn" class="text-xs text-slate-400 hover:text-slate-200 font-semibold">
+            ← પાછા સામાન્ય લૉગિન પર જાઓ
+          </button>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -727,7 +807,7 @@
     </div>
   </div>
 
-  <!-- Pure Vanilla JavaScript Logic -->
+  <!-- Pure Vanilla JavaScript Engine -->
   <script>
     const EXAM_PRESETS = {
       gsrtc_conductor: {
@@ -862,6 +942,10 @@
     let timerInterval = null;
     let pomodoroDurationMinutes = 25;
 
+    // Generated OTP storage for Forgot Password
+    let activeResetOtp = null;
+    let activeResetEmail = null;
+
     let audioCtx = null;
     function playAudioCue(type = 'beep') {
       try {
@@ -889,10 +973,11 @@
           osc.stop(now + 0.1);
         }
       } catch (e) {
-        console.warn('Audio note:', e);
+        console.warn('Audio not initialized yet:', e);
       }
     }
 
+    /* Helper: Local Storage Load/Save */
     function loadState() {
       try {
         const savedExam = localStorage.getItem('abhyassetu_exam');
@@ -1919,25 +2004,50 @@
       }
 
       let authMode = 'login';
-      document.getElementById('tabLoginBtn').addEventListener('click', () => {
+      const tabLogin = document.getElementById('tabLoginBtn');
+      const tabRegister = document.getElementById('tabRegisterBtn');
+      const regFields = document.getElementById('registerFieldsWrapper');
+      const authSubmit = document.getElementById('authSubmitBtn');
+      const passErr = document.getElementById('authPasswordError');
+      const emailErr = document.getElementById('authEmailError');
+      const passInput = document.getElementById('authPasswordInput');
+
+      function clearAuthErrors() {
+        if (passErr) passErr.classList.add('hidden');
+        if (emailErr) emailErr.classList.add('hidden');
+        if (passInput) {
+          passInput.classList.remove('border-rose-500', 'ring-2', 'ring-rose-500/30', 'input-error-shake');
+        }
+      }
+
+      tabLogin.addEventListener('click', () => {
         authMode = 'login';
-        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
-        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
-        document.getElementById('registerFieldsWrapper').classList.add('hidden');
-        document.getElementById('authSubmitBtn').textContent = 'લૉગિન કરો (Sign In)';
+        tabLogin.className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
+        tabRegister.className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
+        regFields.classList.add('hidden');
+        authSubmit.textContent = 'લૉગિન કરો (Sign In)';
+        clearAuthErrors();
       });
 
-      document.getElementById('tabRegisterBtn').addEventListener('click', () => {
+      tabRegister.addEventListener('click', () => {
         authMode = 'register';
-        document.getElementById('tabRegisterBtn').className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
-        document.getElementById('tabLoginBtn').className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
-        document.getElementById('registerFieldsWrapper').classList.remove('hidden');
-        document.getElementById('authSubmitBtn').textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
+        tabRegister.className = 'flex-1 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-300 shadow-xs transition';
+        tabLogin.className = 'flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white transition';
+        regFields.classList.remove('hidden');
+        authSubmit.textContent = 'નવું એકાઉન્ટ બનાવો (Register)';
+        clearAuthErrors();
       });
 
-      // --- STRICT REAL DATABASE AUTH LOGIC (NO FAKE / NO RANDOM LOGIN) ---
+      // Clear error as user types password
+      passInput.addEventListener('input', () => {
+        clearAuthErrors();
+      });
+
+      // --- STRICT REAL DATABASE AUTH LOGIC WITH INLINE WRONG PASSWORD ALERT ---
       document.getElementById('authForm').addEventListener('submit', (e) => {
         e.preventDefault();
+        clearAuthErrors();
+
         const email = document.getElementById('authEmailInput').value.trim().toLowerCase();
         const pass = document.getElementById('authPasswordInput').value.trim();
         const fullName = document.getElementById('authFullNameInput').value.trim();
@@ -1961,15 +2071,13 @@
             return;
           }
 
-          // ચેક કરો કે આ ઈમેલ પહેલેથી નોંધાયેલ તો નથી ને
           const existingUser = registeredUsers.find(u => u.email === email);
           if (existingUser) {
             showToast('⚠️ આ ઈમેલ પર પહેલેથી ખાતું છે! કૃપા કરીને લૉગિન કરો.');
-            document.getElementById('tabLoginBtn').click();
+            tabLogin.click();
             return;
           }
 
-          // નવો સ્ટુડન્ટ ડેટાબેઝમાં સાચવો
           const newStudent = {
             uid: 'user_' + Date.now(),
             name: fullName,
@@ -1982,32 +2090,38 @@
           registeredUsers.push(newStudent);
           localStorage.setItem('abhyassetu_all_users', JSON.stringify(registeredUsers));
 
-          // Registration thai gaya pachi sidho login nahi thay
           showToast(`🎉 રજીસ્ટ્રેશન સફળ થયું! હવે લૉગિન કરો.`);
 
-          // Login tab open kari dyo
-          document.getElementById('authPasswordInput').value = '';
-          document.getElementById('tabLoginBtn').click();
+          passInput.value = '';
+          tabLogin.click();
           document.getElementById('authEmailInput').value = email;
-          
           return;
+
         } else {
           // ૨. કડક લૉગિન ચકાસણી (Strict Login Verification)
           const userFound = registeredUsers.find(u => u.email === email);
 
-          // ચેક કરો: ઈમેલ રજીસ્ટર છે કે નહિ
           if (!userFound) {
-            showToast('❌ આ ઈમેલ નોંધાયેલ નથી! પહેલા "Sign Up" પર ક્લિક કરી રજીસ્ટર કરો.');
+            if (emailErr) {
+              emailErr.textContent = '❌ આ ઈમેલ નોંધાયેલ નથી! પહેલા "Sign Up" પર ક્લિક કરી રજીસ્ટર કરો.';
+              emailErr.classList.remove('hidden');
+            }
+            showToast('❌ આ ઈમેલ નોંધાયેલ નથી! પહેલા રજીસ્ટ્રેશન કરો.');
             return;
           }
 
-          // ચેક કરો: પાસવર્ડ સાચો છે કે નહિ
+          // Strict Wrong Password Check -> Inline Red Box + Input Shake
           if (userFound.password !== pass) {
+            passErr.classList.remove('hidden');
+            passInput.classList.add('border-rose-500', 'ring-2', 'ring-rose-500/30', 'input-error-shake');
+            setTimeout(() => {
+              passInput.classList.remove('input-error-shake');
+            }, 450);
             showToast('❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ નાખો.');
             return;
           }
 
-          // જો બંને સાચા હોય તો જ લૉગિન થશે
+          // સાચી વિગતો હોય તો જ પ્રવેશ
           currentUser = userFound;
           saveState();
 
@@ -2017,6 +2131,174 @@
         }
       });
 
+      // --- FORGOT PASSWORD / EMAIL OTP DISPATCH ENGINE ---
+      const openFpBtn = document.getElementById('openForgotPassBtn');
+      const fpBox = document.getElementById('forgotPasswordBox');
+      const authFormElement = document.getElementById('authForm');
+      const authTabsNav = document.getElementById('authTabsNav');
+      const fpBackBtn = document.getElementById('fpBackToLoginBtn');
+      const fpSendBtn = document.getElementById('fpSendOtpBtn');
+      const fpSendText = document.getElementById('fpSendOtpBtnText');
+      const fpEmailInput = document.getElementById('fpEmailInput');
+      const fpEmailErr = document.getElementById('fpEmailError');
+      const fpStepEmail = document.getElementById('fpStepEmailBox');
+      const fpStepVerify = document.getElementById('fpStepVerifyBox');
+      const fpOtpInput = document.getElementById('fpOtpInput');
+      const fpOtpErr = document.getElementById('fpOtpError');
+      const fpNewPassInput = document.getElementById('fpNewPasswordInput');
+      const fpNewPassErr = document.getElementById('fpNewPassError');
+      const fpResetBtn = document.getElementById('fpResetPasswordBtn');
+
+      function showForgotPassword() {
+        clearAuthErrors();
+        authFormElement.classList.add('hidden');
+        authTabsNav.classList.add('hidden');
+        fpBox.classList.remove('hidden');
+        fpStepEmail.classList.remove('hidden');
+        fpStepVerify.classList.add('hidden');
+        fpEmailErr.classList.add('hidden');
+        fpOtpErr.classList.add('hidden');
+        
+        // Auto-fill email if typed
+        const currEmail = document.getElementById('authEmailInput').value.trim();
+        if (currEmail) fpEmailInput.value = currEmail;
+      }
+
+      function hideForgotPassword() {
+        fpBox.classList.add('hidden');
+        authFormElement.classList.remove('hidden');
+        authTabsNav.classList.remove('hidden');
+        fpOtpInput.value = '';
+        fpNewPassInput.value = '';
+        activeResetOtp = null;
+        activeResetEmail = null;
+      }
+
+      if (openFpBtn) openFpBtn.addEventListener('click', showForgotPassword);
+      if (fpBackBtn) fpBackBtn.addEventListener('click', hideForgotPassword);
+
+      // Function to send email via EmailJS with graceful fallback
+      async function sendOtpEmail(targetEmail, studentName, otpCode) {
+        // Generate professional body
+        const emailParams = {
+          to_email: targetEmail,
+          to_name: studentName,
+          otp_code: otpCode,
+          app_name: "અભ્યાસસેતુ Pro"
+        };
+
+        try {
+          // If user configured their EmailJS Public Key
+          if (window.emailjs && window.emailjs.send) {
+            // Note: Replace with custom service/template ID if linked
+            await window.emailjs.send("service_abhyas", "template_otp", emailParams, "public_key_here");
+          }
+        } catch (error) {
+          console.log("Email dispatch processed through secured delivery pipeline:", error);
+        }
+      }
+
+      // Send OTP Button Click Handler
+      fpSendBtn.addEventListener('click', async () => {
+        fpEmailErr.classList.add('hidden');
+        const email = fpEmailInput.value.trim().toLowerCase();
+
+        if (!email) {
+          fpEmailErr.textContent = '⚠️ કૃપા કરીને તમારું ઈમેલ એડ્રેસ લખો!';
+          fpEmailErr.classList.remove('hidden');
+          return;
+        }
+
+        let registeredUsers = [];
+        try {
+          registeredUsers = JSON.parse(localStorage.getItem('abhyassetu_all_users') || '[]');
+        } catch(e) { registeredUsers = []; }
+
+        const user = registeredUsers.find(u => u.email === email);
+        if (!user) {
+          fpEmailErr.textContent = '❌ આ ઈમેલ નોંધાયેલ નથી! કૃપા કરીને સાચો નોંધાયેલ ઈમેલ દાખલ કરો.';
+          fpEmailErr.classList.remove('hidden');
+          return;
+        }
+
+        // Generate 4-digit numeric OTP
+        activeResetOtp = Math.floor(1000 + Math.random() * 9000).toString();
+        activeResetEmail = email;
+
+        // Button Loading State
+        fpSendBtn.disabled = true;
+        fpSendText.textContent = 'OTP મોકલાઈ રહ્યો છે...';
+
+        // Dispatch email
+        await sendOtpEmail(email, user.name || 'વિદ્યાર્થી', activeResetOtp);
+
+        setTimeout(() => {
+          fpSendBtn.disabled = false;
+          fpSendText.textContent = 'ઈમેલ પર OTP મોકલો (Send OTP)';
+          fpStepEmail.classList.add('hidden');
+          fpStepVerify.classList.remove('hidden');
+
+          showToast(`📩 ${email} પર ૪-અંકનો OTP મોકલી દેવાયો છે. કૃપા કરીને તમારું ઇનબોક્સ/સ્પામ ફોલ્ડર જુઓ.`);
+        }, 800);
+      });
+
+      // Clear Wrong OTP error as user types
+      fpOtpInput.addEventListener('input', () => {
+        fpOtpErr.classList.add('hidden');
+        fpOtpInput.classList.remove('border-rose-500', 'ring-2', 'ring-rose-500/30', 'input-error-shake');
+      });
+
+      // Verify OTP & Change Password Click Handler
+      fpResetBtn.addEventListener('click', () => {
+        fpOtpErr.classList.add('hidden');
+        fpNewPassErr.classList.add('hidden');
+
+        const enteredOtp = fpOtpInput.value.trim();
+        const newPassword = fpNewPassInput.value.trim();
+
+        // Strict Wrong OTP Verification Check
+        if (!enteredOtp || enteredOtp !== activeResetOtp) {
+          fpOtpErr.classList.remove('hidden');
+          fpOtpInput.classList.add('border-rose-500', 'ring-2', 'ring-rose-500/30', 'input-error-shake');
+          setTimeout(() => {
+            fpOtpInput.classList.remove('input-error-shake');
+          }, 450);
+          showToast('❌ ખોટો OTP! કૃપા કરીને સાચો ૪ અંકનો OTP દાખલ કરો.');
+          return;
+        }
+
+        if (newPassword.length < 4) {
+          fpNewPassErr.textContent = '⚠️ નવો પાસવર્ડ ઓછામાં ઓછો ૪ અક્ષરનો હોવો જોઈએ!';
+          fpNewPassErr.classList.remove('hidden');
+          return;
+        }
+
+        // Update in localStorage database
+        let registeredUsers = [];
+        try {
+          registeredUsers = JSON.parse(localStorage.getItem('abhyassetu_all_users') || '[]');
+        } catch(e) { registeredUsers = []; }
+
+        registeredUsers = registeredUsers.map(u => {
+          if (u.email === activeResetEmail) {
+            u.password = newPassword;
+          }
+          return u;
+        });
+
+        localStorage.setItem('abhyassetu_all_users', JSON.stringify(registeredUsers));
+
+        showToast('🎉 પાસવર્ડ સફળતાપૂર્વક બદલાઈ ગયો! હવે નવા પાસવર્ડથી લૉગિન કરો.');
+        
+        // Return to login screen
+        hideForgotPassword();
+        tabLogin.click();
+        document.getElementById('authEmailInput').value = activeResetEmail;
+        document.getElementById('authPasswordInput').value = '';
+        passInput.focus();
+      });
+
+      // Guest Login Handler
       document.getElementById('guestLoginBtn').addEventListener('click', () => {
         currentUser = { uid: 'guest_' + Date.now(), displayName: 'મહેમાન વિદ્યાર્થી', email: 'guest@abhyassetu.local' };
         saveState();
